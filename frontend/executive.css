@@ -1,105 +1,214 @@
+/* ================================================================
+   EXECUTIVE THEME — Crisp Institutional Government Aesthetics
+   Clean White Background, Ashok Navy Accents, High-Contrast Typography
+   Government of India / MoSPI Capacity Portal
+================================================================ */
 
-/* EXECUTIVE THEME — professional, premium, non-gamer skin */
-body.theme-executive { background:#eef2f6; color:#1b2638; }
-body.theme-executive.appearance-dark { background:#0d1420; color:#edf2f7; }
+body.theme-executive {
+  background: #f8fafc;
+  color: #0f172a;
+}
+body.theme-executive.appearance-dark {
+  background: #0b111b;
+  color: #edf2f7;
+}
 
 .app-shell.theme-executive {
-  --bg:#f3f5f7; --bg2:#e9edf1; --panel:#ffffff; --panel2:#f8fafc;
-  --text:#1b2638; --muted:#637083; --dim:#8a95a5;
-  --line:rgba(35,55,78,.14); --line-strong:rgba(180,135,48,.55);
-  --cyan:#2f668e; --blue:#3f6f9e; --green:#2d8c6f; --amber:#b07a1f; --red:#bd5260; --purple:#7a5ca8;
-  --shadow:0 16px 45px rgba(20,32,48,.10);
-  background:linear-gradient(180deg,#f4f6f8,#e9edf2);
-  color:var(--text);
+  --bg: #f8fafc;
+  --bg2: #f1f5f9;
+  --panel: #ffffff;
+  --panel2: #f8fafc;
+  --text: #0f172a;
+  --muted: #475569;
+  --dim: #64748b;
+  --line: #e2e8f0;
+  --line-strong: #0f2e5a;
+  --cyan: #0284c7;
+  --blue: #1d4ed8;
+  --green: #059669;
+  --amber: #d97706;
+  --red: #dc2626;
+  --purple: #7c3aed;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  background: #f8fafc;
+  color: var(--text);
 }
+
 .app-shell.theme-executive.appearance-dark {
-  --bg:#0b111b; --bg2:#111a27; --panel:#151f2c; --panel2:#1b2736;
-  --text:#edf2f7; --muted:#9aa8b8; --dim:#718092;
-  --line:rgba(184,198,214,.13); --line-strong:rgba(198,156,72,.65);
-  --cyan:#8fb3d1; --blue:#86a8c8; --green:#67b69a; --amber:#d6a455; --red:#e1828d; --purple:#b8a1d3;
-  background:linear-gradient(180deg,#0d1520,#0b111b);
+  --bg: #0b111b;
+  --bg2: #111a27;
+  --panel: #151f2c;
+  --panel2: #1b2736;
+  --text: #edf2f7;
+  --muted: #9aa8b8;
+  --dim: #718092;
+  --line: rgba(184, 198, 214, 0.13);
+  --line-strong: #38bdf8;
+  --cyan: #38bdf8;
+  --blue: #60a5fa;
+  --green: #34d399;
+  --amber: #fbbf24;
+  --red: #f87171;
+  --purple: #c084fc;
+  background: #0b111b;
 }
+
 body.theme-executive .sidebar,
 .app-shell.theme-executive .sidebar {
-  background:linear-gradient(180deg,#f7f8fa,#edf0f3);
-  border-right:1px solid rgba(35,55,78,.13);
-  box-shadow:10px 0 30px rgba(20,30,44,.06);
+  background: #ffffff;
+  border-right: 1px solid var(--line);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
 }
+
 body.theme-executive.appearance-dark .sidebar,
 .app-shell.theme-executive.appearance-dark .sidebar {
-  background:linear-gradient(180deg,#111a25,#0d141e);
-  border-right-color:rgba(184,198,214,.10);
+  background: #111a25;
+  border-right-color: rgba(184, 198, 214, 0.1);
 }
-.app-shell.theme-executive .brand-mark { background:linear-gradient(145deg,#d1b36a,#9f7b35); color:#fff; box-shadow:none; clip-path:none; border-radius:10px; }
+
+.app-shell.theme-executive .brand-mark {
+  background: #0f2e5a;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(15, 46, 90, 0.2);
+  clip-path: none;
+  border-radius: 8px;
+}
+
 .app-shell.theme-executive .sidebar nav button.active,
-.app-shell.theme-executive .sidebar nav button:hover { background:rgba(177,139,61,.10); border-color:rgba(177,139,61,.23); box-shadow:inset 3px 0 0 #a98643; }
-.app-shell.theme-executive .sidebar nav button.active svg { color:#9c7733; }
-.app-shell.theme-executive .sidebar-status { color:#2f8b6a; }
+.app-shell.theme-executive .sidebar nav button:hover {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #0f2e5a;
+  box-shadow: inset 3px 0 0 #0f2e5a;
+  border-radius: 8px;
+}
+
+.app-shell.theme-executive .sidebar nav button.active svg {
+  color: #0f2e5a;
+}
+
+.app-shell.theme-executive .sidebar-status {
+  color: #059669;
+}
+
 .app-shell.theme-executive .topbar {
-  background:rgba(255,255,255,.90); border-bottom:1px solid rgba(35,55,78,.12); backdrop-filter:blur(14px);
+  background: #ffffff;
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
-.app-shell.theme-executive.appearance-dark .topbar { background:rgba(13,20,30,.90); border-bottom-color:rgba(184,198,214,.10); }
-.app-shell.theme-executive .status-chip { color:#2b8465; border-color:rgba(47,132,101,.18); background:rgba(47,132,101,.05); }
+
+.app-shell.theme-executive.appearance-dark .topbar {
+  background: #111a25;
+  border-bottom-color: rgba(184, 198, 214, 0.1);
+}
+
+.app-shell.theme-executive .status-chip {
+  color: #059669;
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
 .app-shell.theme-executive .icon-btn,
-.app-shell.theme-executive .profile-chip { background:rgba(255,255,255,.72); border-color:var(--line); color:var(--text); }
-.app-shell.theme-executive.appearance-dark .icon-btn,
-.app-shell.theme-executive.appearance-dark .profile-chip { background:rgba(24,35,49,.75); }
-.app-shell.theme-executive .system-card {
-  border-radius:14px; clip-path:none; box-shadow:var(--shadow); background:var(--panel);
+.app-shell.theme-executive .profile-chip {
+  background: #ffffff;
+  border-color: var(--line);
+  color: var(--text);
+  border-radius: 8px;
 }
-.app-shell.theme-executive .system-card::before { opacity:.28; }
-.app-shell.theme-executive .primary-btn { background:linear-gradient(135deg,#b99550,#8f6c2c); border:0; color:#fff; box-shadow:0 8px 20px rgba(130,96,35,.18); clip-path:none; border-radius:9px; }
+
+.app-shell.theme-executive .profile-chip-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  line-height: 1.25;
+}
+
+.app-shell.theme-executive .profile-chip-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f2e5a;
+  white-space: nowrap;
+}
+
+.app-shell.theme-executive .profile-chip-role {
+  font-size: 11px;
+  font-weight: 500;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.app-shell.theme-executive.appearance-dark .icon-btn,
+.app-shell.theme-executive.appearance-dark .profile-chip {
+  background: #182331;
+}
+
+.app-shell.theme-executive .system-card {
+  border-radius: 12px;
+  clip-path: none;
+  box-shadow: var(--shadow);
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.app-shell.theme-executive .primary-btn {
+  background: #0f2e5a;
+  border: 1px solid #0f2e5a;
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 46, 90, 0.15);
+  clip-path: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.app-shell.theme-executive .primary-btn:hover {
+  background: #1b3d6f;
+  border-color: #1b3d6f;
+}
+
 .app-shell.theme-executive .secondary-btn,
 .app-shell.theme-executive .theme-switch,
-.app-shell.theme-executive .ghost-btn { border-radius:8px; clip-path:none; }
-.app-shell.theme-executive .theme-option { border-radius:10px; clip-path:none; }
-.app-shell.theme-executive .theme-dot.executive { background:#b99550; box-shadow:none; }
-.app-shell.theme-executive .theme-dot.solo { background:#5b9cff; }
-.app-shell.theme-executive .theme-dot.aurora { background:#b88ac7; }
+.app-shell.theme-executive .ghost-btn {
+  border-radius: 8px;
+  clip-path: none;
+}
+
+.app-shell.theme-executive .theme-option {
+  border-radius: 8px;
+  clip-path: none;
+}
+
+.app-shell.theme-executive .theme-dot.executive {
+  background: #0f2e5a;
+}
+.app-shell.theme-executive .theme-dot.solo {
+  background: #1d4ed8;
+}
+.app-shell.theme-executive .theme-dot.aurora {
+  background: #7c3aed;
+}
+
 .app-shell.theme-executive .field-label input,
 .app-shell.theme-executive .search,
-.app-shell.theme-executive .input-wrapper { border-radius:8px; clip-path:none; }
+.app-shell.theme-executive .input-wrapper {
+  border-radius: 8px;
+  clip-path: none;
+  border: 1px solid var(--line);
+  background: #ffffff;
+}
+
 .app-shell.theme-executive .page-heading,
 .app-shell.theme-executive .hero-card,
-.app-shell.theme-executive .summary-card { border-radius:14px; clip-path:none; }
-
-.app-shell.theme-executive .quick-theme-controls { display:none; }
-
-/* Premium theme motion: crisp, understated and only on entry. */
-.app-shell.theme-executive main > .stack > * { animation:executiveReveal .46s cubic-bezier(.2,.75,.2,1) both; }
-.app-shell.theme-executive main > .stack > *:nth-child(2) { animation-delay:.07s; }
-.app-shell.theme-executive main > .stack > *:nth-child(3) { animation-delay:.14s; }
-.app-shell.theme-executive .system-card { transition:transform .22s ease,box-shadow .22s ease; }
-.app-shell.theme-executive .system-card:hover { transform:translateY(-2px); box-shadow:0 20px 45px rgba(20,32,48,.14); }
-@keyframes executiveReveal { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-@media (prefers-reduced-motion:reduce) { .app-shell.theme-executive main > .stack > * { animation:none; } .app-shell.theme-executive .system-card { transition:none; } }
-
-.app-shell.theme-executive .live-dot { animation:executivePulse 2.4s ease-in-out infinite; }
-.app-shell.theme-executive .system-card::after { animation:executiveLine 4.5s ease-in-out infinite; }
-@keyframes executivePulse { 50% { transform:scale(1.2); box-shadow:0 0 15px currentColor; } }
-@keyframes executiveLine { 50% { opacity:.88; left:12%; right:12%; } }
-@media (prefers-reduced-motion:reduce) { .app-shell.theme-executive .live-dot,.app-shell.theme-executive .system-card::after { animation:none; } }
-
-/* EXECUTIVE — a quiet, professional landscape with a slow river-like current. */
-.app-shell.theme-executive {
-  background-color:#edf2f5;
-  background-image:
-    radial-gradient(ellipse at 8% 105%,rgba(70,142,98,.15),transparent 32%),
-    radial-gradient(ellipse at 88% 108%,rgba(92,151,119,.12),transparent 35%),
-    repeating-linear-gradient(168deg,transparent 0 44px,rgba(71,126,171,.045) 45px 47px,transparent 48px 92px),
-    linear-gradient(160deg,#f5f8fa,#e8eff1 57%,#edf3ed);
-  background-size:100% 100%,100% 100%,260px 260px,100% 100%;
-  animation:executiveCurrent 30s ease-in-out infinite alternate;
+.app-shell.theme-executive .summary-card {
+  border-radius: 12px;
+  clip-path: none;
 }
-.app-shell.theme-executive.appearance-dark {
-  background-image:
-    radial-gradient(ellipse at 8% 105%,rgba(67,135,95,.13),transparent 32%),
-    radial-gradient(ellipse at 88% 108%,rgba(72,126,155,.12),transparent 35%),
-    repeating-linear-gradient(168deg,transparent 0 44px,rgba(124,178,207,.06) 45px 47px,transparent 48px 92px),
-    linear-gradient(160deg,#0f1923,#0b141d 57%,#0e1a16);
+
+.app-shell.theme-executive .system-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
 }
-.app-shell.theme-executive .system-card:hover { border-color:rgba(177,139,61,.34); box-shadow:0 20px 46px rgba(29,67,52,.13),0 0 22px rgba(177,139,61,.08); }
-.app-shell.theme-executive .brand-mark { animation:executiveMark 5s ease-in-out infinite; }
-@keyframes executiveCurrent { to { background-position:0 0,0 0,170px -90px,0 0; } }
-@keyframes executiveMark { 50% { box-shadow:0 8px 22px rgba(177,139,61,.30); } }
-@media (prefers-reduced-motion:reduce) { .app-shell.theme-executive,.app-shell.theme-executive .brand-mark { animation:none; } }

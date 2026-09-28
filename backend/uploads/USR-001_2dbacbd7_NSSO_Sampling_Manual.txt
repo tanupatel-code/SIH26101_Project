@@ -1,0 +1,5 @@
+National Sample Survey Office (NSSO) Field Operations Manual.
+
+Stratified multi-stage sampling is applied across rural and urban sectors.
+Stratification reduces sampling variance between heterogeneous districts.
+Second-stage sampling units comprise households selected with equal probability.

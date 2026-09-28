@@ -21,12 +21,23 @@ if exist "C:\Program Files\nodejs\npm.cmd" (
   set "NPM_CMD=C:\Program Files\nodejs\npm.cmd"
 ) else (
   where npm.cmd >nul 2>&1
-  if errorlevel 1 (
-    echo ERROR: npm.cmd is not available.
-    pause
-    exit /b 1
+  if not errorlevel 1 (
+    set "NPM_CMD=npm.cmd"
+  ) else (
+    where npm.exe >nul 2>&1
+    if not errorlevel 1 (
+      set "NPM_CMD=npm.exe"
+    ) else (
+      where npm >nul 2>&1
+      if not errorlevel 1 (
+        set "NPM_CMD=npm"
+      ) else (
+        echo ERROR: npm is not available on PATH.
+        pause
+        exit /b 1
+      )
+    )
   )
-  set "NPM_CMD=npm.cmd"
 )
 
 echo Using: %NPM_CMD%

@@ -1,134 +1,192 @@
+/* ================================================================
+   StatSkill AI — Official Institutional Authentication Themes
+   MoSPI & NSSTA Government of India Portal
+   Guarantees solid contrast, institutional Ashok Navy branding,
+   and visual uniformity across all themes (Solo, Executive, Aurora).
+================================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap');
-
-/* Shared authentication theme skins */
-body.theme-executive .login-page, body.theme-executive .register-page {
-  color:#1c2a3b;
-  background:
-    radial-gradient(circle at 15% 10%,rgba(182,146,78,.14),transparent 28%),
-    radial-gradient(circle at 85% 85%,rgba(98,122,150,.10),transparent 30%),
-    linear-gradient(180deg,#f4f6f8,#e6ebef);
-}
-body.theme-executive.appearance-dark .login-page, body.theme-executive.appearance-dark .register-page {
-  color:#eef3f8;
-  background:linear-gradient(180deg,#101823,#0b1119);
-}
-body.theme-executive .login-container { border-radius:18px; clip-path:none; background:#fff; box-shadow:0 30px 90px rgba(25,35,48,.14); }
-body.theme-executive.appearance-dark .login-container { background:#151f2c; }
-body.theme-executive .login-brand-section, body.theme-executive .register-brand { background:linear-gradient(145deg,#f5f7f9,#e9edf1); }
-body.theme-executive.appearance-dark .login-brand-section, body.theme-executive.appearance-dark .register-brand { background:linear-gradient(145deg,#182332,#101720); }
-body.theme-executive .login-card, body.theme-executive .register-form-section { background:#fff; }
-body.theme-executive.appearance-dark .login-card, body.theme-executive.appearance-dark .register-form-section { background:#0f1721; }
-body.theme-executive .brand-logo, body.theme-executive .register-brand-icon { background:linear-gradient(145deg,#d1b36a,#987433); border-radius:12px; clip-path:none; box-shadow:none; color:#fff; }
-body.theme-executive .login-button, body.theme-executive .register-submit-button { background:linear-gradient(135deg,#b99550,#8e6b2c); clip-path:none; border-radius:9px; color:#fff; box-shadow:none; }
-body.theme-executive .input-wrapper, body.theme-executive .register-input-wrapper { background:#f7f9fb; border-color:#ccd5df; clip-path:none; border-radius:8px; }
-body.theme-executive.appearance-dark .input-wrapper, body.theme-executive.appearance-dark .register-input-wrapper { background:#172231; border-color:#344255; }
-body.theme-executive .input-wrapper input, body.theme-executive .register-input-wrapper input { color:inherit; }
-
-body.theme-aurora .login-page, body.theme-aurora .register-page {
-  color:#5b435e;
-  background:
-    radial-gradient(circle at 12% 8%,rgba(246,190,229,.38),transparent 26%),
-    radial-gradient(circle at 88% 88%,rgba(192,181,255,.34),transparent 28%),
-    linear-gradient(180deg,#fffafd,#f7edf8);
-}
-body.theme-aurora.appearance-dark .login-page, body.theme-aurora.appearance-dark .register-page {
-  color:#faedf9; background:linear-gradient(180deg,#291d2c,#1d141f);
-}
-body.theme-aurora .login-container { background:rgba(255,255,255,.93); border-color:rgba(191,129,178,.25); clip-path:none; border-radius:22px; }
-body.theme-aurora.appearance-dark .login-container { background:#3a253c; }
-body.theme-aurora .login-brand-section, body.theme-aurora .register-brand {
-  background:
-    radial-gradient(circle at 15% 15%,rgba(242,175,218,.34),transparent 28%),
-    radial-gradient(circle at 88% 88%,rgba(177,164,242,.22),transparent 32%),
-    linear-gradient(145deg,#fffafd,#f8eef9);
-}
-body.theme-aurora.appearance-dark .login-brand-section, body.theme-aurora.appearance-dark .register-brand {
-  background:linear-gradient(145deg,#3b273e,#251928);
-}
-body.theme-aurora .login-card, body.theme-aurora .register-form-section { background:rgba(255,255,255,.88); }
-body.theme-aurora.appearance-dark .login-card, body.theme-aurora.appearance-dark .register-form-section { background:#251928; }
-body.theme-aurora .brand-logo, body.theme-aurora .register-brand-icon {
-  background:linear-gradient(145deg,#efa9da,#ac93ea); clip-path:none; border-radius:15px; box-shadow:0 8px 22px rgba(179,93,166,.18);
-}
-body.theme-aurora .login-button, body.theme-aurora .register-submit-button {
-  background:linear-gradient(135deg,#e59bcd,#a992e8); clip-path:none; border-radius:12px; box-shadow:none;
-}
-body.theme-aurora .input-wrapper, body.theme-aurora .register-input-wrapper { background:#fffafe; border-color:#dfc5dd; clip-path:none; border-radius:10px; }
-body.theme-aurora.appearance-dark .input-wrapper, body.theme-aurora.appearance-dark .register-input-wrapper { background:#3a2940; border-color:#5e4564; }
-body.theme-aurora .brand-subtitle, body.theme-aurora .register-tagline, body.theme-aurora .register-project { color:#b35da6; }
-body.theme-aurora .login-brand-section::after, body.theme-aurora .register-brand::after {
-  content:"✿  ❀  ✾"; position:absolute; left:34px; bottom:24px; font-size:28px; letter-spacing:10px; color:rgba(187,108,174,.24); pointer-events:none;
+/* Ensure the brand hero section always maintains high contrast and institutional authority */
+.login-brand-section,
+.register-brand {
+  background: linear-gradient(145deg, #0a1f3d 0%, #0f2e5a 60%, #173b6c 100%) !important;
+  color: #ffffff !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* Aurora — extra girly polish for the auth screens */
-body.theme-aurora .login-brand-section h1, body.theme-aurora .register-brand-content h1 {
-  font-family:"Dancing Script","Inter",cursive; font-weight:700; letter-spacing:0;
-}
-body.theme-aurora .login-button, body.theme-aurora .register-submit-button { border-radius:999px; }
-body.theme-aurora .register-button, body.theme-aurora .back-login-button, body.theme-aurora .forgot-password { color:#c8509e; }
-body.theme-aurora .remember-me input { accent-color:#d0559f; }
-body.theme-aurora .login-container::before { background:linear-gradient(90deg,transparent,#e06fb8,transparent); }
-body.theme-aurora .register-brand-content::before {
-  content:"♡"; position:absolute; right:-6px; top:-30px; font-size:22px; color:rgba(214,101,178,.30); pointer-events:none;
+.login-brand-section h1,
+.register-brand h1 {
+  color: #ffffff !important;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
 }
 
-/* Auth screens inherit the dashboard atmosphere without moving the forms. */
-body.theme-solo .login-container, body.theme-solo .register-brand, body.theme-solo .register-form-section,
-body.theme-executive .login-container, body.theme-executive .register-brand, body.theme-executive .register-form-section,
-body.theme-aurora .login-container, body.theme-aurora .register-brand, body.theme-aurora .register-form-section { position:relative; z-index:1; }
-body.theme-solo .login-page, body.theme-solo .register-page {
-  background-color:#02070f;
-  background-image:
-    radial-gradient(circle at 12% 16%,rgba(82,185,255,.22) 0 1px,transparent 2px),
-    radial-gradient(circle at 72% 8%,rgba(167,117,255,.21) 0 1px,transparent 2px),
-    radial-gradient(circle at 86% 70%,rgba(72,226,255,.16) 0 1px,transparent 2px),
-    radial-gradient(ellipse at 65% 110%,rgba(56,104,255,.19),transparent 42%),
-    linear-gradient(160deg,#071524,#02070f 60%,#060c1b);
-  background-size:110px 110px,170px 170px,230px 230px,100% 100%,100% 100%;
-  animation:authSoloSky 24s ease-in-out infinite alternate;
+.login-brand-section .brand-subtitle,
+.register-brand .register-tagline {
+  color: #93c5fd !important;
+  font-weight: 500 !important;
 }
-body.theme-solo .login-container, body.theme-solo .register-form-section, body.theme-solo .register-brand { transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease; }
-body.theme-solo .login-container:hover, body.theme-solo .register-form-section:hover { transform:translateY(-3px); border-color:rgba(102,231,255,.46); box-shadow:0 22px 54px rgba(24,142,255,.18),0 0 32px rgba(102,231,255,.09); }
-body.theme-solo .brand-logo, body.theme-solo .register-brand-icon { animation:authMarkPulse 4s ease-in-out infinite; }
 
-body.theme-executive .login-page, body.theme-executive .register-page {
-  background-color:#edf2f5;
-  background-image:
-    radial-gradient(ellipse at 8% 105%,rgba(70,142,98,.15),transparent 32%),
-    radial-gradient(ellipse at 88% 108%,rgba(92,151,119,.12),transparent 35%),
-    repeating-linear-gradient(168deg,transparent 0 44px,rgba(71,126,171,.055) 45px 47px,transparent 48px 92px),
-    linear-gradient(160deg,#f5f8fa,#e8eff1 57%,#edf3ed);
-  background-size:100% 100%,100% 100%,260px 260px,100% 100%;
-  animation:authExecutiveCurrent 30s ease-in-out infinite alternate;
+.login-brand-section .brand-description p,
+.register-brand .register-description {
+  color: #cbd5e1 !important;
 }
-body.theme-executive.appearance-dark .login-page, body.theme-executive.appearance-dark .register-page {
-  background-image:radial-gradient(ellipse at 8% 105%,rgba(67,135,95,.13),transparent 32%),radial-gradient(ellipse at 88% 108%,rgba(72,126,155,.12),transparent 35%),repeating-linear-gradient(168deg,transparent 0 44px,rgba(124,178,207,.06) 45px 47px,transparent 48px 92px),linear-gradient(160deg,#0f1923,#0b141d 57%,#0e1a16);
-}
-body.theme-executive .login-container, body.theme-executive .register-form-section { transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease; }
-body.theme-executive .login-container:hover, body.theme-executive .register-form-section:hover { transform:translateY(-2px); border-color:rgba(177,139,61,.36); box-shadow:0 24px 54px rgba(29,67,52,.16),0 0 25px rgba(177,139,61,.08); }
-body.theme-executive .brand-logo, body.theme-executive .register-brand-icon { animation:authMarkPulse 5s ease-in-out infinite; }
 
-body.theme-aurora .login-page, body.theme-aurora .register-page {
-  background-image:
-    radial-gradient(circle at 12% 8%,rgba(246,190,229,.38),transparent 26%),
-    radial-gradient(circle at 88% 88%,rgba(192,181,255,.34),transparent 28%),
-    radial-gradient(circle,rgba(255,202,235,.5) 0 1px,transparent 1.8px),
-    linear-gradient(180deg,#fffafd,#f7edf8);
-  background-size:auto,auto,122px 122px,auto;
-  animation:authAuroraSky 22s ease-in-out infinite alternate;
+.login-brand-section .brand-description strong,
+.register-brand .register-description strong {
+  color: #ffffff !important;
 }
-body.theme-aurora.appearance-dark .login-page, body.theme-aurora.appearance-dark .register-page { background-image:radial-gradient(circle at 12% 8%,rgba(255,116,196,.15),transparent 26%),radial-gradient(circle at 88% 88%,rgba(192,151,255,.13),transparent 28%),radial-gradient(circle,rgba(255,202,235,.26) 0 1px,transparent 1.8px),linear-gradient(180deg,#291d2c,#1d141f); }
-body.theme-aurora .login-page::after, body.theme-aurora .register-page::after { content:"✿  ·  ❀  ·  ✾  ·  ✿  ·  ❀"; position:fixed; z-index:0; pointer-events:none; width:auto; height:auto; border:0; box-shadow:none; inset:auto 4% 7% 4%; color:rgba(230,121,190,.26); font:32px/1.8 "Dancing Script",cursive; letter-spacing:7vw; white-space:pre-wrap; animation:authAuroraFlowers 18s ease-in-out infinite alternate; }
-body.theme-aurora .login-container, body.theme-aurora .register-form-section { transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease; }
-body.theme-aurora .login-container:hover, body.theme-aurora .register-form-section:hover { transform:translateY(-3px); border-color:rgba(240,161,217,.54); box-shadow:0 24px 58px rgba(208,85,159,.22),0 0 30px rgba(232,143,210,.13); }
-body.theme-aurora .brand-logo, body.theme-aurora .register-brand-icon { animation:authMarkPulse 4s ease-in-out infinite; }
 
-@keyframes authSoloSky { to { background-position:48px 28px,-42px 48px,76px -32px,0 0,0 0; } }
-@keyframes authExecutiveCurrent { to { background-position:0 0,0 0,170px -90px,0 0; } }
-@keyframes authAuroraSky { to { background-position:0 0,0 0,76px 54px,0 0; } }
-@keyframes authAuroraFlowers { to { transform:translate3d(-2.5vw,-16px,0) rotate(.3deg); opacity:.8; } }
-@keyframes authMarkPulse { 50% { transform:translateY(-2px) scale(1.03); filter:brightness(1.08); } }
-@media (prefers-reduced-motion:reduce) {
-  body.theme-solo .login-page,body.theme-solo .register-page,body.theme-executive .login-page,body.theme-executive .register-page,body.theme-aurora .login-page,body.theme-aurora .register-page,body.theme-aurora .login-page::after,body.theme-aurora .register-page::after,body.theme-solo .brand-logo,body.theme-solo .register-brand-icon,body.theme-executive .brand-logo,body.theme-executive .register-brand-icon,body.theme-aurora .brand-logo,body.theme-aurora .register-brand-icon { animation:none; }
+/* Benefit Chips */
+.benefit-chip {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #e2e8f0 !important;
+}
+
+.benefit-chip.active {
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: #fbbf24 !important;
+}
+
+.benefit-chip strong {
+  color: #ffffff !important;
+}
+
+.benefit-chip span {
+  color: #cbd5e1 !important;
+}
+
+/* Brand info footer */
+.brand-info,
+.register-footer-info {
+  color: #94a3b8 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Brand logo badge */
+.brand-logo,
+.register-brand-icon {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  border-radius: 12px !important;
+}
+
+/* Uniform Buttons */
+.login-button,
+.register-submit-button {
+  background: #0f2e5a !important;
+  color: #ffffff !important;
+  border: 1px solid #0f2e5a !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(15, 46, 90, 0.15) !important;
+  transition: all 0.2s ease !important;
+}
+
+.login-button:hover,
+.register-submit-button:hover {
+  background: #17437e !important;
+  border-color: #17437e !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(15, 46, 90, 0.2) !important;
+}
+
+/* Input Fields */
+.input-wrapper,
+.register-input-wrapper {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+}
+
+.input-wrapper:focus-within,
+.register-input-wrapper:focus-within {
+  border-color: #0f2e5a !important;
+  box-shadow: 0 0 0 3px rgba(15, 46, 90, 0.1) !important;
+}
+
+.input-wrapper input,
+.register-input-wrapper input,
+.register-input-wrapper select {
+  color: #0f172a !important;
+  background: transparent !important;
+}
+
+/* Persona Switcher Tabs */
+.persona-tab {
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+}
+
+.persona-tab.active {
+  background: #eff6ff !important;
+  border-color: #0f2e5a !important;
+  box-shadow: 0 0 0 1px #0f2e5a !important;
+}
+
+.persona-tab.active svg {
+  color: #0f2e5a !important;
+}
+
+/* Demo Pills */
+.demo-pill {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f2e5a !important;
+}
+
+.demo-pill:hover {
+  background: #f1f5f9 !important;
+  border-color: #0f2e5a !important;
+}
+
+/* Theme Skins for Page Background */
+body.theme-solo .login-page,
+body.theme-solo .register-page {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+body.theme-executive .login-page,
+body.theme-executive .register-page {
+  background: #f4f6f8;
+  color: #0f172a;
+}
+
+body.theme-aurora .login-page,
+body.theme-aurora .register-page {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+body.appearance-dark .login-page,
+body.appearance-dark .register-page {
+  background: #0a111a;
+  color: #f1f5f9;
+}
+
+body.appearance-dark .login-card,
+body.appearance-dark .register-form-section {
+  background: #111a26 !important;
+  color: #f1f5f9 !important;
+}
+
+body.appearance-dark .login-header h2,
+body.appearance-dark .register-header h2 {
+  color: #ffffff !important;
+}
+
+body.appearance-dark .input-wrapper,
+body.appearance-dark .register-input-wrapper {
+  background: #182332 !important;
+  border-color: #334155 !important;
+}
+
+body.appearance-dark .input-wrapper input,
+body.appearance-dark .register-input-wrapper input,
+body.appearance-dark .register-input-wrapper select {
+  color: #ffffff !important;
 }

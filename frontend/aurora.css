@@ -114,6 +114,26 @@ body.theme-aurora.appearance-dark .sidebar {
 .app-shell.theme-aurora .notification-panel { border-radius:18px; }
 .app-shell.theme-aurora .notification-dot { background:var(--cyan); box-shadow:0 0 6px rgba(224,110,190,.45); }
 .app-shell.theme-aurora .profile-chip { border-radius:999px; }
+.app-shell.theme-aurora .profile-chip-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  line-height: 1.25;
+}
+.app-shell.theme-aurora .profile-chip-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+.app-shell.theme-aurora .profile-chip-role {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+}
 .app-shell.theme-aurora .profile-chip > span {
   background:linear-gradient(145deg,#f0a8dc,#b490ef); border-radius:999px; box-shadow:0 4px 12px rgba(214,101,178,.25);
 }

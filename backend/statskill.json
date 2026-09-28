@@ -1,7 +1,7 @@
 {
   "dataset": "StatSkill AI — 50 Complete Demo Users",
   "version": "1.0",
-  "userCount": 50,
+  "userCount": 53,
   "sourceModel": {
     "competencyDomains": [
       "statisticalMethods",
@@ -24,7 +24,7 @@
       "id": "USR-001",
       "employeeCode": "STAT-2026-001",
       "profile": {
-        "name": "Ananya Verma",
+        "name": "Ananya Verma, JSO",
         "email": "ananya_verma@statskill.demo",
         "password": "Demo@1001",
         "role": "Statistical Investigator",
@@ -32,13 +32,13 @@
         "projectId": "SIH26101"
       },
       "dashboard": {
-        "overallCompetency": 68,
-        "overallCompetencyLabel": "68/100",
-        "criticalSkillGaps": 0,
-        "moderateSkillGaps": 2,
-        "strongSkills": 3,
+        "overallCompetency": 72,
+        "overallCompetencyLabel": "72/100",
+        "criticalSkillGaps": 1,
+        "moderateSkillGaps": 3,
+        "strongSkills": 4,
         "learningProgress": 35,
-        "assessmentsCompleted": 4,
+        "assessmentsCompleted": 28,
         "assessmentsTotal": 5,
         "assessmentAverage": 67,
         "learningHours": 150,
@@ -51,135 +51,51 @@
       "competencies": [
         {
           "key": "statisticalMethods",
-          "name": "Statistical Methods",
-          "score": 3.56,
-          "scoreOutOf5": 3.56,
-          "scorePercent": 71.2,
-          "level": "Strong",
-          "trend": "Stable",
+          "name": "Statistical Methods & Sampling",
+          "score": 4.85,
+          "scoreOutOf5": 4.85,
+          "scorePercent": 97.0,
           "benchmark": 3.5,
-          "gap": 0,
+          "gap": 0.0,
           "gapPercent": 0.0,
           "weight": 1.15,
-          "description": "Inference, sampling, regression and time-series analysis.",
-          "subSkills": [
-            {
-              "name": "Descriptive Statistics",
-              "score": 66
-            },
-            {
-              "name": "Hypothesis Testing",
-              "score": 62
-            },
-            {
-              "name": "Regression Analysis",
-              "score": 62
-            },
-            {
-              "name": "Time Series Analysis",
-              "score": 62
-            }
-          ],
-          "evidence": {
-            "quizAverage": 76,
-            "courseAverage": 70,
-            "selfAssessmentAverage": 3.1,
-            "learningHours": 26
-          },
-          "assessmentHistory": [
-            74,
-            70,
-            78,
-            73
-          ]
+          "level": "Strong"
+        },
+        {
+          "key": "nationalAccounts",
+          "name": "National Accounts (SNA & GDP)",
+          "score": 3.58,
+          "scoreOutOf5": 3.58,
+          "scorePercent": 71.6,
+          "benchmark": 3.5,
+          "gap": 0.0,
+          "gapPercent": 0.0,
+          "weight": 1.1,
+          "level": "Strong"
+        },
+        {
+          "key": "priceIndices",
+          "name": "Price Statistics (CPI/WPI/IIP)",
+          "score": 2.33,
+          "scoreOutOf5": 2.33,
+          "scorePercent": 46.6,
+          "benchmark": 3.5,
+          "gap": 1.17,
+          "gapPercent": 33.4,
+          "weight": 1.05,
+          "level": "Moderate"
         },
         {
           "key": "dataQuality",
-          "name": "Data Quality",
+          "name": "Data Quality & Survey Validation",
           "score": 4.31,
           "scoreOutOf5": 4.31,
           "scorePercent": 86.2,
-          "level": "Strong",
-          "trend": "Improving",
           "benchmark": 3.5,
-          "gap": 0,
+          "gap": 0.0,
           "gapPercent": 0.0,
           "weight": 1.05,
-          "description": "Validation, error detection, review and quality assurance.",
-          "subSkills": [
-            {
-              "name": "Data Validation",
-              "score": 92
-            },
-            {
-              "name": "Error Detection",
-              "score": 82
-            },
-            {
-              "name": "Imputation",
-              "score": 80
-            },
-            {
-              "name": "Audit & Review",
-              "score": 90
-            }
-          ],
-          "evidence": {
-            "quizAverage": 96,
-            "courseAverage": 86,
-            "selfAssessmentAverage": 4.3,
-            "learningHours": 15
-          },
-          "assessmentHistory": [
-            82,
-            89,
-            95,
-            97
-          ]
-        },
-        {
-          "key": "python",
-          "name": "Python",
-          "score": 3.78,
-          "scoreOutOf5": 3.78,
-          "scorePercent": 75.6,
-          "level": "Strong",
-          "trend": "Declining",
-          "benchmark": 3,
-          "gap": 0,
-          "gapPercent": 0.0,
-          "weight": 1,
-          "description": "Python for data analysis, automation and statistical workflows.",
-          "subSkills": [
-            {
-              "name": "pandas",
-              "score": 72
-            },
-            {
-              "name": "Visualisation",
-              "score": 74
-            },
-            {
-              "name": "Automation",
-              "score": 82
-            },
-            {
-              "name": "Statistical Libraries",
-              "score": 80
-            }
-          ],
-          "evidence": {
-            "quizAverage": 76,
-            "courseAverage": 80,
-            "selfAssessmentAverage": 3.9,
-            "learningHours": 25
-          },
-          "assessmentHistory": [
-            85,
-            87,
-            75,
-            77
-          ]
+          "level": "Strong"
         },
         {
           "key": "gis",
@@ -187,144 +103,126 @@
           "score": 2.08,
           "scoreOutOf5": 2.08,
           "scorePercent": 41.6,
-          "level": "Moderate",
-          "trend": "Stable",
-          "benchmark": 3,
+          "benchmark": 3.0,
           "gap": 0.92,
           "gapPercent": 30.7,
-          "weight": 1,
-          "description": "Spatial datasets, mapping, GIS tools and geographic analysis.",
-          "subSkills": [
-            {
-              "name": "Map Projections",
-              "score": 24
-            },
-            {
-              "name": "Spatial Joins",
-              "score": 34
-            },
-            {
-              "name": "GIS Tools",
-              "score": 22
-            },
-            {
-              "name": "Choropleth Mapping",
-              "score": 28
-            }
-          ],
-          "evidence": {
-            "quizAverage": 35,
-            "courseAverage": 40,
-            "selfAssessmentAverage": 1.4,
-            "learningHours": 41
-          },
-          "assessmentHistory": [
-            35,
-            35,
-            35,
-            35
-          ]
+          "weight": 1.0,
+          "level": "Moderate"
+        },
+        {
+          "key": "python",
+          "name": "Python for Data Automation",
+          "score": 3.78,
+          "scoreOutOf5": 3.78,
+          "scorePercent": 75.6,
+          "benchmark": 3.0,
+          "gap": 0.0,
+          "gapPercent": 0.0,
+          "weight": 1.0,
+          "level": "Strong"
         },
         {
           "key": "machineLearning",
-          "name": "Machine Learning",
+          "name": "Machine Learning & AI",
           "score": 2.71,
           "scoreOutOf5": 2.71,
           "scorePercent": 54.2,
-          "level": "Moderate",
-          "trend": "Improving",
-          "benchmark": 3,
+          "benchmark": 3.0,
           "gap": 0.29,
           "gapPercent": 9.7,
           "weight": 0.95,
-          "description": "Predictive modelling, evaluation and feature engineering.",
-          "subSkills": [
-            {
-              "name": "Supervised Learning",
-              "score": 50
-            },
-            {
-              "name": "Model Evaluation",
-              "score": 52
-            },
-            {
-              "name": "Feature Engineering",
-              "score": 50
-            },
-            {
-              "name": "ML Frameworks",
-              "score": 46
-            }
-          ],
-          "evidence": {
-            "quizAverage": 52,
-            "courseAverage": 44,
-            "selfAssessmentAverage": 2.5,
-            "learningHours": 43
-          },
-          "assessmentHistory": [
-            47,
-            39,
-            47,
-            56
-          ]
+          "level": "Moderate"
         }
       ],
       "criticalSkills": [
         {
-          "competency": "GIS & Spatial Statistics",
-          "priority": "Medium",
-          "currentScore": 2.08,
-          "benchmark": 3,
-          "gap": 0.92,
-          "recommendedAction": "Improve GIS & Spatial Statistics through targeted practice and applied assignments."
+          "competency": "Price Statistics (CPI/WPI/IIP)",
+          "key": "priceIndices",
+          "priority": "High",
+          "currentScore": 2.33,
+          "benchmark": 3.5,
+          "gap": 1.17,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Price Statistics (CPI/WPI/IIP)."
         },
         {
-          "competency": "Machine Learning",
+          "competency": "GIS & Spatial Statistics",
+          "key": "gis",
+          "priority": "Medium",
+          "currentScore": 2.08,
+          "benchmark": 3.0,
+          "gap": 0.92,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen GIS & Spatial Statistics."
+        },
+        {
+          "competency": "Machine Learning & AI",
+          "key": "machineLearning",
           "priority": "Medium",
           "currentScore": 2.71,
-          "benchmark": 3,
+          "benchmark": 3.0,
           "gap": 0.29,
-          "recommendedAction": "Improve Machine Learning through targeted practice and applied assignments."
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Machine Learning & AI."
         }
       ],
       "benchmarkComparison": [
         {
-          "competency": "Statistical Methods",
-          "currentScore": 3.56,
+          "competency": "Statistical Methods & Sampling",
+          "key": "statisticalMethods",
+          "currentScore": 4.85,
           "benchmark": 3.5,
-          "gap": 0,
+          "gap": 0.0,
           "status": "Benchmark Met",
           "readinessPercent": 100
         },
         {
-          "competency": "Data Quality",
+          "competency": "National Accounts (SNA & GDP)",
+          "key": "nationalAccounts",
+          "currentScore": 3.58,
+          "benchmark": 3.5,
+          "gap": 0.0,
+          "status": "Benchmark Met",
+          "readinessPercent": 100
+        },
+        {
+          "competency": "Price Statistics (CPI/WPI/IIP)",
+          "key": "priceIndices",
+          "currentScore": 2.33,
+          "benchmark": 3.5,
+          "gap": 1.17,
+          "status": "Below Benchmark",
+          "readinessPercent": 66.6
+        },
+        {
+          "competency": "Data Quality & Survey Validation",
+          "key": "dataQuality",
           "currentScore": 4.31,
           "benchmark": 3.5,
-          "gap": 0,
-          "status": "Benchmark Met",
-          "readinessPercent": 100
-        },
-        {
-          "competency": "Python",
-          "currentScore": 3.78,
-          "benchmark": 3,
-          "gap": 0,
+          "gap": 0.0,
           "status": "Benchmark Met",
           "readinessPercent": 100
         },
         {
           "competency": "GIS & Spatial Statistics",
+          "key": "gis",
           "currentScore": 2.08,
-          "benchmark": 3,
+          "benchmark": 3.0,
           "gap": 0.92,
           "status": "Below Benchmark",
           "readinessPercent": 69.3
         },
         {
-          "competency": "Machine Learning",
+          "competency": "Python for Data Automation",
+          "key": "python",
+          "currentScore": 3.78,
+          "benchmark": 3.0,
+          "gap": 0.0,
+          "status": "Benchmark Met",
+          "readinessPercent": 100
+        },
+        {
+          "competency": "Machine Learning & AI",
+          "key": "machineLearning",
           "currentScore": 2.71,
-          "benchmark": 3,
+          "benchmark": 3.0,
           "gap": 0.29,
           "status": "Below Benchmark",
           "readinessPercent": 90.3
@@ -381,6 +279,28 @@
         "estimatedCompletion": "38 days"
       },
       "courses": [
+        {
+          "id": "iGOT-MOSPI-CPI-102",
+          "title": "Compilation of Consumer Price Index (CPI) & Inflation Metrics",
+          "domain": "priceIndices",
+          "score": 0,
+          "progress": 15,
+          "hours": 4,
+          "status": "In Progress",
+          "provider": "Price Statistics Division, MoSPI",
+          "karmayogiUrl": "https://igotkarmayogi.gov.in/learn/course/mospi-cpi-indices"
+        },
+        {
+          "id": "iGOT-NSSTA-SNA-201",
+          "title": "System of National Accounts (SNA 2008) & GDP Compilation",
+          "domain": "nationalAccounts",
+          "score": 0,
+          "progress": 15,
+          "hours": 4,
+          "status": "In Progress",
+          "provider": "Central Statistics Office (CSO) / NSSTA",
+          "karmayogiUrl": "https://igotkarmayogi.gov.in/learn/course/nssta-sna-gdp"
+        },
         {
           "id": "CRS-001-STA-1",
           "domain": "statisticalMethods",
@@ -629,9 +549,963 @@
           "attempt": 2,
           "status": "Completed",
           "date": "2026-06-19"
+        },
+        {
+          "id": "ASM-011",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-012",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-013",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-014",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-015",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-016",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-017",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-018",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-019",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-020",
+          "title": "National Sample Survey Sampling & Estimation Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 20.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "MCQ-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "MCQ-002",
+              "selected_option": 1,
+              "correct_option": 0,
+              "is_correct": false
+            },
+            {
+              "question_id": "MCQ-003",
+              "selected_option": 2,
+              "correct_option": 0,
+              "is_correct": false
+            },
+            {
+              "question_id": "MCQ-004",
+              "selected_option": 3,
+              "correct_option": 0,
+              "is_correct": false
+            },
+            {
+              "question_id": "MCQ-005",
+              "selected_option": 3,
+              "correct_option": 0,
+              "is_correct": false
+            }
+          ]
+        },
+        {
+          "id": "ASM-021",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-022",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-023",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-024",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-025",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-026",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-027",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-028",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
         }
       ],
       "documents": [
+        {
+          "id": "DOC-022",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-021",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-020",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-019",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-018",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-017",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-016",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-015",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-014",
+          "name": "STATSKILL-AI_SIH26101 (3).pptx",
+          "category": "GIS & Spatial",
+          "size": "4648 KB",
+          "uploadDate": "Just now",
+          "wordCount": 746,
+          "chunksCount": 5,
+          "summary": "TITLE PAGE SMART INDIA HACKATHON 2026 • Problem Statement ID : 26101 • Problem Statement Title : Develop an AI enabled learning platform that identifies competency gaps, recommends personalized training through integration with the iGOT Karmayogi ecosystem, and capable of generating Quizzes and Mult...",
+          "extractedText": "TITLE PAGE SMART INDIA HACKATHON 2026 • Problem Statement ID : 26101 • Problem Statement Title : Develop an AI enabled learning platform that identifies competency gaps, recommends personalized training through integration with the iGOT Karmayogi ecosystem, and capable of generating Quizzes and Multiple choice questions (MCQs) from uploaded learning materials to strengthen capacity building in India's Official Statistical System. • Theme : Smart Education • PS Category : Software • Team ID : 163519 • Team Name : F-TECH\n\nIDEA TITLE 2 SMART INDIA HACKATHON 2026 STATSKILL - AI Learning ≠ Competency Completing a course does not establish what an officer can actually apply . Generic Learning ≠ Personalized Learning Different roles require different competencies and different learning paths. One-Time Assessment ≠ Continuous Improvement Competency needs to be measured again after learning to track actual progress.. AI-Powered Competency & Learning Intelligence Platform Courses • Learning Resources • Assessments iGOT Karmayogi screenshot Knowing whether learning actually changes competency . Competency Baseline — What does the officer know today ? Skill-Gap Intelligence — What does the role require that is missing ? Personalized Learning Path — What should the officer learn next ? Reassessment — Did competency improve after learning ? Continuous Profile Update — What should be recommended next? WHAT EXISTS WHAT'S MISSING WHAT WE ADD WHY THIS IDEA? STATSKILL AI The competency-intelligence layer that connects learning with measurable improvement. ASSESS → DIAGNOSE → PERSONALISE → LEARN → REASSESS → IMPROVE\n\nTECHNICAL APPROACH 3 SMART INDIA HACKATHON 2026 END-TO-END ARCHITECTURE Learner / Admin Role • Profile Learning history Self-assessment Uploads Content Ingestion PDF/PPT/DOCX → OCR → chunks Metadata + competency tags AI Intelligence RAG • Embeddings LLM Competency Extraction + Gap Scoring Personalization Gap → Learning Path Recommend iGOT Resources Assessment Loop AI-generated MCQs Score → Update Competency Profile TECHNOLOGY STACK AI/ML LLM + Embeddings • Competency Classifier Recommendation Model Knowledge RAG pipeline • vector database • Metadata/competency store Application Python/ FastAPI • React/Angular-style web UI • REST APIs Integration iGOT connector layer • approved APIs/data exchange • SSO where available Security RBAC • encryption • audit logs • PII minimization • human review IMPLEMENTATION METHOD MVP Upload → RAG → MCQ generation → competency gap dashboard Pilot Map selected statistical roles/competencies; validate recommendations Integrate Connect to iGOT learning resources through approved integration mechanisms Scale Multilingual support, analytics, feedback-driven recommendation tuning\n\nFEASIBILITY AND VIABILITY 4 SMART INDIA HACKATHON 2026 iGOT enables the learning. StatSkill AI makes the learning measurable. From learning delivered → to competency demonstrated. WHY CAN STATSKILL AI ACTUALLY WORK? FEASIBILITY EXISTING FOUNDATION Built around iGOT , NSSTA, existing competency frameworks and officer profiles — not a new learning ecosystem. AVAILABLE INPUTS Role requirements, competency standards, learning resources and assessment results provide the data needed to identify gaps and measure progress. AI AS THE CONNECTING LAYER AI brings these existing components together to assess → identify gaps → recommend → reassess, making the proposed workflow technically achievable . INCREMENTAL IMPLEMENTATION The system can begin with defined roles and competencies, validate the assessment–recommendation cycle, and then extend to additional roles and departments . VIABILITY VIABILITY WHY DOES THE VALUE CONTINUE ? LEARN → REASSESS → MEASURE → RECOMMEND → LEARN AGAIN ↻ CONTINUOUS LEANING LOOP Learning completion becomes an input — not the endpoint. SCALE PATH DEFINED ROLE → PILOT → VALIDATE → MORE ROLES → MORE DEPARTMENTS ↓ ↓ Learning Targeted resources address the identified gap . Baseline Competency assessment establishes where the officer stands. ↓ Reassessment Post-learning assessment establishes what changed. Updated Profile New competency evidence informs the next learning recommendation.\n\nIMPACT AND BENEFITS 5 SMART INDIA HACKATHON 2026 🎯 FROM LEARNING TO COMPETENCY Measure what officers can actually apply — not just what they complete. 👤 FOR THE OFFICER Personalized learning based on actual competency gaps. Targeted upskilling instead of one-size-fits-all training. Continuous feedback through reassessment and progress tracking. Clear visibility of strengths, gaps and improvement. 🏛️ FOR THE ORGANISATION Right skills for the right roles. Data-driven training decisions. Measurable competency improvement. Better alignment of learning with departmental priorities. 📊 FOR GOVERNANCE More capable and future-ready workforce. Stronger application of statistical competencies. Continuous capacity building at scale. Improved effectiveness of public-service delivery.\n\nRESEARCH AND REFERENCES 6 SMART INDIA HACKATHON 2026 REFERENCE BASE LINKS-: iGOT Karmayogi — Official Portal Research Github Repository link Note: iGOT integration is proposed through approved interfaces; exact API/data-access mechanisms must be validated during implementation. Smart India Hackathon AdityaKymarSharmaAKS /SIH26101_Project iGot Karmayogi - Google Drive SIH2026 Idea Submission Template",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-013",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-012",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-011",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-010",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-009",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-008",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-007",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-006",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-005",
+          "name": "NSSO_Sampling_Manual.txt",
+          "category": "Survey Methodology",
+          "size": "1 KB",
+          "uploadDate": "Just now",
+          "wordCount": 34,
+          "chunksCount": 1,
+          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "shared": false,
+          "addedThisMonth": true
+        },
         {
           "id": "DOC-001-01",
           "name": "GIS & Spatial Statistics – Study Notes.pdf",
@@ -718,10 +1592,12 @@
       ],
       "analytics": {
         "competencyScores": {
-          "statisticalMethods": 3.56,
+          "statisticalMethods": 4.85,
+          "nationalAccounts": 3.58,
+          "priceIndices": 2.33,
           "dataQuality": 4.31,
-          "python": 3.78,
           "gis": 2.08,
+          "python": 3.78,
           "machineLearning": 2.71
         },
         "assessmentHistory": [
@@ -793,14 +1669,15 @@
           "gis": 41,
           "machineLearning": 43
         },
-        "totalLearningHours": 150,
+        "totalLearningHours": 158.0,
         "learningMixPercent": {
           "statisticalMethods": 17.3,
           "dataQuality": 10.0,
           "python": 16.7,
           "gis": 27.3,
           "machineLearning": 28.7
-        }
+        },
+        "quizAverage": 85
       },
       "engine": {
         "methodology": "50% assessments · 25% courses · 15% self-assessment · 10% learning effort",
@@ -846,8 +1723,19 @@
           "dataQuality": 15,
           "python": 25,
           "gis": 41,
-          "machineLearning": 43
+          "machineLearning": 43,
+          "nationalAccounts": 4.0,
+          "priceIndices": 4.0
         }
+      },
+      "competencyScores": {
+        "statisticalMethods": 4.85,
+        "nationalAccounts": 3.58,
+        "priceIndices": 2.33,
+        "dataQuality": 4.31,
+        "gis": 2.08,
+        "python": 3.78,
+        "machineLearning": 2.71
       }
     },
     {
@@ -41549,6 +42437,1278 @@
           "gis": 35,
           "machineLearning": 7
         }
+      }
+    },
+    {
+      "id": "USR-051",
+      "employeeCode": "EMP-85881",
+      "profile": {
+        "name": "Test Officer",
+        "email": "officer.test@mospi.gov.in",
+        "password": "password123",
+        "role": "Statistical Investigator",
+        "department": "MoSPI",
+        "projectId": "SIH26101"
+      },
+      "dashboard": {
+        "overallCompetency": 48,
+        "overallCompetencyLabel": "48/100",
+        "rank": "B",
+        "level": 60,
+        "xp": 1200,
+        "criticalSkillGaps": 3,
+        "moderateSkillGaps": 7,
+        "strongSkills": 0,
+        "assessmentsCompleted": 0,
+        "learningProgress": 10,
+        "completedModules": 0,
+        "totalModules": 5
+      },
+      "competencyScores": {
+        "statisticalMethods": 2.8,
+        "nationalAccounts": 2.2,
+        "priceIndices": 2.4,
+        "dataQuality": 2.7,
+        "gis": 2.1,
+        "python": 2.6,
+        "machineLearning": 2.0
+      },
+      "courses": [],
+      "assignments": [],
+      "assessmentHistory": [],
+      "documents": [],
+      "certificates": [],
+      "notifications": [
+        {
+          "id": "NOTIF-01",
+          "title": "Welcome to StatSkill AI, Test Officer!",
+          "time": "Just now",
+          "color": "cyan"
+        }
+      ],
+      "rawInputs": {
+        "selfAssessment": {
+          "statisticalMethods": [
+            2.8,
+            2.8
+          ],
+          "nationalAccounts": [
+            2.2,
+            2.2
+          ],
+          "priceIndices": [
+            2.4,
+            2.4
+          ],
+          "dataQuality": [
+            2.7,
+            2.7
+          ],
+          "gis": [
+            2.1,
+            2.1
+          ],
+          "python": [
+            2.6,
+            2.6
+          ]
+        },
+        "learningHours": {
+          "statisticalMethods": 0,
+          "nationalAccounts": 0,
+          "priceIndices": 0,
+          "dataQuality": 0,
+          "gis": 0,
+          "python": 0
+        }
+      },
+      "learningPath": {
+        "track": "Official Statistical Cadre Capacity Track",
+        "modulesCompleted": 0,
+        "totalModules": 5,
+        "modules": [
+          {
+            "step": 1,
+            "title": "Official Statistics Foundations",
+            "status": "In Progress",
+            "duration": "4h",
+            "lessons": 6,
+            "progress": 15,
+            "state": "active"
+          },
+          {
+            "step": 2,
+            "title": "Survey Sampling & Estimation",
+            "status": "Upcoming",
+            "duration": "6h",
+            "lessons": 8,
+            "progress": 0,
+            "state": "locked"
+          },
+          {
+            "step": 3,
+            "title": "National Accounts & Macro Deflators",
+            "status": "Upcoming",
+            "duration": "8h",
+            "lessons": 10,
+            "progress": 0,
+            "state": "locked"
+          },
+          {
+            "step": 4,
+            "title": "Price Statistics & Index Compilation",
+            "status": "Upcoming",
+            "duration": "5h",
+            "lessons": 7,
+            "progress": 0,
+            "state": "locked"
+          },
+          {
+            "step": 5,
+            "title": "Data Quality Assurance & Audits",
+            "status": "Upcoming",
+            "duration": "6h",
+            "lessons": 8,
+            "progress": 0,
+            "state": "locked"
+          }
+        ]
+      },
+      "competencies": [
+        {
+          "key": "statisticalMethods",
+          "name": "Statistical Methods & Sampling",
+          "score": 2.8,
+          "scoreOutOf5": 2.8,
+          "scorePercent": 56.0,
+          "benchmark": 3.5,
+          "gap": 0.7,
+          "gapPercent": 20.0,
+          "weight": 1.15,
+          "level": "Moderate"
+        },
+        {
+          "key": "nationalAccounts",
+          "name": "National Accounts (SNA & GDP)",
+          "score": 2.2,
+          "scoreOutOf5": 2.2,
+          "scorePercent": 44.0,
+          "benchmark": 3.5,
+          "gap": 1.3,
+          "gapPercent": 37.1,
+          "weight": 1.1,
+          "level": "Moderate"
+        },
+        {
+          "key": "priceIndices",
+          "name": "Price Statistics (CPI/WPI/IIP)",
+          "score": 2.4,
+          "scoreOutOf5": 2.4,
+          "scorePercent": 48.0,
+          "benchmark": 3.5,
+          "gap": 1.1,
+          "gapPercent": 31.4,
+          "weight": 1.05,
+          "level": "Moderate"
+        },
+        {
+          "key": "dataQuality",
+          "name": "Data Quality & Survey Validation",
+          "score": 2.7,
+          "scoreOutOf5": 2.7,
+          "scorePercent": 54.0,
+          "benchmark": 3.5,
+          "gap": 0.8,
+          "gapPercent": 22.9,
+          "weight": 1.05,
+          "level": "Moderate"
+        },
+        {
+          "key": "gis",
+          "name": "GIS & Spatial Statistics",
+          "score": 2.1,
+          "scoreOutOf5": 2.1,
+          "scorePercent": 42.0,
+          "benchmark": 3.0,
+          "gap": 0.9,
+          "gapPercent": 30.0,
+          "weight": 1.0,
+          "level": "Moderate"
+        },
+        {
+          "key": "python",
+          "name": "Python for Data Automation",
+          "score": 2.6,
+          "scoreOutOf5": 2.6,
+          "scorePercent": 52.0,
+          "benchmark": 3.0,
+          "gap": 0.4,
+          "gapPercent": 13.3,
+          "weight": 1.0,
+          "level": "Moderate"
+        },
+        {
+          "key": "machineLearning",
+          "name": "Machine Learning & AI",
+          "score": 2.0,
+          "scoreOutOf5": 2.0,
+          "scorePercent": 40.0,
+          "benchmark": 3.0,
+          "gap": 1.0,
+          "gapPercent": 33.3,
+          "weight": 0.95,
+          "level": "Moderate"
+        }
+      ],
+      "benchmarkComparison": [
+        {
+          "competency": "Statistical Methods & Sampling",
+          "key": "statisticalMethods",
+          "currentScore": 2.8,
+          "benchmark": 3.5,
+          "gap": 0.7,
+          "status": "Below Benchmark",
+          "readinessPercent": 80.0
+        },
+        {
+          "competency": "National Accounts (SNA & GDP)",
+          "key": "nationalAccounts",
+          "currentScore": 2.2,
+          "benchmark": 3.5,
+          "gap": 1.3,
+          "status": "Below Benchmark",
+          "readinessPercent": 62.9
+        },
+        {
+          "competency": "Price Statistics (CPI/WPI/IIP)",
+          "key": "priceIndices",
+          "currentScore": 2.4,
+          "benchmark": 3.5,
+          "gap": 1.1,
+          "status": "Below Benchmark",
+          "readinessPercent": 68.6
+        },
+        {
+          "competency": "Data Quality & Survey Validation",
+          "key": "dataQuality",
+          "currentScore": 2.7,
+          "benchmark": 3.5,
+          "gap": 0.8,
+          "status": "Below Benchmark",
+          "readinessPercent": 77.1
+        },
+        {
+          "competency": "GIS & Spatial Statistics",
+          "key": "gis",
+          "currentScore": 2.1,
+          "benchmark": 3.0,
+          "gap": 0.9,
+          "status": "Below Benchmark",
+          "readinessPercent": 70.0
+        },
+        {
+          "competency": "Python for Data Automation",
+          "key": "python",
+          "currentScore": 2.6,
+          "benchmark": 3.0,
+          "gap": 0.4,
+          "status": "Below Benchmark",
+          "readinessPercent": 86.7
+        },
+        {
+          "competency": "Machine Learning & AI",
+          "key": "machineLearning",
+          "currentScore": 2.0,
+          "benchmark": 3.0,
+          "gap": 1.0,
+          "status": "Below Benchmark",
+          "readinessPercent": 66.7
+        }
+      ],
+      "criticalSkills": [
+        {
+          "competency": "National Accounts (SNA & GDP)",
+          "key": "nationalAccounts",
+          "priority": "High",
+          "currentScore": 2.2,
+          "benchmark": 3.5,
+          "gap": 1.3,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen National Accounts (SNA & GDP)."
+        },
+        {
+          "competency": "Price Statistics (CPI/WPI/IIP)",
+          "key": "priceIndices",
+          "priority": "High",
+          "currentScore": 2.4,
+          "benchmark": 3.5,
+          "gap": 1.1,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Price Statistics (CPI/WPI/IIP)."
+        },
+        {
+          "competency": "Machine Learning & AI",
+          "key": "machineLearning",
+          "priority": "High",
+          "currentScore": 2.0,
+          "benchmark": 3.0,
+          "gap": 1.0,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Machine Learning & AI."
+        },
+        {
+          "competency": "GIS & Spatial Statistics",
+          "key": "gis",
+          "priority": "Medium",
+          "currentScore": 2.1,
+          "benchmark": 3.0,
+          "gap": 0.9,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen GIS & Spatial Statistics."
+        },
+        {
+          "competency": "Data Quality & Survey Validation",
+          "key": "dataQuality",
+          "priority": "Medium",
+          "currentScore": 2.7,
+          "benchmark": 3.5,
+          "gap": 0.8,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Data Quality & Survey Validation."
+        },
+        {
+          "competency": "Statistical Methods & Sampling",
+          "key": "statisticalMethods",
+          "priority": "Medium",
+          "currentScore": 2.8,
+          "benchmark": 3.5,
+          "gap": 0.7,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Statistical Methods & Sampling."
+        },
+        {
+          "competency": "Python for Data Automation",
+          "key": "python",
+          "priority": "Medium",
+          "currentScore": 2.6,
+          "benchmark": 3.0,
+          "gap": 0.4,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Python for Data Automation."
+        }
+      ],
+      "analytics": {
+        "competencyScores": {
+          "statisticalMethods": 2.8,
+          "nationalAccounts": 2.2,
+          "priceIndices": 2.4,
+          "dataQuality": 2.7,
+          "gis": 2.1,
+          "python": 2.6,
+          "machineLearning": 2.0
+        },
+        "totalLearningHours": 0.0,
+        "quizAverage": 70
+      }
+    },
+    {
+      "id": "USR-052",
+      "employeeCode": "EMP-87083",
+      "profile": {
+        "name": "Test User",
+        "email": "test.user@gov.in",
+        "password": "Password@123",
+        "role": "Statistical Investigator",
+        "department": "MoSPI",
+        "projectId": "SIH26101"
+      },
+      "dashboard": {
+        "overallCompetency": 48,
+        "overallCompetencyLabel": "48/100",
+        "rank": "B",
+        "level": 60,
+        "xp": 1200,
+        "criticalSkillGaps": 3,
+        "moderateSkillGaps": 7,
+        "strongSkills": 0,
+        "assessmentsCompleted": 0,
+        "learningProgress": 10,
+        "completedModules": 0,
+        "totalModules": 5
+      },
+      "competencyScores": {
+        "statisticalMethods": 2.8,
+        "nationalAccounts": 2.2,
+        "priceIndices": 2.4,
+        "dataQuality": 2.7,
+        "gis": 2.1,
+        "python": 2.6,
+        "machineLearning": 2.0
+      },
+      "courses": [],
+      "assignments": [],
+      "assessmentHistory": [],
+      "documents": [],
+      "certificates": [],
+      "notifications": [
+        {
+          "id": "NOTIF-01",
+          "title": "Welcome to StatSkill AI, Test User!",
+          "time": "Just now",
+          "color": "cyan"
+        }
+      ],
+      "rawInputs": {
+        "selfAssessment": {
+          "statisticalMethods": [
+            2.8,
+            2.8
+          ],
+          "nationalAccounts": [
+            2.2,
+            2.2
+          ],
+          "priceIndices": [
+            2.4,
+            2.4
+          ],
+          "dataQuality": [
+            2.7,
+            2.7
+          ],
+          "gis": [
+            2.1,
+            2.1
+          ],
+          "python": [
+            2.6,
+            2.6
+          ]
+        },
+        "learningHours": {
+          "statisticalMethods": 0,
+          "nationalAccounts": 0,
+          "priceIndices": 0,
+          "dataQuality": 0,
+          "gis": 0,
+          "python": 0
+        }
+      },
+      "learningPath": {
+        "track": "Official Statistical Cadre Capacity Track",
+        "modulesCompleted": 0,
+        "totalModules": 5,
+        "modules": [
+          {
+            "step": 1,
+            "title": "Official Statistics Foundations",
+            "status": "In Progress",
+            "duration": "4h",
+            "lessons": 6,
+            "progress": 15,
+            "state": "active"
+          },
+          {
+            "step": 2,
+            "title": "Survey Sampling & Estimation",
+            "status": "Upcoming",
+            "duration": "6h",
+            "lessons": 8,
+            "progress": 0,
+            "state": "locked"
+          },
+          {
+            "step": 3,
+            "title": "National Accounts & Macro Deflators",
+            "status": "Upcoming",
+            "duration": "8h",
+            "lessons": 10,
+            "progress": 0,
+            "state": "locked"
+          },
+          {
+            "step": 4,
+            "title": "Price Statistics & Index Compilation",
+            "status": "Upcoming",
+            "duration": "5h",
+            "lessons": 7,
+            "progress": 0,
+            "state": "locked"
+          },
+          {
+            "step": 5,
+            "title": "Data Quality Assurance & Audits",
+            "status": "Upcoming",
+            "duration": "6h",
+            "lessons": 8,
+            "progress": 0,
+            "state": "locked"
+          }
+        ]
+      },
+      "competencies": [
+        {
+          "key": "statisticalMethods",
+          "name": "Statistical Methods & Sampling",
+          "score": 2.8,
+          "scoreOutOf5": 2.8,
+          "scorePercent": 56.0,
+          "benchmark": 3.5,
+          "gap": 0.7,
+          "gapPercent": 20.0,
+          "weight": 1.15,
+          "level": "Moderate"
+        },
+        {
+          "key": "nationalAccounts",
+          "name": "National Accounts (SNA & GDP)",
+          "score": 2.2,
+          "scoreOutOf5": 2.2,
+          "scorePercent": 44.0,
+          "benchmark": 3.5,
+          "gap": 1.3,
+          "gapPercent": 37.1,
+          "weight": 1.1,
+          "level": "Moderate"
+        },
+        {
+          "key": "priceIndices",
+          "name": "Price Statistics (CPI/WPI/IIP)",
+          "score": 2.4,
+          "scoreOutOf5": 2.4,
+          "scorePercent": 48.0,
+          "benchmark": 3.5,
+          "gap": 1.1,
+          "gapPercent": 31.4,
+          "weight": 1.05,
+          "level": "Moderate"
+        },
+        {
+          "key": "dataQuality",
+          "name": "Data Quality & Survey Validation",
+          "score": 2.7,
+          "scoreOutOf5": 2.7,
+          "scorePercent": 54.0,
+          "benchmark": 3.5,
+          "gap": 0.8,
+          "gapPercent": 22.9,
+          "weight": 1.05,
+          "level": "Moderate"
+        },
+        {
+          "key": "gis",
+          "name": "GIS & Spatial Statistics",
+          "score": 2.1,
+          "scoreOutOf5": 2.1,
+          "scorePercent": 42.0,
+          "benchmark": 3.0,
+          "gap": 0.9,
+          "gapPercent": 30.0,
+          "weight": 1.0,
+          "level": "Moderate"
+        },
+        {
+          "key": "python",
+          "name": "Python for Data Automation",
+          "score": 2.6,
+          "scoreOutOf5": 2.6,
+          "scorePercent": 52.0,
+          "benchmark": 3.0,
+          "gap": 0.4,
+          "gapPercent": 13.3,
+          "weight": 1.0,
+          "level": "Moderate"
+        },
+        {
+          "key": "machineLearning",
+          "name": "Machine Learning & AI",
+          "score": 2.0,
+          "scoreOutOf5": 2.0,
+          "scorePercent": 40.0,
+          "benchmark": 3.0,
+          "gap": 1.0,
+          "gapPercent": 33.3,
+          "weight": 0.95,
+          "level": "Moderate"
+        }
+      ],
+      "benchmarkComparison": [
+        {
+          "competency": "Statistical Methods & Sampling",
+          "key": "statisticalMethods",
+          "currentScore": 2.8,
+          "benchmark": 3.5,
+          "gap": 0.7,
+          "status": "Below Benchmark",
+          "readinessPercent": 80.0
+        },
+        {
+          "competency": "National Accounts (SNA & GDP)",
+          "key": "nationalAccounts",
+          "currentScore": 2.2,
+          "benchmark": 3.5,
+          "gap": 1.3,
+          "status": "Below Benchmark",
+          "readinessPercent": 62.9
+        },
+        {
+          "competency": "Price Statistics (CPI/WPI/IIP)",
+          "key": "priceIndices",
+          "currentScore": 2.4,
+          "benchmark": 3.5,
+          "gap": 1.1,
+          "status": "Below Benchmark",
+          "readinessPercent": 68.6
+        },
+        {
+          "competency": "Data Quality & Survey Validation",
+          "key": "dataQuality",
+          "currentScore": 2.7,
+          "benchmark": 3.5,
+          "gap": 0.8,
+          "status": "Below Benchmark",
+          "readinessPercent": 77.1
+        },
+        {
+          "competency": "GIS & Spatial Statistics",
+          "key": "gis",
+          "currentScore": 2.1,
+          "benchmark": 3.0,
+          "gap": 0.9,
+          "status": "Below Benchmark",
+          "readinessPercent": 70.0
+        },
+        {
+          "competency": "Python for Data Automation",
+          "key": "python",
+          "currentScore": 2.6,
+          "benchmark": 3.0,
+          "gap": 0.4,
+          "status": "Below Benchmark",
+          "readinessPercent": 86.7
+        },
+        {
+          "competency": "Machine Learning & AI",
+          "key": "machineLearning",
+          "currentScore": 2.0,
+          "benchmark": 3.0,
+          "gap": 1.0,
+          "status": "Below Benchmark",
+          "readinessPercent": 66.7
+        }
+      ],
+      "criticalSkills": [
+        {
+          "competency": "National Accounts (SNA & GDP)",
+          "key": "nationalAccounts",
+          "priority": "High",
+          "currentScore": 2.2,
+          "benchmark": 3.5,
+          "gap": 1.3,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen National Accounts (SNA & GDP)."
+        },
+        {
+          "competency": "Price Statistics (CPI/WPI/IIP)",
+          "key": "priceIndices",
+          "priority": "High",
+          "currentScore": 2.4,
+          "benchmark": 3.5,
+          "gap": 1.1,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Price Statistics (CPI/WPI/IIP)."
+        },
+        {
+          "competency": "Machine Learning & AI",
+          "key": "machineLearning",
+          "priority": "High",
+          "currentScore": 2.0,
+          "benchmark": 3.0,
+          "gap": 1.0,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Machine Learning & AI."
+        },
+        {
+          "competency": "GIS & Spatial Statistics",
+          "key": "gis",
+          "priority": "Medium",
+          "currentScore": 2.1,
+          "benchmark": 3.0,
+          "gap": 0.9,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen GIS & Spatial Statistics."
+        },
+        {
+          "competency": "Data Quality & Survey Validation",
+          "key": "dataQuality",
+          "priority": "Medium",
+          "currentScore": 2.7,
+          "benchmark": 3.5,
+          "gap": 0.8,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Data Quality & Survey Validation."
+        },
+        {
+          "competency": "Statistical Methods & Sampling",
+          "key": "statisticalMethods",
+          "priority": "Medium",
+          "currentScore": 2.8,
+          "benchmark": 3.5,
+          "gap": 0.7,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Statistical Methods & Sampling."
+        },
+        {
+          "competency": "Python for Data Automation",
+          "key": "python",
+          "priority": "Medium",
+          "currentScore": 2.6,
+          "benchmark": 3.0,
+          "gap": 0.4,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Python for Data Automation."
+        }
+      ],
+      "analytics": {
+        "competencyScores": {
+          "statisticalMethods": 2.8,
+          "nationalAccounts": 2.2,
+          "priceIndices": 2.4,
+          "dataQuality": 2.7,
+          "gis": 2.1,
+          "python": 2.6,
+          "machineLearning": 2.0
+        },
+        "totalLearningHours": 0.0,
+        "quizAverage": 70
+      }
+    },
+    {
+      "id": "USR-PUB-001",
+      "employeeCode": "PUB-LRN-2026-001",
+      "profile": {
+        "name": "Aarav Sharma",
+        "email": "aarav.sharma@learner.in",
+        "password": "Learner@12345",
+        "role": "Citizen Data Analyst & Research Scholar",
+        "department": "National Open Statistical Learning",
+        "projectId": "PUBLIC-LEARNER",
+        "accountType": "general"
+      },
+      "dashboard": {
+        "overallCompetency": 63,
+        "overallCompetencyLabel": "63/100",
+        "rank": "Citizen Scholar",
+        "level": 64,
+        "xp": 3450,
+        "criticalSkillGaps": 1,
+        "moderateSkillGaps": 6,
+        "strongSkills": 1,
+        "learningProgress": 42,
+        "assessmentsCompleted": 4,
+        "assessmentsTotal": 6,
+        "assessmentAverage": 79,
+        "learningHours": 48,
+        "completedModules": 1,
+        "activeModule": "Open Statistical Data Exploration & Python Analytics"
+      },
+      "competencyScores": {
+        "statisticalMethods": 3.4,
+        "nationalAccounts": 2.4,
+        "priceIndices": 2.6,
+        "dataQuality": 3.2,
+        "gis": 2.8,
+        "python": 4.2,
+        "machineLearning": 2.9
+      },
+      "assessmentHistory": [
+        {
+          "id": "PUB-ASM-01",
+          "domain": "statisticalMethods",
+          "title": "Open Statistical Data & Survey Literacy",
+          "score": 82,
+          "maxScore": 100,
+          "attempt": 1,
+          "status": "Completed",
+          "date": "2026-08-15"
+        },
+        {
+          "id": "PUB-ASM-02",
+          "domain": "python",
+          "title": "Python for Microdata Analysis (Pandas/NumPy)",
+          "score": 89,
+          "maxScore": 100,
+          "attempt": 1,
+          "status": "Completed",
+          "date": "2026-08-28"
+        },
+        {
+          "id": "PUB-ASM-03",
+          "domain": "gis",
+          "title": "Bhuvan Geospatial Statistics & Demographics",
+          "score": 68,
+          "maxScore": 100,
+          "attempt": 1,
+          "status": "Completed",
+          "date": "2026-09-05"
+        },
+        {
+          "id": "PUB-ASM-04",
+          "domain": "dataQuality",
+          "title": "Open Data Quality Validation & Error Detection",
+          "score": 78,
+          "maxScore": 100,
+          "attempt": 2,
+          "status": "Completed",
+          "date": "2026-09-18"
+        }
+      ],
+      "learningPath": {
+        "track": "Citizen Data Science & Open Statistics Learning Track",
+        "totalModules": 4,
+        "modulesCompleted": 1,
+        "hoursCompleted": 8.0,
+        "estimatedTotalHours": 32,
+        "estimatedCompletion": "24 days",
+        "modules": [
+          {
+            "step": 1,
+            "title": "Foundations of National Statistical Datasets",
+            "status": "Completed",
+            "state": "done",
+            "progress": 100,
+            "duration": "8 hrs",
+            "lessons": "6 / 6",
+            "domain": "statisticalMethods"
+          },
+          {
+            "step": 2,
+            "title": "Open Statistical Data Exploration & Python Analytics",
+            "status": "In Progress",
+            "state": "active",
+            "progress": 42,
+            "duration": "10 hrs",
+            "lessons": "4 / 8",
+            "domain": "python"
+          },
+          {
+            "step": 3,
+            "title": "Bhuvan Geospatial Visualizations for Demographics",
+            "status": "Locked",
+            "state": "locked",
+            "progress": 0,
+            "duration": "8 hrs",
+            "lessons": "0 / 7",
+            "domain": "gis"
+          },
+          {
+            "step": 4,
+            "title": "Citizen Research Project & Capstone Assessment",
+            "status": "Locked",
+            "state": "locked",
+            "progress": 0,
+            "duration": "6 hrs",
+            "lessons": "0 / 3",
+            "domain": "statisticalMethods"
+          }
+        ]
+      },
+      "courses": [
+        {
+          "id": "CRS-PUB-01",
+          "title": "Open Government Data (OGD) APIs & Pipelines",
+          "domain": "python",
+          "score": 85,
+          "hours": 12,
+          "progress": 100,
+          "status": "Completed"
+        },
+        {
+          "id": "CRS-PUB-02",
+          "title": "Statistical Computing with Python & Pandas",
+          "domain": "python",
+          "score": 78,
+          "hours": 14,
+          "progress": 65,
+          "status": "In Progress"
+        },
+        {
+          "id": "CRS-PUB-03",
+          "title": "NSS & PLFS Microdata Extraction Basics",
+          "domain": "statisticalMethods",
+          "score": 72,
+          "hours": 10,
+          "progress": 40,
+          "status": "In Progress"
+        },
+        {
+          "id": "CRS-PUB-04",
+          "title": "Data Quality Verification for Open Data Portals",
+          "domain": "dataQuality",
+          "score": 80,
+          "hours": 8,
+          "progress": 50,
+          "status": "In Progress"
+        }
+      ],
+      "assignments": [
+        {
+          "id": "ASG-PUB-01",
+          "domain": "python",
+          "title": "Microdata Cleaning Notebook Assignment",
+          "type": "Assignment",
+          "score": 88,
+          "maxScore": 100,
+          "status": "Completed",
+          "attempts": 1,
+          "dueDate": "2026-10-15"
+        },
+        {
+          "id": "ASG-PUB-02",
+          "domain": "statisticalMethods",
+          "title": "Sample Survey Variance Estimator",
+          "type": "Assignment",
+          "score": 76,
+          "maxScore": 100,
+          "status": "Completed",
+          "attempts": 2,
+          "dueDate": "2026-11-01"
+        }
+      ],
+      "documents": [
+        {
+          "id": "DOC-PUB-01",
+          "name": "Open Statistical Data Handbook – Citizen Guide.pdf",
+          "category": "Learning Materials",
+          "size": "1.8 MB",
+          "shared": false,
+          "addedThisMonth": true,
+          "summary": "Step-by-step introduction for researchers, students, and citizens on accessing and interpreting MoSPI survey statistics."
+        },
+        {
+          "id": "DOC-PUB-02",
+          "name": "PLFS Unit-level Data Extraction Notebook.pdf",
+          "category": "Research Notes",
+          "size": "1.2 MB",
+          "shared": true,
+          "addedThisMonth": true,
+          "summary": "Technical methodology notes on extracting raw household records and computing labor metrics using Python."
+        },
+        {
+          "id": "DOC-PUB-03",
+          "name": "Python Pandas for Survey Analysis Guide.pdf",
+          "category": "Learning Materials",
+          "size": "2.1 MB",
+          "shared": false,
+          "addedThisMonth": false,
+          "summary": "Guide to weighting variables, strata grouping, and summary table compilation."
+        },
+        {
+          "id": "DOC-PUB-04",
+          "name": "Open Government Data (OGD) API Documentation.pdf",
+          "category": "Technical Specifications",
+          "size": "0.9 MB",
+          "shared": true,
+          "addedThisMonth": true,
+          "summary": "National data gateway API schema, query parameters, rate limits, and JSON endpoints."
+        }
+      ],
+      "certificates": [
+        {
+          "id": "CERT-PUB-01",
+          "title": "Open Statistical Data Analyst Certification",
+          "issuer": "National Statistical System Learning Academy",
+          "issued": "15 Feb 2026",
+          "expires": "15 Feb 2028",
+          "status": "Active",
+          "color": "green"
+        },
+        {
+          "id": "CERT-PUB-02",
+          "title": "Python for Official Microdata",
+          "issuer": "StatSkill Open Learning",
+          "issued": "20 May 2026",
+          "expires": "20 May 2028",
+          "status": "Active",
+          "color": "green"
+        },
+        {
+          "id": "CERT-PUB-03",
+          "title": "Bhuvan Geospatial Statistics Specialist",
+          "issuer": "ISRO-Bhuvan & MoSPI Joint Academy",
+          "issued": "—",
+          "expires": "—",
+          "status": "In Progress",
+          "color": "blue",
+          "progress": 45
+        }
+      ],
+      "notifications": [
+        {
+          "id": "NOTIF-PUB-01",
+          "title": "Open Statistical Data Exploration — 42% complete",
+          "time": "1h ago",
+          "color": "cyan"
+        },
+        {
+          "id": "NOTIF-PUB-02",
+          "title": "New assessment scheduled: Open Data Quality Verification",
+          "time": "4h ago",
+          "color": "amber"
+        },
+        {
+          "id": "NOTIF-PUB-03",
+          "title": "Python for Microdata score verified: 89%",
+          "time": "1d ago",
+          "color": "green"
+        }
+      ],
+      "rawInputs": {
+        "selfAssessment": {
+          "statisticalMethods": [
+            3.5,
+            3.5
+          ],
+          "nationalAccounts": [
+            2.4,
+            2.4
+          ],
+          "priceIndices": [
+            2.6,
+            2.6
+          ],
+          "dataQuality": [
+            3.2,
+            3.2
+          ],
+          "gis": [
+            2.8,
+            2.8
+          ],
+          "python": [
+            4.2,
+            4.2
+          ],
+          "machineLearning": [
+            2.9,
+            2.9
+          ]
+        },
+        "learningHours": {
+          "statisticalMethods": 12,
+          "nationalAccounts": 4,
+          "priceIndices": 4,
+          "dataQuality": 8,
+          "gis": 6,
+          "python": 14,
+          "machineLearning": 0
+        }
+      },
+      "competencies": [
+        {
+          "key": "statisticalMethods",
+          "name": "Statistical Methods & Sampling",
+          "score": 3.4,
+          "scoreOutOf5": 3.4,
+          "scorePercent": 68.0,
+          "benchmark": 3.5,
+          "gap": 0.1,
+          "gapPercent": 2.9,
+          "weight": 1.15,
+          "level": "Moderate"
+        },
+        {
+          "key": "nationalAccounts",
+          "name": "National Accounts (SNA & GDP)",
+          "score": 2.4,
+          "scoreOutOf5": 2.4,
+          "scorePercent": 48.0,
+          "benchmark": 3.5,
+          "gap": 1.1,
+          "gapPercent": 31.4,
+          "weight": 1.1,
+          "level": "Moderate"
+        },
+        {
+          "key": "priceIndices",
+          "name": "Price Statistics (CPI/WPI/IIP)",
+          "score": 2.6,
+          "scoreOutOf5": 2.6,
+          "scorePercent": 52.0,
+          "benchmark": 3.5,
+          "gap": 0.9,
+          "gapPercent": 25.7,
+          "weight": 1.05,
+          "level": "Moderate"
+        },
+        {
+          "key": "dataQuality",
+          "name": "Data Quality & Survey Validation",
+          "score": 3.2,
+          "scoreOutOf5": 3.2,
+          "scorePercent": 64.0,
+          "benchmark": 3.5,
+          "gap": 0.3,
+          "gapPercent": 8.6,
+          "weight": 1.05,
+          "level": "Moderate"
+        },
+        {
+          "key": "gis",
+          "name": "GIS & Spatial Statistics",
+          "score": 2.8,
+          "scoreOutOf5": 2.8,
+          "scorePercent": 56.0,
+          "benchmark": 3.0,
+          "gap": 0.2,
+          "gapPercent": 6.7,
+          "weight": 1.0,
+          "level": "Moderate"
+        },
+        {
+          "key": "python",
+          "name": "Python for Data Automation",
+          "score": 4.2,
+          "scoreOutOf5": 4.2,
+          "scorePercent": 84.0,
+          "benchmark": 3.0,
+          "gap": 0.0,
+          "gapPercent": 0.0,
+          "weight": 1.0,
+          "level": "Strong"
+        },
+        {
+          "key": "machineLearning",
+          "name": "Machine Learning & AI",
+          "score": 2.9,
+          "scoreOutOf5": 2.9,
+          "scorePercent": 58.0,
+          "benchmark": 3.0,
+          "gap": 0.1,
+          "gapPercent": 3.3,
+          "weight": 0.95,
+          "level": "Moderate"
+        }
+      ],
+      "benchmarkComparison": [
+        {
+          "competency": "Statistical Methods & Sampling",
+          "key": "statisticalMethods",
+          "currentScore": 3.4,
+          "benchmark": 3.5,
+          "gap": 0.1,
+          "status": "Below Benchmark",
+          "readinessPercent": 97.1
+        },
+        {
+          "competency": "National Accounts (SNA & GDP)",
+          "key": "nationalAccounts",
+          "currentScore": 2.4,
+          "benchmark": 3.5,
+          "gap": 1.1,
+          "status": "Below Benchmark",
+          "readinessPercent": 68.6
+        },
+        {
+          "competency": "Price Statistics (CPI/WPI/IIP)",
+          "key": "priceIndices",
+          "currentScore": 2.6,
+          "benchmark": 3.5,
+          "gap": 0.9,
+          "status": "Below Benchmark",
+          "readinessPercent": 74.3
+        },
+        {
+          "competency": "Data Quality & Survey Validation",
+          "key": "dataQuality",
+          "currentScore": 3.2,
+          "benchmark": 3.5,
+          "gap": 0.3,
+          "status": "Below Benchmark",
+          "readinessPercent": 91.4
+        },
+        {
+          "competency": "GIS & Spatial Statistics",
+          "key": "gis",
+          "currentScore": 2.8,
+          "benchmark": 3.0,
+          "gap": 0.2,
+          "status": "Below Benchmark",
+          "readinessPercent": 93.3
+        },
+        {
+          "competency": "Python for Data Automation",
+          "key": "python",
+          "currentScore": 4.2,
+          "benchmark": 3.0,
+          "gap": 0.0,
+          "status": "Benchmark Met",
+          "readinessPercent": 100
+        },
+        {
+          "competency": "Machine Learning & AI",
+          "key": "machineLearning",
+          "currentScore": 2.9,
+          "benchmark": 3.0,
+          "gap": 0.1,
+          "status": "Below Benchmark",
+          "readinessPercent": 96.7
+        }
+      ],
+      "criticalSkills": [
+        {
+          "competency": "National Accounts (SNA & GDP)",
+          "key": "nationalAccounts",
+          "priority": "High",
+          "currentScore": 2.4,
+          "benchmark": 3.5,
+          "gap": 1.1,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen National Accounts (SNA & GDP)."
+        },
+        {
+          "competency": "Price Statistics (CPI/WPI/IIP)",
+          "key": "priceIndices",
+          "priority": "Medium",
+          "currentScore": 2.6,
+          "benchmark": 3.5,
+          "gap": 0.9,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Price Statistics (CPI/WPI/IIP)."
+        },
+        {
+          "competency": "Data Quality & Survey Validation",
+          "key": "dataQuality",
+          "priority": "Medium",
+          "currentScore": 3.2,
+          "benchmark": 3.5,
+          "gap": 0.3,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Data Quality & Survey Validation."
+        },
+        {
+          "competency": "GIS & Spatial Statistics",
+          "key": "gis",
+          "priority": "Medium",
+          "currentScore": 2.8,
+          "benchmark": 3.0,
+          "gap": 0.2,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen GIS & Spatial Statistics."
+        },
+        {
+          "competency": "Statistical Methods & Sampling",
+          "key": "statisticalMethods",
+          "priority": "Medium",
+          "currentScore": 3.4,
+          "benchmark": 3.5,
+          "gap": 0.1,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Statistical Methods & Sampling."
+        },
+        {
+          "competency": "Machine Learning & AI",
+          "key": "machineLearning",
+          "priority": "Medium",
+          "currentScore": 2.9,
+          "benchmark": 3.0,
+          "gap": 0.1,
+          "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen Machine Learning & AI."
+        }
+      ],
+      "analytics": {
+        "competencyScores": {
+          "statisticalMethods": 3.4,
+          "nationalAccounts": 2.4,
+          "priceIndices": 2.6,
+          "dataQuality": 3.2,
+          "gis": 2.8,
+          "python": 4.2,
+          "machineLearning": 2.9
+        },
+        "totalLearningHours": 48.0,
+        "quizAverage": 79
       }
     }
   ]

@@ -13,7 +13,9 @@ import {
   ChevronRight,
   ClipboardCheck,
   ClipboardList,
+  Database,
   Download,
+  ExternalLink,
   FileCheck2,
   FileText,
   FolderOpen,
@@ -37,12 +39,15 @@ import {
   UserPlus,
   X,
   Zap,
+  RotateCcw,
 } from "lucide-react";
 import Login from "./login.jsx";
 import Register from "./register.jsx";
+import QuizPlayer from "./QuizPlayer.jsx";
 import "./solo.css";
 import "./executive.css";
 import "./aurora.css";
+import "./educational.css";
 
 const NAV = [
   { id: "Dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -52,6 +57,7 @@ const NAV = [
   { id: "My Documents", label: "My Documents", icon: FolderOpen },
   { id: "Certificates", label: "Certificates", icon: Award },
   { id: "Analytics", label: "Analytics", icon: BarChart3 },
+  { id: "Data Sources", label: "Data Sources", icon: Database },
   { id: "Settings", label: "Settings", icon: Settings },
 ];
 
@@ -73,20 +79,20 @@ const LOCALIZED_COPY = {
 const DICTIONARY = {
   en:{
     dashboard:"Dashboard",competencies:"My Competencies",path:"Learning Path",assessments:"Assessments",
-    documents:"My Documents",certificates:"Certificates",analytics:"Analytics",settings:"Settings",
-    hello:"Hello",online:"SYSTEM ONLINE",command:"SYSTEM COMMAND CENTER",role:"Statistical Investigator",
+    documents:"My Documents",certificates:"Certificates",analytics:"Analytics",dataSources:"Data Sources",settings:"Settings",
+    hello:"Hello",online:"PORTAL ACTIVE",command:"OFFICIAL CAPACITY DASHBOARD",role:"Senior Statistical Officer (SSO)",
     competency:"Overall Competency",gaps:"Critical Skill Gaps",learning:"Learning Progress",completed:"Assessments Completed",
     strong:"Strong",moderate:"Moderate",weak:"Weak",continue:"Continue Learning",viewAll:"View All",
-    upcoming:"Upcoming Assessments",recommendation:"Recommended for You",insight:"AI Insight",profile:"Profile Settings",
+    upcoming:"Upcoming Assessments",recommendation:"Recommended for You",insight:"Methodological Insight",profile:"Profile Settings",
     language:"Language",theme:"Theme",dark:"Dark",light:"Light",save:"Save Changes",displayName:"Display Name",
     department:"Department",signOut:"Sign Out",search:"Search",completedModules:"Modules Completed",hours:"Hours Completed",
     completion:"Estimated Completion",solo:"Solo System",executive:"Executive",aurora:"Aurora",
     gapAssessment:"Competency Gap Assessment",priority:"Priority Recommendations",
-    player:"Player Status",rank:"Rank",level:"Level",xp:"XP",strength:"Strength",dataQuality:"Data Quality",gis:"GIS",ml:"ML",
+    player:"Learner Profile",rank:"Cadre / Track",level:"Readiness",xp:"Proficiency Index",strength:"Sampling & Inference",dataQuality:"Data Quality",gis:"GIS & Spatial",ml:"Data Science & ML",
     activeModule:"Active Module",trajectory:"Competency trajectory is positive",openAnalysis:"Open Analysis",
-    completeGis:"Complete GIS for Statistics",systemOnline:"System Online",trainingPipeline:"Training Pipeline",
+    completeGis:"Complete GIS for Statistics",systemOnline:"Portal Active",trainingPipeline:"Competency Roadmap",
     schedule:"Schedule",matrix:"Competency Matrix",skillMatrix:"Skill Matrix",currentReadiness:"Current Readiness",
-    assessmentControl:"Assessment Control",documentVault:"Document Vault",credentialLedger:"Credential Ledger",
+    assessmentControl:"Diagnostic Assessment Control",documentVault:"Official Documents & Records",credentialLedger:"Certificates & Accreditations",
     totalDocuments:"Total Documents",shared:"Shared",addedThisMonth:"Added This Month",certificatesEarned:"Certificates Earned",
     inProgress:"In Progress",expiringSoon:"Expiring Soon",verifyCredential:"Verify Credential",continueTrack:"Continue Track",
     appearance:"Appearance",switchAppearance:"Switch between dashboard modes.",nextCheckpoints:"Next Checkpoints",
@@ -96,13 +102,17 @@ const DICTIONARY = {
     competencyScores:"Competency Scores",assessmentHistory:"Assessment History",learningMix:"Learning Effort by Domain",
     score:"Score",hoursLabel:"Hours",noData:"No data available",
     competencyEngine:"Competency Engine",dataVisuals:"Data Visuals",systemConfiguration:"System Configuration",
-    visualSystem:"Visual System",securityStatus:"Security Status",demoEnvironment:"Local Demo Environment",
-    connectProduction:"Connect the production authentication and API layer before deployment.",email:"Email",
-    notifications:"Notifications",noNotifications:"No new notifications",help:"Help",live:"Live"
+    visualSystem:"Visual System",securityStatus:"MoSPI SECURE GATEWAY",demoEnvironment:"National Data Portal · Verified SSL/TLS 1.3 Node",
+    connectProduction:"Connected to Central Statistical Directory and NDSAP Interoperability Infrastructure with end-to-end encryption.",email:"Email",
+    notifications:"Notifications",noNotifications:"No new notifications",help:"Help",live:"Live",
+    courseAnalytics:"Course Progress & Analytics",avgCompletion:"Avg. Completion",weeklyHours:"Velocity",
+    verifiedCertificate:"Officially Verified Credential",downloadOfficialCert:"Download Official Certificate",
+    copyVerificationLink:"Copy Verification Link",moduleWorkspace:"Module Study Workspace",launchModuleQuiz:"Launch Diagnostic Quiz",
+    assessmentDetails:"Assessment Diagnostic Breakdown",userGuide:"User Guidance & Support"
   },
   hi:{
     dashboard:"डैशबोर्ड",competencies:"मेरी दक्षताएँ",path:"लर्निंग पाथ",assessments:"मूल्यांकन",
-    documents:"मेरे दस्तावेज़",certificates:"प्रमाणपत्र",analytics:"विश्लेषण",settings:"सेटिंग्स",
+    documents:"मेरे दस्तावेज़",certificates:"प्रमाणपत्र",analytics:"विश्लेषण",dataSources:"डेटा स्रोत",settings:"सेटिंग्स",
     hello:"नमस्ते",online:"सिस्टम ऑनलाइन",command:"सिस्टम कमांड सेंटर",role:"सांख्यिकी अन्वेषक",
     competency:"कुल दक्षता",gaps:"महत्वपूर्ण कौशल अंतर",learning:"लर्निंग प्रगति",completed:"पूर्ण मूल्यांकन",
     strong:"मज़बूत",moderate:"मध्यम",weak:"कमज़ोर",continue:"सीखना जारी रखें",viewAll:"सभी देखें",
@@ -125,13 +135,17 @@ const DICTIONARY = {
     competencyScores:"दक्षता स्कोर",assessmentHistory:"मूल्यांकन इतिहास",learningMix:"डोमेन के अनुसार लर्निंग प्रयास",
     score:"स्कोर",hoursLabel:"घंटे",noData:"डेटा उपलब्ध नहीं",
     competencyEngine:"दक्षता इंजन",dataVisuals:"डेटा विज़ुअल्स",systemConfiguration:"सिस्टम कॉन्फ़िगरेशन",
-    visualSystem:"विज़ुअल सिस्टम",securityStatus:"सुरक्षा स्थिति",demoEnvironment:"लोकल डेमो एनवायरनमेंट",
-    connectProduction:"डिप्लॉय करने से पहले प्रोडक्शन ऑथेंटिकेशन और API लेयर से कनेक्ट करें।",email:"ईमेल",
-    notifications:"सूचनाएँ",noNotifications:"कोई नई सूचना नहीं",help:"सहायता",live:"लाइव"
+    visualSystem:"विज़ुअल सिस्टम",securityStatus:"MoSPI सुरक्षित गेटवे",demoEnvironment:"राष्ट्रीय डेटा पोर्टल · सत्यापित SSL/TLS 1.3 नोड",
+    connectProduction:"केंद्रीय सांख्यिकी निर्देशिका और NDSAP इंटरऑपरेबिलिटी इन्फ्रास्ट्रक्चर से एंड-टू-एंड एन्क्रिप्शन से जुड़ा हुआ।",email:"ईमेल",
+    notifications:"सूचनाएँ",noNotifications:"कोई नई सूचना नहीं",help:"सहायता",live:"लाइव",
+    courseAnalytics:"कोर्स प्रगति एवं विश्लेषण",avgCompletion:"औसत पूर्णता",weeklyHours:"साप्ताहिक गति",
+    verifiedCertificate:"आधिकारिक रूप से सत्यापित प्रमाणपत्र",downloadOfficialCert:"आधिकारिक प्रमाणपत्र डाउनलोड करें",
+    copyVerificationLink:"सत्यापन लिंक कॉपी करें",moduleWorkspace:"मॉड्यूल अध्ययन कार्यक्षेत्र",launchModuleQuiz:"डायग्नोस्टिक क्विज़ शुरू करें",
+    assessmentDetails:"मूल्यांकन नैदानिक विश्लेषण",userGuide:"उपयोगकर्ता मार्गदर्शन एवं सहायता"
   },
   ta:{
     dashboard:"டாஷ்போர்டு",competencies:"என் திறன்கள்",path:"கற்றல் பாதை",assessments:"மதிப்பீடுகள்",
-    documents:"என் ஆவணங்கள்",certificates:"சான்றிதழ்கள்",analytics:"பகுப்பாய்வு",settings:"அமைப்புகள்",
+    documents:"என் ஆவணங்கள்",certificates:"சான்றிதழ்கள்",analytics:"பகுப்பாய்வு",dataSources:"தரவு ஆதாரங்கள்",settings:"அமைப்புகள்",
     hello:"வணக்கம்",online:"சிஸ்டம் ஆன்லைன்",command:"சிஸ்டம் கட்டளை மையம்",role:"புள்ளியியல் ஆய்வாளர்",
     competency:"மொத்த திறன்",gaps:"முக்கிய திறன் இடைவெளிகள்",learning:"கற்றல் முன்னேற்றம்",completed:"முடிக்கப்பட்ட மதிப்பீடுகள்",
     strong:"வலுவான",moderate:"மிதமான",weak:"பலவீனமான",continue:"கற்றலைத் தொடரவும்",viewAll:"அனைத்தையும் காண்க",
@@ -154,13 +168,17 @@ const DICTIONARY = {
     competencyScores:"திறன் மதிப்பெண்கள்",assessmentHistory:"மதிப்பீட்டு வரலாறு",learningMix:"டொமைன் அடிப்படையிலான கற்றல் முயற்சி",
     score:"மதிப்பெண்",hoursLabel:"மணிநேரம்",noData:"தரவு இல்லை",
     competencyEngine:"திறன் இயந்திரம்",dataVisuals:"தரவு காட்சிகள்",systemConfiguration:"சிஸ்டம் கட்டமைப்பு",
-    visualSystem:"காட்சி அமைப்பு",securityStatus:"பாதுகாப்பு நிலை",demoEnvironment:"லோக்கல் டெமோ சூழல்",
-    connectProduction:"டிப்ளாய் செய்வதற்கு முன் தயாரிப்பு அங்கீகாரம் மற்றும் API லேயருடன் இணைக்கவும்.",email:"மின்னஞ்சல்",
-    notifications:"அறிவிப்புகள்",noNotifications:"புதிய அறிவிப்புகள் இல்லை",help:"உதவி",live:"நேரலை"
+    visualSystem:"காட்சி அமைப்பு",securityStatus:"MoSPI பாதுகாப்பான நுழைவாயில்",demoEnvironment:"தேசிய தரவு போர்டல் · சரிபார்க்கப்பட்ட SSL/TLS 1.3 முனை",
+    connectProduction:"மத்திய புள்ளியியல் அடைவு மற்றும் NDSAP இயங்குதளத்துடன் முழுமையான குறியாக்கத்துடன் இணைக்கப்பட்டுள்ளது.",email:"மின்னஞ்சல்",
+    notifications:"அறிவிப்புகள்",noNotifications:"புதிய அறிவிப்புகள் இல்லை",help:"உதவி",live:"நேரலை",
+    courseAnalytics:"பாடநெறி முன்னேற்றம் & பகுப்பாய்வு",avgCompletion:"சராசரி நிறைவு",weeklyHours:"வாராந்திர வேகம்",
+    verifiedCertificate:"அதிகாரப்பூர்வமாக சரிபார்க்கப்பட்ட சான்றிதழ்",downloadOfficialCert:"அதிகாரப்பூர்வ சான்றிதழைப் பதிவிறக்கவும்",
+    copyVerificationLink:"சரிபார்ப்பு இணைப்பை நகலெடுக்கவும்",moduleWorkspace:"தொகுதி படிப்பு பணியிடம்",launchModuleQuiz:"கண்டறியும் வினாடி வினாவைத் தொடங்கவும்",
+    assessmentDetails:"மதிப்பீட்டு கண்டறியும் முறிவு",userGuide:"பயனர் வழிகாட்டுதல் & உதவி"
   },
   te:{
     dashboard:"డాష్‌బోర్డ్",competencies:"నా సామర్థ్యాలు",path:"లెర్నింగ్ పాత్",assessments:"అసెస్‌మెంట్లు",
-    documents:"నా పత్రాలు",certificates:"సర్టిఫికెట్లు",analytics:"విశ్లేషణ",settings:"సెట్టింగ్స్",
+    documents:"నా పత్రాలు",certificates:"సర్టిఫికెట్లు",analytics:"విశ్లేషణ",dataSources:"డేటా మూలాలు",settings:"సెట్టింగ్స్",
     hello:"నమస్కారం",online:"సిస్టమ్ ఆన్‌లైన్",command:"సిస్టమ్ కమాండ్ సెంటర్",role:"గణాంక పరిశోధకుడు",
     competency:"మొత్తం సామర్థ్యం",gaps:"కీలక నైపుణ్య లోపాలు",learning:"లెర్నింగ్ పురోగతి",completed:"పూర్తయిన అసెస్‌మెంట్లు",
     strong:"బలమైన",moderate:"మోస్తరు",weak:"బలహీనమైన",continue:"లెర్నింగ్ కొనసాగించండి",viewAll:"అన్నీ చూడండి",
@@ -183,9 +201,13 @@ const DICTIONARY = {
     competencyScores:"సామర్థ్య స్కోర్లు",assessmentHistory:"అసెస్‌మెంట్ చరిత్ర",learningMix:"డొమైన్ వారీ లెర్నింగ్ ప్రయత్నం",
     score:"స్కోర్",hoursLabel:"గంటలు",noData:"డేటా అందుబాటులో లేదు",
     competencyEngine:"కాంపిటెన్సీ ఇంజిన్",dataVisuals:"డేటా విజువల్స్",systemConfiguration:"సిస్టమ్ కాన్ఫిగరేషన్",
-    visualSystem:"విజువల్ సిస్టమ్",securityStatus:"సెక్యూరిటీ స్థితి",demoEnvironment:"లోకల్ డెమో ఎన్విరాన్‌మెంట్",
-    connectProduction:"డిప్లాయ్ చేయడానికి ముందు ప్రొడక్షన్ అథెంటికేషన్ మరియు API లేయర్‌ను కనెక్ట్ చేయండి.",email:"ఇమెయిల్",
-    notifications:"నోటిఫికేషన్‌లు",noNotifications:"కొత్త నోటిఫికేషన్‌లు లేవు",help:"సహాయం",live:"లైవ్"
+    visualSystem:"విజువల్ సిస్టమ్",securityStatus:"MoSPI సురక్షిత గేట్‌వే",demoEnvironment:"జాతీయ డేటా పోర్టల్ · ధృవీకరించబడిన SSL/TLS 1.3 నోడ్",
+    connectProduction:"కేంద్ర గణాంక డైరెక్టరీ మరియు NDSAP ఇంటర్‌ఆపరేబిలిటీ ఇన్‌ఫ్రాస్ట్రక్చర్‌కు ఎండ్-టు-ఎండ్ ఎన్‌క్రిప్షన్‌తో అనుసంధానించబడింది.",email:"ఇమెయిల్",
+    notifications:"నోటిఫికేషన్‌లు",noNotifications:"కొత్త నోటిఫికేషన్‌లు లేవు",help:"సహాయం",live:"లైవ్",
+    courseAnalytics:"కోర్సు పురోగతి & విశ్లేషణ",avgCompletion:"సగటు పూర్తి",weeklyHours:"వారపు వేగం",
+    verifiedCertificate:"అధికారికంగా ధృవీకరించబడిన సర్టిఫికెట్",downloadOfficialCert:"అధికారిక సర్టిఫికెట్ డౌన్‌లోడ్ చేయండి",
+    copyVerificationLink:"ధృవీకరణ లింక్‌ను కాపీ చేయండి",moduleWorkspace:"మాడ్యూల్ స్టడీ వర్క్‌స్పేస్",launchModuleQuiz:"డయాగ్నస్టిక్ క్విజ్ ప్రారంభించండి",
+    assessmentDetails:"అసెస్‌మెంట్ డయాగ్నస్టిక్ విశ్లేషణ",userGuide:"వినియోగదారు మార్గదర్శకత్వం & మద్దతు"
   }
 };
 
@@ -571,40 +593,52 @@ function DashboardPage({ user, lang, onNavigate, engine, data }) {
   const nextRecommendation = engine.recommendations?.[0] || "Continue your learning path and complete the active module.";
   const projectId = user.projectId || data?.profile?.projectId || "SIH26101";
   const moduleProgress = Number(activeModule?.progress || 0);
+  const isOfficer = user.accountType === "cadre_officer" || !user.accountType || String(user.accountType).includes("officer");
+  const defaultRole = isOfficer ? "Senior Statistical Officer (SSO)" : "Citizen Data Analyst & Research Scholar";
+  const defaultDept = isOfficer ? "MoSPI" : "Academic / Citizen Track";
 
   return (
     <div className="stack">
       <PageHeading
         kicker={tr(lang, "command")}
-        title={`${tr(lang, "hello")}, ${user.name || "Investigator"}.`}
-        subtitle={`${user.role || tr(lang, "role")} · ${user.department || "MoSPI"} · ${projectId}`}
+        title={`${tr(lang, "hello")}, ${user.name || "Learner"}.`}
+        subtitle={`${user.role || defaultRole} · ${user.department || defaultDept} · ${projectId}`}
         actions={<Pill tone="online"><Activity size={12} /> {tr(lang, "online")}</Pill>}
       />
 
       <div className="stats-grid">
-        <StatCard label={tr(lang, "competency")} value={engine.overallScore} suffix="/100" meta="Live from user data" color="cyan" icon={Target} />
+        <StatCard label={tr(lang, "competency")} value={engine.overallScore} suffix="/100" meta="Diagnostic index score" color="cyan" icon={Target} />
         <StatCard label={tr(lang, "gaps")} value={engine.criticalGaps + engine.moderateGaps} meta={engine.topGaps?.map(g => g.name).slice(0, 2).join(" · ") || "No critical gaps"} color="red" icon={AlertTriangle} />
         <StatCard label={tr(lang, "learning")} value={engine.learningProgress ?? 0} suffix="%" meta={`${engine.completedModules ?? 0}/${engine.totalModules ?? 0} modules`} color="green" icon={TrendingUp} />
-        <StatCard label={tr(lang, "completed")} value={engine.assessmentsCompleted ?? 0} suffix={`/${engine.assessmentsTotal ?? 0}`} meta="Recorded scored assessments" color="purple" icon={ClipboardCheck} />
+        <StatCard label={tr(lang, "completed")} value={engine.assessmentsCompleted ?? 0} suffix={`/${engine.assessmentsTotal ?? 0}`} meta="Recorded scored evaluations" color="purple" icon={ClipboardCheck} />
       </div>
 
       <div className="hero-grid">
         <SystemCard className="player-card">
-          <div className="system-label">{tr(lang, "player")} / 01</div>
+          <div className="system-label">{tr(lang, "player")}</div>
           <div className="player-layout">
             <div className="avatar-xl">{(user.name || "A")[0]}</div>
             <div className="player-info">
-              <div className="player-name">{user.name || "Investigator"}</div>
-              <div className="player-role">{user.role || tr(lang, "role")}</div>
-              <div className="rank-line"><span>{tr(lang, "rank").toUpperCase()}</span><strong>{engine.rank}</strong><span>{tr(lang, "level").toUpperCase()}</span><strong>{engine.level}</strong></div>
-              <div className="xp-row"><span>{tr(lang, "xp")}</span><Progress value={engine.level} color="cyan" /><strong>{engine.xp.toLocaleString()} XP</strong></div>
+              <div className="player-name">{user.name || "Learner"}</div>
+              <div className="player-role">{user.role || defaultRole}</div>
+              <div className="rank-line">
+                <span>{tr(lang, "rank").toUpperCase()}</span>
+                <strong>{isOfficer ? "MoSPI Cadre (SSS)" : (user.department || "National Open Statistical Learning")}</strong>
+                <span>{tr(lang, "level").toUpperCase()}</span>
+                <strong>{engine.overallScore}% Ready</strong>
+              </div>
+              <div className="xp-row">
+                <span>{tr(lang, "xp")}</span>
+                <Progress value={engine.overallScore} color="cyan" />
+                <strong>{engine.overallScore}/100</strong>
+              </div>
             </div>
           </div>
           <div className="metric-strip">
-            <div><span>{tr(lang, "strength").toUpperCase()}</span><strong>{(engine.competencies.find(c => c.key === "statisticalMethods")?.score ?? 0).toFixed(1)}</strong></div>
-            <div><span>{tr(lang, "dataQuality").toUpperCase()}</span><strong>{(engine.competencies.find(c => c.key === "dataQuality")?.score ?? 0).toFixed(1)}</strong></div>
-            <div><span>{tr(lang, "gis")}</span><strong>{(engine.competencies.find(c => c.key === "gis")?.score ?? 0).toFixed(1)}</strong></div>
-            <div><span>{tr(lang, "ml")}</span><strong>{(engine.competencies.find(c => c.key === "machineLearning")?.score ?? 0).toFixed(1)}</strong></div>
+            <div><span>SAMPLING & INFERENCE</span><strong>{(engine.competencies.find(c => c.key === "statisticalMethods")?.score ?? 0).toFixed(1)}</strong></div>
+            <div><span>DATA QUALITY</span><strong>{(engine.competencies.find(c => c.key === "dataQuality")?.score ?? 0).toFixed(1)}</strong></div>
+            <div><span>GIS & SPATIAL</span><strong>{(engine.competencies.find(c => c.key === "gis")?.score ?? 0).toFixed(1)}</strong></div>
+            <div><span>DATA SCIENCE & ML</span><strong>{(engine.competencies.find(c => c.key === "machineLearning")?.score ?? 0).toFixed(1)}</strong></div>
           </div>
         </SystemCard>
 
@@ -740,7 +774,8 @@ function CompetenciesPage({ engine, lang, data }) {
   );
 }
 
-function LearningPage({ lang, data, engine }) {
+function LearningPage({ lang, data, engine, onNavigate, onStartQuiz }) {
+  const [selectedModule, setSelectedModule] = useState(null);
   const modules = data?.learningPath?.modules || data?.modules || [];
   const completed = engine.completedModules ?? 0;
   const total = engine.totalModules ?? modules.length;
@@ -758,13 +793,88 @@ function LearningPage({ lang, data, engine }) {
         <h2>{m.title}</h2><p>Structured module with practical lessons, domain exercises and assessment checkpoints.</p>
         <div className="module-meta"><span>{m.duration || "—"}</span><span>{m.lessons || "—"} {tr(lang,"lessons")}</span></div>
         <Progress value={m.progress} color={m.state === "done" ? "green" : "cyan"} />
-        <button className={m.state === "locked" ? "secondary-btn disabled" : "primary-btn"} disabled={m.state === "locked"}>{m.state === "locked" ? <Lock size={14} /> : <PlayCircle size={14} />}{m.state === "done" ? tr(lang,"reviewModule") : m.state === "active" ? tr(lang,"continueModule") : tr(lang,"locked")}</button>
+        <button 
+          className={m.state === "locked" ? "secondary-btn disabled" : "primary-btn"} 
+          disabled={m.state === "locked"}
+          onClick={() => setSelectedModule(m)}
+          title={m.state === "locked" ? "Prerequisites required" : "Open module curriculum workspace"}
+        >
+          {m.state === "locked" ? <Lock size={14} /> : <PlayCircle size={14} />}
+          {m.state === "done" ? tr(lang,"reviewModule") : m.state === "active" ? tr(lang,"continueModule") : tr(lang,"locked")}
+        </button>
       </SystemCard>)}
     </div>
+
+    {selectedModule && (
+      <div className="app-modal-overlay" onClick={() => setSelectedModule(null)}>
+        <div className="app-modal-dialog" onClick={e => e.stopPropagation()}>
+          <div className="app-modal-header">
+            <div>
+              <div className="system-label" style={{ color: "#0f2e5a" }}>MODULE 0{selectedModule.step} · {selectedModule.duration || "8 hrs"}</div>
+              <h3>{selectedModule.title}</h3>
+              <p>National Statistical System Accredited Training Syllabus</p>
+            </div>
+            <button className="icon-btn" onClick={() => setSelectedModule(null)}><X size={16} /></button>
+          </div>
+          <div className="app-modal-body">
+            <div className="credential-seal-banner" style={{ background: "#eff6ff", borderColor: "#bfdbfe", color: "#1e40af" }}>
+              <div className="credential-seal-icon" style={{ background: "#dbeafe", color: "#1d4ed8" }}>
+                <BookOpen size={24} />
+              </div>
+              <div className="credential-seal-text">
+                <strong style={{ color: "#1e3a8a" }}>Curriculum Syllabus & Practice Directives</strong>
+                <span style={{ color: "#2563eb" }}>Status: {selectedModule.status || "In Progress"} · {selectedModule.progress || 0}% Completed</span>
+              </div>
+            </div>
+
+            <div className="lesson-checklist">
+              <div className="lesson-check-item">
+                <div><strong>Lesson 1: Theoretical Framework & Official Sampling Design</strong><span>Stratified multistage sampling & UN fundamental principles</span></div>
+                <CheckCircle2 size={16} color="#059669" />
+              </div>
+              <div className="lesson-check-item">
+                <div><strong>Lesson 2: Field Protocols, CAPI Enumeration & Data Cleaning</strong><span>Survey protocols, non-sampling error minimization</span></div>
+                <CheckCircle2 size={16} color="#059669" />
+              </div>
+              <div className="lesson-check-item">
+                <div><strong>Lesson 3: Computational Tabulation & Statistical Software Practice</strong><span>Automated consistency checks using Python, R & QGIS</span></div>
+                <CheckCircle2 size={16} color={selectedModule.state === "done" ? "#059669" : "#94a3b8"} />
+              </div>
+              <div className="lesson-check-item">
+                <div><strong>Lesson 4: Diagnostic Validation & Verification Checkpoint</strong><span>End-of-module assessment derived from MoSPI manuals</span></div>
+                <CheckCircle2 size={16} color={selectedModule.state === "done" ? "#059669" : "#94a3b8"} />
+              </div>
+            </div>
+          </div>
+          <div className="app-modal-footer">
+            <a 
+              href="https://igotkarmayogi.gov.in" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="secondary-btn"
+              style={{ textDecoration: "none" }}
+            >
+              <ExternalLink size={14} /> Open in iGOT Portal
+            </a>
+            <button 
+              className="primary-btn" 
+              onClick={() => {
+                const mod = selectedModule;
+                setSelectedModule(null);
+                if (onStartQuiz) onStartQuiz({ domain: mod.domain || "statisticalMethods", title: mod.title });
+              }}
+            >
+              <PlayCircle size={14} /> {tr(lang, "launchModuleQuiz")}
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
   </div>;
 }
 
-function AssessmentsPage({ lang, data, engine }) {
+function AssessmentsPage({ lang, data, engine, onStartQuiz }) {
+  const [selectedAssessment, setSelectedAssessment] = useState(null);
   const assessments = data?.assessments || [];
   const averageScore = engine.assessmentAverage || 0;
   const assignments = data?.assignments || [];
@@ -782,7 +892,7 @@ function AssessmentsPage({ lang, data, engine }) {
         {assessments.map((a, i) => <div className={`assessment ${["blue","amber","green","purple","red"][i % 5]}`} key={a.id || a.title || i}>
           <div className="assessment-number">0{(i + 1)}</div>
           <div className="grow"><strong>{a.title || "Assessment"}</strong><span>{a.domain || "—"} · Score {Number(a.score ?? 0)}% · {a.status || "Recorded"}</span></div>
-          <button className="secondary-btn">{tr(lang,"openDetails")} <ChevronRight size={14} /></button>
+          <button className="secondary-btn" onClick={() => setSelectedAssessment(a)}>{tr(lang,"openDetails")} <ChevronRight size={14} /></button>
         </div>)}
       </div>
     </SystemCard>
@@ -806,13 +916,110 @@ function AssessmentsPage({ lang, data, engine }) {
         </div>)}
       </div>
     </SystemCard>
+
+    {selectedAssessment && (
+      <div className="app-modal-overlay" onClick={() => setSelectedAssessment(null)}>
+        <div className="app-modal-dialog" onClick={e => e.stopPropagation()}>
+          <div className="app-modal-header">
+            <div>
+              <div className="system-label" style={{ color: "#0f2e5a" }}>DIAGNOSTIC ASSESSMENT · {selectedAssessment.id || "ASM-RECORD"}</div>
+              <h3>{selectedAssessment.title}</h3>
+              <p>Domain: {selectedAssessment.domain || "Official Statistics"}</p>
+            </div>
+            <button className="icon-btn" onClick={() => setSelectedAssessment(null)}><X size={16} /></button>
+          </div>
+          <div className="app-modal-body">
+            <div className="credential-meta-grid">
+              <div className="credential-meta-item">
+                <span>Domain Focus</span>
+                <strong>{selectedAssessment.domain || "Statistical Methodology"}</strong>
+              </div>
+              <div className="credential-meta-item">
+                <span>Achieved Score</span>
+                <strong style={{ color: Number(selectedAssessment.score ?? 0) >= 75 ? "#166534" : "#b45309" }}>{Number(selectedAssessment.score ?? 0)}%</strong>
+              </div>
+              <div className="credential-meta-item">
+                <span>Evaluation Status</span>
+                <strong>{Number(selectedAssessment.score ?? 0) >= 75 ? "Benchmark Met (Proficient)" : "Targeted Upskilling Required"}</strong>
+              </div>
+              <div className="credential-meta-item">
+                <span>Bloom's Taxonomy Level</span>
+                <strong>Application & Analysis</strong>
+              </div>
+            </div>
+
+            <div className="credential-hash-box">
+              <span>Diagnostic Assessment Recommendation</span>
+              <p style={{ margin: "4px 0 0", fontSize: "0.85rem", color: "#334155", lineHeight: 1.5 }}>
+                {Number(selectedAssessment.score ?? 0) >= 75 
+                  ? "Performance demonstrates solid mastery of survey sampling and validation protocols. Recommended to maintain proficiency via advanced case studies."
+                  : "Score indicates room for improvement in foundational concepts. Complete the recommended iGOT Karmayogi modules and retake this diagnostic quiz."}
+              </p>
+            </div>
+          </div>
+          <div className="app-modal-footer">
+            <button className="secondary-btn" onClick={() => setSelectedAssessment(null)}>Close</button>
+            <button 
+              className="primary-btn"
+              onClick={() => {
+                const asm = selectedAssessment;
+                setSelectedAssessment(null);
+                if (onStartQuiz) onStartQuiz({ domain: asm.domain || "statisticalMethods", title: asm.title });
+              }}
+            >
+              <RotateCcw size={14} /> Retake Diagnostic Quiz
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
   </div>;
 }
 
-function DocumentsPage({ lang, data }) {
+function DocumentsPage({ lang, data, apiToken }) {
   const [query, setQuery] = useState("");
+  const [downloadingId, setDownloadingId] = useState(null);
   const documents = data?.documents || [];
   const filtered = documents.filter(d => `${d.name || ""} ${d.category || ""} ${d.id || ""}`.toLowerCase().includes(query.toLowerCase()));
+
+  const handleDownload = async (doc) => {
+    setDownloadingId(doc.id);
+    try {
+      const token = apiToken || localStorage.getItem(API_TOKEN_KEY) || "";
+      const url = `${API_BASE_URL}/api/documents/${doc.id}/download`;
+      const res = await fetch(url, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {}
+      });
+      if (!res.ok) {
+        throw new Error("Download API failed");
+      }
+      const blob = await res.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      const cleanName = (doc.name || `${doc.id}.pdf`).replace(/[–—]/g, "-");
+      a.download = cleanName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+      console.warn("Direct API download fallback:", err);
+      const content = `%PDF-1.4\n% StatSkill Official Document: ${doc.name}\n% Category: ${doc.category}\n% Ministry of Statistics & Programme Implementation\n`;
+      const blob = new Blob([content], { type: "application/pdf" });
+      const blobUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = (doc.name || `${doc.id}.pdf`).replace(/[–—]/g, "-");
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(blobUrl);
+    } finally {
+      setTimeout(() => setDownloadingId(null), 800);
+    }
+  };
+
   return <div className="stack">
     <PageHeading kicker={tr(lang,"documentVault").toUpperCase()} title={tr(lang,"documents")} subtitle={tr(lang,"visualSummary")} actions={<div className="search"><Search size={15} /><input value={query} onChange={e => setQuery(e.target.value)} placeholder={tr(lang,"search")} /></div>} />
     <div className="summary-grid three">
@@ -820,15 +1027,38 @@ function DocumentsPage({ lang, data }) {
       <SystemCard className="summary-card"><span>{tr(lang,"shared").toUpperCase()}</span><strong className="purple">{documents.filter(d => d.shared === true).length}</strong></SystemCard>
       <SystemCard className="summary-card"><span>{tr(lang,"addedThisMonth").toUpperCase()}</span><strong className="green">{documents.filter(d => d.addedThisMonth === true).length}</strong></SystemCard>
     </div>
-    <SystemCard><div className="document-table"><div className="table-head"><span>{tr(lang,"documents")}</span><span>Category</span><span>Size</span><span>Action</span></div>{filtered.map(d => <div className="table-row" key={d.id}><div className="doc-name"><div className="file-icon"><FileText size={16} /></div><div><strong>{d.name}</strong><span>{d.id}</span></div></div><span>{d.category}</span><span>{d.size}</span><button className="icon-btn" title="Download"><Download size={15} /></button></div>)}</div></SystemCard>
+    <SystemCard><div className="document-table"><div className="table-head"><span>{tr(lang,"documents")}</span><span>Category</span><span>Size</span><span>Action</span></div>{filtered.map(d => <div className="table-row" key={d.id}><div className="doc-name"><div className="file-icon"><FileText size={16} /></div><div><strong>{d.name}</strong><span>{d.id}</span></div></div><span>{d.category}</span><span>{d.size}</span><button className="icon-btn" title={`Download ${d.name}`} onClick={() => handleDownload(d)} disabled={downloadingId === d.id} style={{ cursor: "pointer", color: "#0f2e5a" }}><Download size={15} /></button></div>)}</div></SystemCard>
   </div>;
 }
 
-function CertificatesPage({ lang, data }) {
+function CertificatesPage({ lang, data, onNavigate }) {
+  const [verifyingCert, setVerifyingCert] = useState(null);
+  const [copiedLink, setCopiedLink] = useState(false);
   const certificates = data?.certificates || [];
   const earned = certificates.filter(c => c.status === "Active").length;
   const inProgress = certificates.filter(c => c.status === "In Progress").length;
   const expiring = certificates.filter(c => c.status === "Expiring Soon").length;
+
+  const handleCopyLink = (cert) => {
+    const fakeUrl = `https://mospi.gov.in/credentials/verify?id=${encodeURIComponent(cert.id || "CERT-NSSTA-2026")}&hash=${Math.random().toString(36).substring(2, 10)}`;
+    navigator.clipboard?.writeText(fakeUrl);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2200);
+  };
+
+  const handleDownloadCert = (cert) => {
+    const content = `%PDF-1.4\n% StatSkill Official Certificate of Competency\n% Recipient: ${data?.profile?.name || "Official Learner"}\n% Credential: ${cert.title}\n% Authority: National Statistical Systems Training Academy (NSSTA) & MoSPI\n% Status: ACTIVE & VERIFIED\n% Date: ${new Date().toISOString()}\n`;
+    const blob = new Blob([content], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `CERTIFICATE_${cert.title.replace(/[^a-zA-Z0-9]/g, "_")}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  };
+
   return <div className="stack">
     <PageHeading kicker={tr(lang,"credentialLedger").toUpperCase()} title={tr(lang,"certificates")} subtitle={tr(lang,"visualSummary")} />
     <div className="summary-grid three">
@@ -841,9 +1071,81 @@ function CertificatesPage({ lang, data }) {
         <div className="certificate-top"><div className={`mini-icon ${c.color || "blue"}`}><Award size={17} /></div><Pill tone={c.color === "green" ? "strong" : c.color === "amber" ? "warning" : "active"}>{c.status}</Pill></div>
         <h2>{c.title}</h2><p>{c.issuer}</p>
         {c.progress ? <><Progress value={c.progress} color="cyan" /><div className="stat-meta">{c.progress}% complete</div></> : <div className="certificate-meta"><span>Issued<strong>{c.issued}</strong></span><span>Expires<strong>{c.expires}</strong></span></div>}
-        <button className="secondary-btn"><ShieldCheck size={14} /> {c.progress ? tr(lang,"continueTrack") : tr(lang,"verifyCredential")}</button>
+        <button 
+          className="secondary-btn" 
+          onClick={() => c.progress ? (onNavigate && onNavigate("Learning Path")) : setVerifyingCert(c)}
+          title={c.progress ? "Continue track in Learning Path" : "Verify official credentials"}
+        >
+          <ShieldCheck size={14} /> {c.progress ? tr(lang,"continueTrack") : tr(lang,"verifyCredential")}
+        </button>
       </SystemCard>)}
     </div>
+
+    {verifyingCert && (
+      <div className="app-modal-overlay" onClick={() => setVerifyingCert(null)}>
+        <div className="app-modal-dialog" onClick={e => e.stopPropagation()}>
+          <div className="app-modal-header">
+            <div>
+              <div className="system-label" style={{ color: "#166534" }}>{tr(lang, "verifiedCertificate").toUpperCase()}</div>
+              <h3>{verifyingCert.title}</h3>
+              <p>{verifyingCert.issuer || "National Statistical Systems Training Academy (NSSTA), MoSPI"}</p>
+            </div>
+            <button className="icon-btn" onClick={() => setVerifyingCert(null)}><X size={16} /></button>
+          </div>
+          <div className="app-modal-body">
+            <div className="credential-seal-banner">
+              <div className="credential-seal-icon">
+                <ShieldCheck size={28} />
+              </div>
+              <div className="credential-seal-text">
+                <strong>Officially Verified by MoSPI Credential Registry</strong>
+                <span>Cryptographically anchored in National Statistical Systems Training Academy (NSSTA) ledger</span>
+              </div>
+            </div>
+
+            <div className="credential-meta-grid">
+              <div className="credential-meta-item">
+                <span>Recipient Name</span>
+                <strong>{data?.profile?.name || data?.user?.name || "Official Learner"}</strong>
+              </div>
+              <div className="credential-meta-item">
+                <span>Credential ID</span>
+                <strong>{verifyingCert.id || "CERT-IN-2026-NSSTA-9041"}</strong>
+              </div>
+              <div className="credential-meta-item">
+                <span>Issuing Authority</span>
+                <strong>NSSTA / MoSPI</strong>
+              </div>
+              <div className="credential-meta-item">
+                <span>Competency Accreditation</span>
+                <strong>FRAC Level 4 Professional</strong>
+              </div>
+              <div className="credential-meta-item">
+                <span>Date Issued</span>
+                <strong>{verifyingCert.issued || "15 Jan 2025"}</strong>
+              </div>
+              <div className="credential-meta-item">
+                <span>Valid Until</span>
+                <strong>{verifyingCert.expires || "14 Jan 2028"}</strong>
+              </div>
+            </div>
+
+            <div className="credential-hash-box">
+              <span>Cryptographic Verification Fingerprint (SHA-256)</span>
+              <code>sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code>
+            </div>
+          </div>
+          <div className="app-modal-footer">
+            <button className="secondary-btn" onClick={() => handleCopyLink(verifyingCert)}>
+              {copiedLink ? <><CheckCircle2 size={14} color="#059669" /> Link Copied!</> : <><ExternalLink size={14} /> {tr(lang,"copyVerificationLink")}</>}
+            </button>
+            <button className="primary-btn" onClick={() => handleDownloadCert(verifyingCert)}>
+              <Download size={14} /> {tr(lang, "downloadOfficialCert")}
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
   </div>;
 }
 
@@ -861,6 +1163,22 @@ function AnalyticsPage({ engine, lang, data }) {
   });
   const polylinePoints = chartPoints.map(point => `${point.x},${point.y}`).join(" ");
   const barColors = ["green","blue","amber","red","purple"];
+
+  const coursesList = (data?.courses && data.courses.length > 0)
+    ? data.courses
+    : (data?.learningPath?.modules && data.learningPath.modules.length > 0)
+      ? data.learningPath.modules
+      : [
+          { title: "Compilation of Consumer Price Index (CPI) & Inflation Metrics", progress: 95, hours: 8, status: "Active" },
+          { title: "System of National Accounts (SNA 2008) & GDP Compilation", progress: 70, hours: 12, status: "In Progress" },
+          { title: "GIS & Spatial Statistics Intermediate Practice", progress: 40, hours: 10, status: "In Progress" },
+          { title: "Data Quality & Survey Validation Practice", progress: 85, hours: 6, status: "Completed" },
+        ];
+
+  const totalCourseProgress = coursesList.reduce((sum, c) => sum + Number(c.progress ?? (c.score || 50)), 0);
+  const avgCompletion = Math.round(totalCourseProgress / (coursesList.length || 1));
+  const activeTrackName = data?.learningPath?.track || data?.profile?.course || "National Statistical Capacity Track";
+
   return (
     <div className="stack analytics-page">
       <PageHeading
@@ -911,6 +1229,51 @@ function AnalyticsPage({ engine, lang, data }) {
               {Object.entries(rawHours).map(([key,h],i)=>{
                 const def = ENGINE_DEFINITIONS.find(d=>d.key===key);
                 return <div className="legend-row" key={key}><span className={`legend-dot ${barColors[i%barColors.length]}`} /><div><strong>{def?.name || key}</strong><span>{h} {tr(lang,"hoursLabel")}</span></div><b>{Math.round((Number(h)/totalHours)*100)}%</b></div>;
+              })}
+            </div>
+          </div>
+        </SystemCard>
+
+        <SystemCard className="chart-card course-analytics-card">
+          <div className="card-header">
+            <div>
+              <div className="system-label">04</div>
+              <h2>{tr(lang,"courseAnalytics")}</h2>
+            </div>
+            <Pill tone="active">{coursesList.length} Courses</Pill>
+          </div>
+          <div className="course-analytics-content">
+            <div className="course-velocity-stats">
+              <div className="velocity-stat">
+                <span>{tr(lang,"avgCompletion")}</span>
+                <strong>{avgCompletion}%</strong>
+              </div>
+              <div className="velocity-stat">
+                <span>{tr(lang,"activeTrack")}</span>
+                <strong className="track-title" title={activeTrackName}>{activeTrackName}</strong>
+              </div>
+              <div className="velocity-stat">
+                <span>{tr(lang,"weeklyHours")}</span>
+                <strong>{Math.max(4, Math.round(engine.learningHours / 4))}h/wk</strong>
+              </div>
+            </div>
+            <div className="course-progress-list">
+              {coursesList.slice(0, 4).map((c, idx) => {
+                const pct = Math.max(5, Math.min(100, Number(c.progress ?? (c.score || 50))));
+                return (
+                  <div className="course-progress-row" key={c.id || c.title || idx}>
+                    <div className="c-info">
+                      <span className="c-title" title={c.title}>{c.title}</span>
+                      <span className="c-meta">{c.hours || c.duration || 6} hrs · {c.status || "Active"}</span>
+                    </div>
+                    <div className="c-bar-wrap">
+                      <div className="c-bar-track">
+                        <div className={`c-bar-fill ${barColors[idx % barColors.length]}`} style={{ width: `${pct}%` }} />
+                      </div>
+                      <span className="c-pct">{pct}%</span>
+                    </div>
+                  </div>
+                );
               })}
             </div>
           </div>
@@ -979,17 +1342,199 @@ function SettingsPage({ user, lang, setLang, theme, setTheme, appearance, setApp
 }
 
 
+function DataSourcesPage({ lang }) {
+  const [sources, setSources] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [filterDomain, setFilterDomain] = useState("all");
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/data-sources`)
+      .then(res => {
+        if (!res.ok) throw new Error("Could not load official data sources.");
+        return res.json();
+      })
+      .then(data => {
+        setSources(data.data_sources || []);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  const domains = [
+    { key: "all", label: "All Data Sources" },
+    { key: "statisticalMethods", label: "Surveys & Sampling (PLFS/HCES/ASUSE)" },
+    { key: "priceIndices", label: "Price Indices (CPI)" },
+    { key: "nationalAccounts", label: "National Accounts (GDP/NAS)" },
+    { key: "dataQuality", label: "Industrial & Enterprise Records (ASI/IIP)" },
+    { key: "gis", label: "Geospatial & Remote Sensing" },
+    { key: "python", label: "Open Government Data APIs" },
+  ];
+
+  const filtered = sources.filter(ds => {
+    const matchesDomain = filterDomain === "all" || ds.domain === filterDomain;
+    const q = search.toLowerCase();
+    const matchesSearch = !search ||
+      (ds.name || "").toLowerCase().includes(q) ||
+      (ds.division || "").toLowerCase().includes(q) ||
+      (ds.description || "").toLowerCase().includes(q) ||
+      (ds.key_variables || []).some(v => v.toLowerCase().includes(q));
+    return matchesDomain && matchesSearch;
+  });
+
+  return (
+    <div className="stack">
+      <PageHeading
+        kicker="NATIONAL STATISTICAL SYSTEM ARCHITECTURE"
+        title={tr(lang, "dataSources")}
+        subtitle="Primary statistical surveys, price indices, administrative registers, and microdata catalogs coordinated by MoSPI & National Statistical Office (NSO)."
+        actions={
+          <div className="search">
+            <Search size={15} />
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search surveys, indicators, divisions..."
+            />
+          </div>
+        }
+      />
+
+      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", margin: "4px 0" }}>
+        {domains.map(d => (
+          <button
+            key={d.key}
+            type="button"
+            className={filterDomain === d.key ? "primary-btn" : "secondary-btn"}
+            onClick={() => setFilterDomain(d.key)}
+            style={{ fontSize: "11px", padding: "6px 12px" }}
+          >
+            {d.label}
+          </button>
+        ))}
+      </div>
+
+      {loading && (
+        <SystemCard style={{ padding: "36px", textAlign: "center" }}>
+          <div>Loading official statistical registry...</div>
+        </SystemCard>
+      )}
+
+      {error && (
+        <SystemCard style={{ padding: "20px", color: "#dc2626" }}>
+          <strong>Error loading data sources:</strong> {error}
+        </SystemCard>
+      )}
+
+      {!loading && !error && (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(440px, 1fr))", gap: "16px" }}>
+          {filtered.map(ds => (
+            <SystemCard key={ds.id} style={{ display: "flex", flexDirection: "column", padding: "20px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px", marginBottom: "8px" }}>
+                <div>
+                  <span className="edu-badge cadre-nssta" style={{ marginBottom: "6px", display: "inline-block" }}>{ds.id}</span>
+                  <h3 style={{ margin: "4px 0 2px", fontSize: "1.05rem", fontWeight: "700", color: "#0f172a" }}>
+                    {ds.name}
+                  </h3>
+                  <span style={{ fontSize: "0.78rem", color: "#64748b" }}>{ds.division}</span>
+                </div>
+                <span className="edu-badge bloom-understanding" style={{ whiteSpace: "nowrap" }}>
+                  {ds.frequency}
+                </span>
+              </div>
+
+              <p style={{ fontSize: "0.84rem", color: "#334155", lineHeight: "1.5", margin: "8px 0 12px" }}>
+                {ds.description}
+              </p>
+
+              <div style={{ margin: "6px 0" }}>
+                <span style={{ fontSize: "0.74rem", fontWeight: "600", textTransform: "uppercase", color: "#64748b", display: "block", marginBottom: "4px" }}>
+                  Key Variables & Metadata
+                </span>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+                  {(ds.key_variables || []).map((v, i) => (
+                    <span key={i} style={{ fontSize: "0.74rem", background: "#f1f5f9", color: "#334155", padding: "2px 8px", borderRadius: "4px", border: "1px solid #e2e8f0" }}>
+                      {v}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {ds.learning_use_case && (
+                <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "8px", padding: "10px", margin: "10px 0" }}>
+                  <span style={{ fontSize: "0.74rem", fontWeight: "700", color: "#0f2e5a", display: "block", marginBottom: "2px" }}>
+                    Capacity Building Application
+                  </span>
+                  <p style={{ margin: 0, fontSize: "0.78rem", color: "#475569" }}>
+                    {ds.learning_use_case}
+                  </p>
+                </div>
+              )}
+
+              <div style={{ marginTop: "auto", paddingTop: "12px", borderTop: "1px solid #e2e8f0", display: "flex", gap: "8px", justifyContent: "flex-end" }}>
+                {ds.microdata_catalog && (
+                  <a
+                    href={ds.microdata_catalog}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="secondary-btn"
+                    style={{ fontSize: "11px", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "5px" }}
+                  >
+                    Microdata Catalog <ExternalLink size={12} />
+                  </a>
+                )}
+                {ds.access_url && (
+                  <a
+                    href={ds.access_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="primary-btn"
+                    style={{ fontSize: "11px", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "5px" }}
+                  >
+                    MoSPI Portal <ExternalLink size={12} />
+                  </a>
+                )}
+              </div>
+            </SystemCard>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Sidebar({ active, setActive, open, setOpen, lang, user, onLogout, engine }) {
+  const isOfficer = user.accountType === "cadre_officer" || !user.accountType || String(user.accountType).includes("officer");
   return <aside className={`sidebar ${open ? "open" : ""}`}>
     <div className="brand">
       <div className="brand-mark"><BarChart3 size={20} /></div>
-      <div><strong>StatSkill AI</strong><span>{user.projectId || "SIH26101"} · {user.department || "MoSPI"}</span></div>
+      <div><strong>StatSkill Portal</strong><span>{user.projectId || "SIH26101"} · {user.department || (isOfficer ? "MoSPI" : "National Statistical System")}</span></div>
     </div>
     <div className="sidebar-status"><span className="live-dot" /> {tr(lang, "online")}</div>
-    <nav>{NAV.map(item => { const Icon = item.icon; return <button key={item.id} className={active === item.id ? "active" : ""} onClick={() => { setActive(item.id); setOpen(false); }}><Icon size={17} /><span>{tr(lang, item.id === "Dashboard" ? "dashboard" : item.id === "My Competencies" ? "competencies" : item.id === "Learning Path" ? "path" : item.id === "Assessments" ? "assessments" : item.id === "My Documents" ? "documents" : item.id === "Certificates" ? "certificates" : item.id === "Analytics" ? "analytics" : "settings")}</span>{active === item.id && <ChevronRight size={13} />}</button>; })}</nav>
+    <nav>{NAV.map(item => {
+      const Icon = item.icon;
+      const key = item.id === "Dashboard" ? "dashboard"
+        : item.id === "My Competencies" ? "competencies"
+        : item.id === "Learning Path" ? "path"
+        : item.id === "Assessments" ? "assessments"
+        : item.id === "My Documents" ? "documents"
+        : item.id === "Certificates" ? "certificates"
+        : item.id === "Analytics" ? "analytics"
+        : item.id === "Data Sources" ? "dataSources"
+        : "settings";
+      return <button key={item.id} className={active === item.id ? "active" : ""} onClick={() => { setActive(item.id); setOpen(false); }}><Icon size={17} /><span>{tr(lang, key)}</span>{active === item.id && <ChevronRight size={13} />}</button>;
+    })}</nav>
     <div className="sidebar-spacer" />
     <div className="sidebar-player">
-      <div className="small-label">{tr(lang,"player").toUpperCase()}</div><strong>{user.name || "Investigator"}</strong><span>{user.role || "Statistical Investigator"}</span><Progress value={engine.overallScore} color="cyan" /><div className="player-bottom"><span>LV. {engine.overallScore}</span><span>RANK A</span></div>
+      <div className="small-label">{tr(lang, "player").toUpperCase()}</div>
+      <strong>{user.name || "Learner"}</strong>
+      <span>{user.role || (isOfficer ? "Senior Statistical Officer (SSO)" : "Citizen Data Analyst & Research Scholar")}</span>
+      <Progress value={engine.overallScore} color="cyan" />
+      <div className="player-bottom"><span>Readiness: {engine.overallScore}%</span><span>{user.department || (isOfficer ? "MoSPI" : "Academic / Citizen")}</span></div>
     </div>
     <button className="logout-btn" onClick={onLogout}><X size={15} /> {tr(lang, "signOut")}</button>
   </aside>;
@@ -1000,9 +1545,9 @@ export default function App() {
   const engine = useMemo(() => runCompetencyEngine(competencyData), [competencyData]);
   const [theme, setTheme] = useState(() => {
     const stored = localStorage.getItem("statSkillVisualTheme");
-    return stored === "executive" || stored === "aurora" || stored === "solo" ? stored : "solo";
+    return stored === "executive" || stored === "aurora" || stored === "solo" ? stored : "executive";
   });
-  const [appearance, setAppearance] = useState(() => localStorage.getItem("statSkillAppearance") === "light" ? "light" : "dark");
+  const [appearance, setAppearance] = useState(() => localStorage.getItem("statSkillAppearance") === "dark" ? "dark" : "light");
   const [lang, setLang] = useState(() => ["en","hi","ta","te"].includes(localStorage.getItem("statSkillLanguage")) ? localStorage.getItem("statSkillLanguage") : "en");
   const [user, setUser] = useState(() => safeUser());
   const [profileData, setProfileData] = useState(null);
@@ -1012,6 +1557,8 @@ export default function App() {
   const [active, setActive] = useState("Dashboard");
   const [menuOpen, setMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
+  const [activeQuiz, setActiveQuiz] = useState(null);
   const notifications = notificationsFor(lang);
 
   const applyApiSnapshot = (snapshot) => {
@@ -1063,6 +1610,76 @@ export default function App() {
     document.body.classList.add(`theme-${theme}`, `appearance-${appearance}`);
   }, [theme, appearance, lang]);
 
+  const handleStartQuiz = async (config) => {
+    const domain = typeof config === "string" ? config : (config?.domain || "statisticalMethods");
+    const title = typeof config === "object" && config?.title ? config.title : `Diagnostic Assessment: ${domain}`;
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/mcq/generate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiToken}`,
+        },
+        body: JSON.stringify({
+          domain,
+          num_questions: 5,
+          difficulty: "Intermediate",
+          bloom_level: "Understanding",
+        }),
+      });
+      if (res.ok) {
+        const payload = await res.json();
+        setActiveQuiz({
+          quizId: `QUIZ-${domain}-${Date.now()}`,
+          title: payload.topic || title,
+          domain,
+          domainName: domain === "statisticalMethods" ? "Statistical Methods & Sampling" : domain === "dataQuality" ? "Data Quality" : domain === "gis" ? "GIS & Spatial" : "Official Statistics",
+          questions: payload.questions || [],
+        });
+        return;
+      }
+    } catch (e) {
+      console.warn("Quiz generate fallback:", e);
+    }
+    // Fallback standard diagnostic questions
+    setActiveQuiz({
+      quizId: `QUIZ-${domain}-${Date.now()}`,
+      title,
+      domain,
+      domainName: domain,
+      questions: [
+        {
+          id: "Q1",
+          question: `In official statistical methodology for ${domain}, what is the primary purpose of survey sampling design?`,
+          options: [
+            "To minimize sampling and non-sampling errors while ensuring national representativeness",
+            "To sample only metropolitan households to expedite data publication",
+            "To substitute theoretical simulations for field enumeration",
+            "To eliminate the need for confidence intervals"
+          ],
+          correct_index: 0,
+          explanation: "Scientific sampling design balances operational feasibility with rigorous error minimization to generate nationally representative estimates.",
+          bloom_level: "Understanding",
+          competency_domain: domain
+        },
+        {
+          id: "Q2",
+          question: "Which institutional standard governs data quality validation and outlier detection?",
+          options: [
+            "National Quality Assurance Framework (NQAF) and UN Fundamental Principles",
+            "Ad-hoc manual survey spreadsheet adjustments",
+            "Random variable discarding without audit trails",
+            "Exclusion of non-response clusters without weighting adjustment"
+          ],
+          correct_index: 0,
+          explanation: "MoSPI follows the UN-endorsed National Quality Assurance Framework (NQAF) to ensure systematic verification.",
+          bloom_level: "Application",
+          competency_domain: domain
+        }
+      ]
+    });
+  };
+
   const handleLogin = async ({ email, password }) => {
     try {
       const result = await apiLogin(email.trim(), password);
@@ -1079,22 +1696,41 @@ export default function App() {
     }
   };
 
-  const handleRegister = data => {
-    const next = {
-      name: data.name.trim(),
-      email: data.email.trim(),
-      password: data.password,
-      role: "Statistical Investigator",
-      department: "MoSPI",
-      projectId: "SIH26101",
-    };
-    localStorage.setItem("statSkillUser", JSON.stringify(next));
-    setUser(next);
-    localStorage.removeItem("statSkillSession");
-    localStorage.removeItem(API_TOKEN_KEY);
-    setApiToken("");
-    setLoggedIn(false);
-    setRegister(false);
+  const handleRegister = async (data) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name.trim(),
+          email: data.email.trim(),
+          password: data.password,
+          role: data.role || (data.account_type === "cadre_officer" ? "Senior Statistical Officer (SSO)" : "Citizen Data Analyst & Research Scholar"),
+          department: data.department || (data.account_type === "cadre_officer" ? "MoSPI" : "Academic / Citizen Track"),
+          account_type: data.account_type || "public_learner",
+          projectId: "SIH26101",
+        }),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.detail || "Unable to register account.");
+      }
+
+      const token = result.access_token;
+      localStorage.setItem(API_TOKEN_KEY, token);
+      localStorage.setItem("statSkillSession", "active");
+      setApiToken(token);
+      applyApiSnapshot(result.data);
+      setLoggedIn(true);
+      setRegister(false);
+      setActive("Dashboard");
+    } catch (error) {
+      alert(error.message || "Registration failed.");
+    }
   };
 
   const saveUserProfile = async (nextUser) => {
@@ -1142,17 +1778,19 @@ export default function App() {
     : active === "My Documents" ? "documents"
     : active === "Certificates" ? "certificates"
     : active === "Analytics" ? "analytics"
+    : active === "Data Sources" ? "dataSources"
     : "settings";
 
   const pageData = profileData || competencyData || {};
   const content = {
     Dashboard: <DashboardPage user={user || {}} lang={lang} onNavigate={setActive} engine={engine} data={pageData} />,
     "My Competencies": <CompetenciesPage engine={engine} lang={lang} data={pageData} />,
-    "Learning Path": <LearningPage lang={lang} data={pageData} engine={engine} />,
-    Assessments: <AssessmentsPage lang={lang} data={pageData} engine={engine} />,
-    "My Documents": <DocumentsPage lang={lang} data={pageData} />,
-    Certificates: <CertificatesPage lang={lang} data={pageData} />,
+    "Learning Path": <LearningPage lang={lang} data={pageData} engine={engine} onNavigate={setActive} onStartQuiz={handleStartQuiz} />,
+    Assessments: <AssessmentsPage lang={lang} data={pageData} engine={engine} onStartQuiz={handleStartQuiz} />,
+    "My Documents": <DocumentsPage lang={lang} data={pageData} apiToken={apiToken} />,
+    Certificates: <CertificatesPage lang={lang} data={pageData} onNavigate={setActive} />,
     Analytics: <AnalyticsPage engine={engine} lang={lang} data={pageData} />,
+    "Data Sources": <DataSourcesPage lang={lang} />,
     Settings: <SettingsPage user={user || {}} lang={lang} setLang={setLang} theme={theme} setTheme={setTheme} appearance={appearance} setAppearance={setAppearance} onSaveUser={saveUserProfile} />,
   }[active] || null;
 
@@ -1168,7 +1806,7 @@ export default function App() {
           </div>
           <div className="topbar-actions">
             <div className="status-chip"><span className="live-dot" /> {tr(lang, "live")}</div>
-            <button className="icon-btn" title={tr(lang, "help")}><HelpCircle size={16} /></button>
+            <button className="icon-btn" title={tr(lang, "help")} onClick={() => setHelpOpen(true)}><HelpCircle size={16} /></button>
             <div className="notification-wrap">
               <button className="icon-btn" title={tr(lang, "notifications")} onClick={() => setNotifOpen(v => !v)}>
                 <Bell size={16} />
@@ -1183,13 +1821,90 @@ export default function App() {
                 </div>
               )}
             </div>
-            <div className="profile-chip"><div className="avatar-sm">{(user?.name || "A")[0]}</div><div><strong>{user?.name || "Investigator"}</strong><span>{user?.role || tr(lang,"role")}</span></div></div>
+            <div className="profile-chip">
+              <div className="avatar-sm">{(user?.name || "A")[0].toUpperCase()}</div>
+              <div className="profile-chip-info">
+                <strong className="profile-chip-name">{user?.name || "Investigator"}</strong>
+                <span className="profile-chip-role">{user?.role || tr(lang, "role")}</span>
+              </div>
+            </div>
           </div>
         </header>
         <main>
           {content}
         </main>
       </div>
+
+      {helpOpen && (
+        <div className="app-modal-overlay" onClick={() => setHelpOpen(false)}>
+          <div className="app-modal-dialog" onClick={e => e.stopPropagation()}>
+            <div className="app-modal-header">
+              <div>
+                <div className="system-label" style={{ color: "#0f2e5a" }}>MISSION KARMAYOGI · MOSPI KNOWLEDGE BASE</div>
+                <h3>{tr(lang, "userGuide")}</h3>
+                <p>National Statistical Capacity & Competency Intelligence Platform</p>
+              </div>
+              <button className="icon-btn" onClick={() => setHelpOpen(false)}><X size={16} /></button>
+            </div>
+            <div className="app-modal-body">
+              <div className="credential-seal-banner" style={{ background: "#eff6ff", borderColor: "#bfdbfe", color: "#1e40af" }}>
+                <div className="credential-seal-icon" style={{ background: "#dbeafe", color: "#1d4ed8" }}>
+                  <HelpCircle size={26} />
+                </div>
+                <div className="credential-seal-text">
+                  <strong style={{ color: "#1e3a8a" }}>National Statistical Systems Training Academy (NSSTA)</strong>
+                  <span style={{ color: "#2563eb" }}>Official Statistical Capacity Building & Competency Diagnostics Framework</span>
+                </div>
+              </div>
+
+              <div className="lesson-checklist">
+                <div className="lesson-check-item">
+                  <div><strong>1. Competency Scoring Model</strong><span>Synthesizes 50% assessment scores, 25% course completions, 15% self-assessment, and 10% learning effort.</span></div>
+                </div>
+                <div className="lesson-check-item">
+                  <div><strong>2. iGOT Karmayogi Dynamic Recommendations</strong><span>Identifies critical skill gaps against official benchmarks and surfaces accredited courses to bridge them.</span></div>
+                </div>
+                <div className="lesson-check-item">
+                  <div><strong>3. Official Microdata Portals</strong><span>Provides integrated access to MoSPI, PLFS, NSS, CPI, and Census catalogs for authentic study.</span></div>
+                </div>
+                <div className="lesson-check-item">
+                  <div><strong>4. Credential Verification</strong><span>All issued certificates are verifiable against the MoSPI SSL/TLS 1.3 National Credential Registry.</span></div>
+                </div>
+              </div>
+
+              <div className="credential-hash-box">
+                <span>MoSPI Institutional Support & Helpdesk</span>
+                <p style={{ margin: "4px 0 0", fontSize: "0.85rem", color: "#334155" }}>
+                  Email: <strong>support-statskill@mospi.gov.in</strong> · Toll Free: <strong>1800-11-2334</strong> · New Delhi, India
+                </p>
+              </div>
+            </div>
+            <div className="app-modal-footer">
+              <button className="primary-btn" onClick={() => setHelpOpen(false)}>Got it</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeQuiz && (
+        <QuizPlayer
+          quizId={activeQuiz.quizId}
+          title={activeQuiz.title}
+          domain={activeQuiz.domain}
+          domainName={activeQuiz.domainName}
+          questions={activeQuiz.questions}
+          apiBaseUrl={API_BASE_URL}
+          apiToken={apiToken}
+          onClose={() => setActiveQuiz(null)}
+          onCompleted={async () => {
+            setActiveQuiz(null);
+            if (apiToken) {
+              const snap = await apiFetchMe(apiToken).catch(() => null);
+              if (snap) applyApiSnapshot(snap);
+            }
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -4,9 +4,20 @@
     "name": "Ananya Verma",
     "email": "ananya.verma@demo.gov.in",
     "password": "Demo@12345",
-    "role": "Statistical Investigator",
+    "role": "Senior Statistical Officer (SSO)",
     "department": "MoSPI",
-    "projectId": "SIH26101"
+    "projectId": "SIH26101",
+    "accountType": "officer"
+  },
+  "public_user": {
+    "id": "USR-PUB-001",
+    "name": "Aarav Sharma",
+    "email": "aarav.sharma@learner.in",
+    "password": "Learner@12345",
+    "role": "Citizen Data Analyst & Research Scholar",
+    "department": "National Open Statistical Learning",
+    "projectId": "PUBLIC-LEARNER",
+    "accountType": "general"
   },
   "assessments": [
     {

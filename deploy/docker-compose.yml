@@ -1,0 +1,41 @@
+# Copy of root docker-compose.yml for deployment directory context
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.backend
+    container_name: statskill_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - STATSKILL_ADMIN_KEY=${STATSKILL_ADMIN_KEY:-dev-admin-key}
+      - STATSKILL_CORS_ORIGINS=${STATSKILL_CORS_ORIGINS:-http://localhost,http://localhost:5173,http://localhost:80,http://127.0.0.1:5173}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    volumes:
+      - backend_uploads:/app/uploads
+      - backend_data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.frontend
+    container_name: statskill_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  backend_uploads:
+  backend_data:
