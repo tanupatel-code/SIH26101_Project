@@ -38,7 +38,7 @@
         "moderateSkillGaps": 3,
         "strongSkills": 4,
         "learningProgress": 35,
-        "assessmentsCompleted": 28,
+        "assessmentsCompleted": 30,
         "assessmentsTotal": 5,
         "assessmentAverage": 67,
         "learningHours": 150,
@@ -1269,191 +1269,89 @@
               "is_correct": true
             }
           ]
+        },
+        {
+          "id": "ASM-029",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
+        },
+        {
+          "id": "ASM-030",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ]
         }
       ],
       "documents": [
-        {
-          "id": "DOC-022",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-021",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-020",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-019",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-018",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-017",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-016",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-015",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-014",
-          "name": "STATSKILL-AI_SIH26101 (3).pptx",
-          "category": "GIS & Spatial",
-          "size": "4648 KB",
-          "uploadDate": "Just now",
-          "wordCount": 746,
-          "chunksCount": 5,
-          "summary": "TITLE PAGE SMART INDIA HACKATHON 2026 • Problem Statement ID : 26101 • Problem Statement Title : Develop an AI enabled learning platform that identifies competency gaps, recommends personalized training through integration with the iGOT Karmayogi ecosystem, and capable of generating Quizzes and Mult...",
-          "extractedText": "TITLE PAGE SMART INDIA HACKATHON 2026 • Problem Statement ID : 26101 • Problem Statement Title : Develop an AI enabled learning platform that identifies competency gaps, recommends personalized training through integration with the iGOT Karmayogi ecosystem, and capable of generating Quizzes and Multiple choice questions (MCQs) from uploaded learning materials to strengthen capacity building in India's Official Statistical System. • Theme : Smart Education • PS Category : Software • Team ID : 163519 • Team Name : F-TECH\n\nIDEA TITLE 2 SMART INDIA HACKATHON 2026 STATSKILL - AI Learning ≠ Competency Completing a course does not establish what an officer can actually apply . Generic Learning ≠ Personalized Learning Different roles require different competencies and different learning paths. One-Time Assessment ≠ Continuous Improvement Competency needs to be measured again after learning to track actual progress.. AI-Powered Competency & Learning Intelligence Platform Courses • Learning Resources • Assessments iGOT Karmayogi screenshot Knowing whether learning actually changes competency . Competency Baseline — What does the officer know today ? Skill-Gap Intelligence — What does the role require that is missing ? Personalized Learning Path — What should the officer learn next ? Reassessment — Did competency improve after learning ? Continuous Profile Update — What should be recommended next? WHAT EXISTS WHAT'S MISSING WHAT WE ADD WHY THIS IDEA? STATSKILL AI The competency-intelligence layer that connects learning with measurable improvement. ASSESS → DIAGNOSE → PERSONALISE → LEARN → REASSESS → IMPROVE\n\nTECHNICAL APPROACH 3 SMART INDIA HACKATHON 2026 END-TO-END ARCHITECTURE Learner / Admin Role • Profile Learning history Self-assessment Uploads Content Ingestion PDF/PPT/DOCX → OCR → chunks Metadata + competency tags AI Intelligence RAG • Embeddings LLM Competency Extraction + Gap Scoring Personalization Gap → Learning Path Recommend iGOT Resources Assessment Loop AI-generated MCQs Score → Update Competency Profile TECHNOLOGY STACK AI/ML LLM + Embeddings • Competency Classifier Recommendation Model Knowledge RAG pipeline • vector database • Metadata/competency store Application Python/ FastAPI • React/Angular-style web UI • REST APIs Integration iGOT connector layer • approved APIs/data exchange • SSO where available Security RBAC • encryption • audit logs • PII minimization • human review IMPLEMENTATION METHOD MVP Upload → RAG → MCQ generation → competency gap dashboard Pilot Map selected statistical roles/competencies; validate recommendations Integrate Connect to iGOT learning resources through approved integration mechanisms Scale Multilingual support, analytics, feedback-driven recommendation tuning\n\nFEASIBILITY AND VIABILITY 4 SMART INDIA HACKATHON 2026 iGOT enables the learning. StatSkill AI makes the learning measurable. From learning delivered → to competency demonstrated. WHY CAN STATSKILL AI ACTUALLY WORK? FEASIBILITY EXISTING FOUNDATION Built around iGOT , NSSTA, existing competency frameworks and officer profiles — not a new learning ecosystem. AVAILABLE INPUTS Role requirements, competency standards, learning resources and assessment results provide the data needed to identify gaps and measure progress. AI AS THE CONNECTING LAYER AI brings these existing components together to assess → identify gaps → recommend → reassess, making the proposed workflow technically achievable . INCREMENTAL IMPLEMENTATION The system can begin with defined roles and competencies, validate the assessment–recommendation cycle, and then extend to additional roles and departments . VIABILITY VIABILITY WHY DOES THE VALUE CONTINUE ? LEARN → REASSESS → MEASURE → RECOMMEND → LEARN AGAIN ↻ CONTINUOUS LEANING LOOP Learning completion becomes an input — not the endpoint. SCALE PATH DEFINED ROLE → PILOT → VALIDATE → MORE ROLES → MORE DEPARTMENTS ↓ ↓ Learning Targeted resources address the identified gap . Baseline Competency assessment establishes where the officer stands. ↓ Reassessment Post-learning assessment establishes what changed. Updated Profile New competency evidence informs the next learning recommendation.\n\nIMPACT AND BENEFITS 5 SMART INDIA HACKATHON 2026 🎯 FROM LEARNING TO COMPETENCY Measure what officers can actually apply — not just what they complete. 👤 FOR THE OFFICER Personalized learning based on actual competency gaps. Targeted upskilling instead of one-size-fits-all training. Continuous feedback through reassessment and progress tracking. Clear visibility of strengths, gaps and improvement. 🏛️ FOR THE ORGANISATION Right skills for the right roles. Data-driven training decisions. Measurable competency improvement. Better alignment of learning with departmental priorities. 📊 FOR GOVERNANCE More capable and future-ready workforce. Stronger application of statistical competencies. Continuous capacity building at scale. Improved effectiveness of public-service delivery.\n\nRESEARCH AND REFERENCES 6 SMART INDIA HACKATHON 2026 REFERENCE BASE LINKS-: iGOT Karmayogi — Official Portal Research Github Repository link Note: iGOT integration is proposed through approved interfaces; exact API/data-access mechanisms must be validated during implementation. Smart India Hackathon AdityaKymarSharmaAKS /SIH26101_Project iGot Karmayogi - Google Drive SIH2026 Idea Submission Template",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-013",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-012",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-011",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-010",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
-        {
-          "id": "DOC-009",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
-          "addedThisMonth": true
-        },
         {
           "id": "DOC-008",
           "name": "NSSO_Sampling_Manual.txt",
@@ -1468,67 +1366,95 @@
           "addedThisMonth": true
         },
         {
-          "id": "DOC-007",
-          "name": "NSSO_Sampling_Manual.txt",
+          "id": "DOC-001",
+          "name": "NSSO_Field_Operations_Sampling_Manual.pdf",
           "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "size": "342 KB",
+          "uploadDate": "12 Mar 2026",
+          "wordCount": 1420,
+          "chunksCount": 8,
+          "summary": "National Sample Survey Office (NSSO) Field Operations & Sampling Manual for household and enterprise socio-economic surveys. Outlines stratified multi-stage design, primary sampling units, and sample weighting.",
+          "extractedText": "National Sample Survey Office (NSSO) Field Operations & Sampling Manual for household and enterprise socio-economic surveys. Outlines stratified multi-stage design, primary sampling units, and sample weighting.",
+          "shared": true,
+          "addedThisMonth": false
+        },
+        {
+          "id": "DOC-002",
+          "name": "SNA_2008_National_Accounts_Compilation_Guidelines.pdf",
+          "category": "National Accounts",
+          "size": "1120 KB",
+          "uploadDate": "18 Mar 2026",
+          "wordCount": 2680,
+          "chunksCount": 14,
+          "summary": "Central Statistics Office (CSO) methodology guidelines on Gross Domestic Product (GDP), Gross Value Added (GVA), and institutional sector accounts aligned with the UN System of National Accounts 2008.",
+          "extractedText": "Central Statistics Office (CSO) methodology guidelines on Gross Domestic Product (GDP), Gross Value Added (GVA), and institutional sector accounts aligned with the UN System of National Accounts 2008.",
+          "shared": true,
+          "addedThisMonth": false
+        },
+        {
+          "id": "DOC-003",
+          "name": "Consumer_Price_Index_Base_Revision_Handbook.pdf",
+          "category": "Price Indices",
+          "size": "512 KB",
+          "uploadDate": "25 Mar 2026",
+          "wordCount": 1840,
+          "chunksCount": 9,
+          "summary": "Technical manual for compilation of Consumer Price Index (Rural, Urban, Combined) with base year revision procedures, item basket selection, and Laspeyres price index calculation.",
+          "extractedText": "Technical manual for compilation of Consumer Price Index (Rural, Urban, Combined) with base year revision procedures, item basket selection, and Laspeyres price index calculation.",
+          "shared": false,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-004",
+          "name": "National_Quality_Assurance_Framework_NQAF_Standard.pdf",
+          "category": "Data Quality",
+          "size": "280 KB",
+          "uploadDate": "02 Apr 2026",
+          "wordCount": 960,
+          "chunksCount": 5,
+          "summary": "Guidelines for implementing the National Quality Assurance Framework (NQAF) in official survey microdata, validation protocols, logical consistency checks, and outlier treatment.",
+          "extractedText": "Guidelines for implementing the National Quality Assurance Framework (NQAF) in official survey microdata, validation protocols, logical consistency checks, and outlier treatment.",
+          "shared": true,
+          "addedThisMonth": true
+        },
+        {
+          "id": "DOC-005",
+          "name": "Bhuvan_Geospatial_Sampling_Frame_Integration.pdf",
+          "category": "GIS & Spatial",
+          "size": "890 KB",
+          "uploadDate": "05 Apr 2026",
+          "wordCount": 1540,
+          "chunksCount": 7,
+          "summary": "Standard operating procedure for integrating ISRO Bhuvan satellite imagery and spatial GIS layers with National Sample Survey urban frame survey (UFS) blocks.",
+          "extractedText": "Standard operating procedure for integrating ISRO Bhuvan satellite imagery and spatial GIS layers with National Sample Survey urban frame survey (UFS) blocks.",
           "shared": false,
           "addedThisMonth": true
         },
         {
           "id": "DOC-006",
-          "name": "NSSO_Sampling_Manual.txt",
-          "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
+          "name": "STATSKILL-AI_SIH26101_Methodology_Deck.pptx",
+          "category": "GIS & Spatial",
+          "size": "4648 KB",
+          "uploadDate": "10 Apr 2026",
+          "wordCount": 746,
+          "chunksCount": 5,
+          "summary": "StatSkill AI technical architecture presentation covering closed-loop competency diagnostics, iGOT Karmayogi course integration, and AI quiz generation.",
+          "extractedText": "StatSkill AI technical architecture presentation covering closed-loop competency diagnostics, iGOT Karmayogi course integration, and AI quiz generation.",
           "shared": false,
           "addedThisMonth": true
         },
         {
-          "id": "DOC-005",
-          "name": "NSSO_Sampling_Manual.txt",
+          "id": "DOC-007",
+          "name": "PLFS_Annual_Report_2023_24_Statistical_Tables.xlsx",
           "category": "Survey Methodology",
-          "size": "1 KB",
-          "uploadDate": "Just now",
-          "wordCount": 34,
-          "chunksCount": 1,
-          "summary": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "extractedText": "National Sample Survey Office (NSSO) Field Operations Manual.\n\nStratified multi-stage sampling is applied across rural and urban sectors.\nStratification reduces sampling variance between heterogeneous districts.\nSecond-stage sampling units comprise households selected with equal probability.",
-          "shared": false,
+          "size": "720 KB",
+          "uploadDate": "14 Apr 2026",
+          "wordCount": 1120,
+          "chunksCount": 6,
+          "summary": "Periodic Labour Force Survey (PLFS) key statistical indicators, labor force participation rates (LFPR), and worker population ratio (WPR) microdata tables.",
+          "extractedText": "Periodic Labour Force Survey (PLFS) key statistical indicators, labor force participation rates (LFPR), and worker population ratio (WPR) microdata tables.",
+          "shared": true,
           "addedThisMonth": true
-        },
-        {
-          "id": "DOC-001-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
-          "category": "Learning Materials",
-          "size": "2.0 MB"
-        },
-        {
-          "id": "DOC-001-02",
-          "name": "Competency Gap Assessment Report.pdf",
-          "category": "Assessments",
-          "size": "1.3 MB"
-        },
-        {
-          "id": "DOC-001-03",
-          "name": "2026 Learning Progress Report.pdf",
-          "category": "Reports",
-          "size": "1.3 MB"
-        },
-        {
-          "id": "DOC-001-04",
-          "name": "Official Statistics Learning Handbook.pdf",
-          "category": "Learning Materials",
-          "size": "3.1 MB"
         }
       ],
       "certificates": [
@@ -1677,7 +1603,7 @@
           "gis": 27.3,
           "machineLearning": 28.7
         },
-        "quizAverage": 85
+        "quizAverage": 86
       },
       "engine": {
         "methodology": "50% assessments · 25% courses · 15% self-assessment · 10% learning effort",
@@ -2344,7 +2270,7 @@
       "documents": [
         {
           "id": "DOC-002-01",
-          "name": "Python – Study Notes.pdf",
+          "name": "Python - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.0 MB"
         },
@@ -3174,7 +3100,7 @@
       "documents": [
         {
           "id": "DOC-003-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.8 MB"
         },
@@ -4012,7 +3938,7 @@
       "documents": [
         {
           "id": "DOC-004-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.2 MB"
         },
@@ -4850,7 +4776,7 @@
       "documents": [
         {
           "id": "DOC-005-01",
-          "name": "Python – Study Notes.pdf",
+          "name": "Python - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.7 MB"
         },
@@ -5688,7 +5614,7 @@
       "documents": [
         {
           "id": "DOC-006-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.6 MB"
         },
@@ -6526,7 +6452,7 @@
       "documents": [
         {
           "id": "DOC-007-01",
-          "name": "Python – Study Notes.pdf",
+          "name": "Python - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.9 MB"
         },
@@ -7356,7 +7282,7 @@
       "documents": [
         {
           "id": "DOC-008-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.5 MB"
         },
@@ -8178,7 +8104,7 @@
       "documents": [
         {
           "id": "DOC-009-01",
-          "name": "Statistical Methods – Study Notes.pdf",
+          "name": "Statistical Methods - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "0.6 MB"
         },
@@ -9008,7 +8934,7 @@
       "documents": [
         {
           "id": "DOC-010-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.5 MB"
         },
@@ -9830,7 +9756,7 @@
       "documents": [
         {
           "id": "DOC-011-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.7 MB"
         },
@@ -10660,7 +10586,7 @@
       "documents": [
         {
           "id": "DOC-012-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.5 MB"
         },
@@ -11498,7 +11424,7 @@
       "documents": [
         {
           "id": "DOC-013-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "0.8 MB"
         },
@@ -12311,7 +12237,7 @@
       "documents": [
         {
           "id": "DOC-014-01",
-          "name": "Statistical Methods – Study Notes.pdf",
+          "name": "Statistical Methods - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.6 MB"
         },
@@ -13141,7 +13067,7 @@
       "documents": [
         {
           "id": "DOC-015-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.5 MB"
         },
@@ -13963,7 +13889,7 @@
       "documents": [
         {
           "id": "DOC-016-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.7 MB"
         },
@@ -14801,7 +14727,7 @@
       "documents": [
         {
           "id": "DOC-017-01",
-          "name": "Python – Study Notes.pdf",
+          "name": "Python - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.4 MB"
         },
@@ -15631,7 +15557,7 @@
       "documents": [
         {
           "id": "DOC-018-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.5 MB"
         },
@@ -16453,7 +16379,7 @@
       "documents": [
         {
           "id": "DOC-019-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.0 MB"
         },
@@ -17275,7 +17201,7 @@
       "documents": [
         {
           "id": "DOC-020-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.0 MB"
         },
@@ -18105,7 +18031,7 @@
       "documents": [
         {
           "id": "DOC-021-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.2 MB"
         },
@@ -18927,7 +18853,7 @@
       "documents": [
         {
           "id": "DOC-022-01",
-          "name": "Python – Study Notes.pdf",
+          "name": "Python - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.5 MB"
         },
@@ -19757,7 +19683,7 @@
       "documents": [
         {
           "id": "DOC-023-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "0.5 MB"
         },
@@ -20587,7 +20513,7 @@
       "documents": [
         {
           "id": "DOC-024-01",
-          "name": "Python – Study Notes.pdf",
+          "name": "Python - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.0 MB"
         },
@@ -21425,7 +21351,7 @@
       "documents": [
         {
           "id": "DOC-025-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "0.6 MB"
         },
@@ -22247,7 +22173,7 @@
       "documents": [
         {
           "id": "DOC-026-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.7 MB"
         },
@@ -23085,7 +23011,7 @@
       "documents": [
         {
           "id": "DOC-027-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "0.7 MB"
         },
@@ -23923,7 +23849,7 @@
       "documents": [
         {
           "id": "DOC-028-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.6 MB"
         },
@@ -24745,7 +24671,7 @@
       "documents": [
         {
           "id": "DOC-029-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.2 MB"
         },
@@ -25583,7 +25509,7 @@
       "documents": [
         {
           "id": "DOC-030-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.4 MB"
         },
@@ -26421,7 +26347,7 @@
       "documents": [
         {
           "id": "DOC-031-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.5 MB"
         },
@@ -27251,7 +27177,7 @@
       "documents": [
         {
           "id": "DOC-032-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.6 MB"
         },
@@ -28081,7 +28007,7 @@
       "documents": [
         {
           "id": "DOC-033-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.2 MB"
         },
@@ -28911,7 +28837,7 @@
       "documents": [
         {
           "id": "DOC-034-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "0.9 MB"
         },
@@ -29741,7 +29667,7 @@
       "documents": [
         {
           "id": "DOC-035-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.1 MB"
         },
@@ -30571,7 +30497,7 @@
       "documents": [
         {
           "id": "DOC-036-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.1 MB"
         },
@@ -31409,7 +31335,7 @@
       "documents": [
         {
           "id": "DOC-037-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.2 MB"
         },
@@ -32239,7 +32165,7 @@
       "documents": [
         {
           "id": "DOC-038-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.7 MB"
         },
@@ -33069,7 +32995,7 @@
       "documents": [
         {
           "id": "DOC-039-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "0.6 MB"
         },
@@ -33907,7 +33833,7 @@
       "documents": [
         {
           "id": "DOC-040-01",
-          "name": "Python – Study Notes.pdf",
+          "name": "Python - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.0 MB"
         },
@@ -34737,7 +34663,7 @@
       "documents": [
         {
           "id": "DOC-041-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.6 MB"
         },
@@ -35567,7 +35493,7 @@
       "documents": [
         {
           "id": "DOC-042-01",
-          "name": "Python – Study Notes.pdf",
+          "name": "Python - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.9 MB"
         },
@@ -36405,7 +36331,7 @@
       "documents": [
         {
           "id": "DOC-043-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "0.7 MB"
         },
@@ -37243,7 +37169,7 @@
       "documents": [
         {
           "id": "DOC-044-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.5 MB"
         },
@@ -38065,7 +37991,7 @@
       "documents": [
         {
           "id": "DOC-045-01",
-          "name": "Python – Study Notes.pdf",
+          "name": "Python - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.4 MB"
         },
@@ -38895,7 +38821,7 @@
       "documents": [
         {
           "id": "DOC-046-01",
-          "name": "GIS & Spatial Statistics – Study Notes.pdf",
+          "name": "GIS & Spatial Statistics - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.3 MB"
         },
@@ -39725,7 +39651,7 @@
       "documents": [
         {
           "id": "DOC-047-01",
-          "name": "Python – Study Notes.pdf",
+          "name": "Python - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "1.6 MB"
         },
@@ -40555,7 +40481,7 @@
       "documents": [
         {
           "id": "DOC-048-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.3 MB"
         },
@@ -41385,7 +41311,7 @@
       "documents": [
         {
           "id": "DOC-049-01",
-          "name": "Data Quality – Study Notes.pdf",
+          "name": "Data Quality - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "2.6 MB"
         },
@@ -42223,7 +42149,7 @@
       "documents": [
         {
           "id": "DOC-050-01",
-          "name": "Machine Learning – Study Notes.pdf",
+          "name": "Machine Learning - Study Notes.pdf",
           "category": "Learning Materials",
           "size": "0.8 MB"
         },
@@ -43364,7 +43290,7 @@
       "documents": [
         {
           "id": "DOC-PUB-01",
-          "name": "Open Statistical Data Handbook – Citizen Guide.pdf",
+          "name": "Open Statistical Data Handbook - Citizen Guide.pdf",
           "category": "Learning Materials",
           "size": "1.8 MB",
           "shared": false,

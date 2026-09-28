@@ -29,7 +29,13 @@ from services.igot_service import (
     recommend_courses_for_gaps,
     IGOT_COURSE_CATALOG,
 )
-from main import sanitize_profile, resolve_login, read_dataset
+from main import (
+    sanitize_profile,
+    resolve_login,
+    read_dataset,
+    create_minimal_pdf_bytes,
+    download_certificate,
+)
 
 
 # ============================================================================
@@ -319,3 +325,45 @@ def test_25_is_number_and_average_guards():
     assert avg([10, 20, 30]) == 20.0
     assert avg([]) == 0.0
     assert avg(["10", None, "invalid", 20]) == 15.0
+
+
+def test_26_minimal_pdf_structure():
+    """Verify create_minimal_pdf_bytes generates valid PDF 1.4 binary readable by pypdf."""
+    import io
+    import pypdf
+
+    pdf_bytes = create_minimal_pdf_bytes(
+        "TEST CERTIFICATE",
+        "National Statistical Systems Training Academy",
+        ["Line 1: Accreditation verified", "Line 2: FRAC Level 4 achieved"]
+    )
+    assert pdf_bytes.startswith(b"%PDF-1.4")
+    assert pdf_bytes.rstrip().endswith(b"%%EOF")
+
+    reader = pypdf.PdfReader(io.BytesIO(pdf_bytes))
+    assert len(reader.pages) == 1
+    text = reader.pages[0].extract_text()
+    assert "TEST CERTIFICATE" in text
+    assert "Line 1: Accreditation verified" in text
+
+
+def test_27_download_certificate_response():
+    """Verify download_certificate endpoint returns standard PDF response with headers."""
+    import io
+    import pypdf
+
+    resp = download_certificate(
+        cert_id="CERT-TEST-001",
+        name="Ananya Verma",
+        title="Official Statistics Specialist"
+    )
+    assert resp.status_code == 200
+    assert resp.media_type == "application/pdf"
+    assert "CERTIFICATE_Official_Statistics_Specialist.pdf" in resp.headers["Content-Disposition"]
+
+    reader = pypdf.PdfReader(io.BytesIO(resp.body))
+    assert len(reader.pages) == 1
+    text = reader.pages[0].extract_text()
+    assert "Ananya Verma" in text
+    assert "CERT-TEST-001" in text
+
