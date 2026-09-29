@@ -10,12 +10,12 @@ from services.auth_service import SESSIONS
 
 
 def get_current_session(authorization: str | None = Header(default=None)) -> tuple[dict[str, Any], dict[str, Any]]:
-    if not authorization or not authorization.startswith("Bearer "):
+    if not authorization or not authorization.lower().startswith("bearer "):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Missing bearer token.",
         )
-    token = authorization.split("Bearer ", 1)[1].strip()
+    token = authorization.split(" ", 1)[1].strip()
     session = SESSIONS.get(token)
     if not session:
         raise HTTPException(

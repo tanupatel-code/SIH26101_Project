@@ -5,6 +5,7 @@ live competency calculations, iGOT recommendations, and data catalogs.
 """
 
 import json
+import sys
 import urllib.error
 import urllib.request
 

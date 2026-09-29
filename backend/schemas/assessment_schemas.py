@@ -16,8 +16,9 @@ class McqGenerateRequest(BaseModel):
 class QuizAnswerItem(BaseModel):
     question_id: str
     selected_option: int
-    correct_option: int
-    is_correct: bool
+    # Optional fields for backward compatibility — server grades authoritatively!
+    correct_option: int | None = None
+    is_correct: bool | None = None
 
 
 class QuizSubmitRequest(BaseModel):

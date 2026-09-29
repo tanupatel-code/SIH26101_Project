@@ -3,7 +3,11 @@ from fastapi import APIRouter, Header, HTTPException
 
 from repositories.dataset_repository import read_dataset, write_dataset
 from schemas.assessment_schemas import McqGenerateRequest, QuizSubmitRequest
-from services.assessment_service import record_quiz_submission
+from services.assessment_service import (
+    grade_submission,
+    record_quiz_submission,
+    register_generated_questions,
+)
 from services.auth_service import build_user_payload, session_record
 from services.mcq_generator import generate_mcqs_from_text
 
@@ -37,6 +41,9 @@ def generate_mcqs(
         bloom_level=request.bloom_level,
         target_domain=request.domain,
     )
+
+    # Register authoritative answer keys server-side
+    register_generated_questions(questions)
 
     return {
         "ok": True,
@@ -132,11 +139,11 @@ def submit_assessment(
     if not request.answers:
         raise HTTPException(status_code=400, detail="No answers provided in quiz submission.")
 
-    total = len(request.answers)
-    correct = sum(1 for a in request.answers if a.is_correct)
-    percentage = round((correct / total) * 100, 1)
+    # Server authoritatively grades answers against authoritative question bank
+    correct, total, percentage, answers_detail = grade_submission(
+        request.quiz_id, request.answers
+    )
 
-    answers_detail = [a.model_dump() for a in request.answers]
     result = record_quiz_submission(
         user_record=record,
         quiz_title=request.title,

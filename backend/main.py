@@ -19,6 +19,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # Core configuration & file locations
 from core.config import (
     ADMIN_KEY,
+    CORS_ORIGINS,
     DATA_FILE,
     DATA_SOURCES_FILE,
     DEMO_FILE,
@@ -108,10 +109,10 @@ app = FastAPI(
     version="3.0.0",
 )
 
-# CORS configuration
+# CORS configuration — strictly whitelisted origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -12,6 +12,12 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 
+# Runtime SQLite databases & session stores
+*.db
+*.sqlite
+*.sqlite3
+backend/sessions.db
+
 # Environment variables
 .env
 .env.*

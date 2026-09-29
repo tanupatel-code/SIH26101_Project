@@ -8,6 +8,7 @@ services:
     ports:
       - "8000:8000"
     environment:
+      - ENVIRONMENT=${ENVIRONMENT:-development}
       - STATSKILL_ADMIN_KEY=${STATSKILL_ADMIN_KEY:-dev-admin-key}
       - STATSKILL_CORS_ORIGINS=${STATSKILL_CORS_ORIGINS:-http://localhost,http://localhost:5173,http://localhost:80,http://127.0.0.1:5173}
       - GEMINI_API_KEY=${GEMINI_API_KEY:-}
@@ -30,7 +31,6 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-      - "5173:80"
     depends_on:
       backend:
         condition: service_healthy

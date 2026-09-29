@@ -16,6 +16,7 @@ from services.auth_service import (
     sanitize_profile,
 )
 from services.competency_service import ensure_competency_shape
+from services.password_service import hash_password
 
 router = APIRouter(tags=["Authentication & Users"])
 
@@ -55,7 +56,7 @@ def register(request: RegisterRequest) -> dict[str, Any]:
     new_profile = {
         "name": request.name,
         "email": request.email,
-        "password": request.password,
+        "password": hash_password(request.password),
         "role": request.role,
         "department": request.department,
         "projectId": request.projectId,

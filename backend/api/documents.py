@@ -59,7 +59,7 @@ def download_document(
     """
     dataset = read_dataset()
     user_record: dict[str, Any] | None = None
-    if authorization:
+    if isinstance(authorization, str) and authorization:
         try:
             user_record, _ = session_record(authorization)
         except Exception:
@@ -89,21 +89,20 @@ def download_document(
             if p.name.endswith(Path(doc_name).name):
                 return FileResponse(p, filename=doc_name)
 
-    # For standard study materials, generate authentic MoSPI PDF
+    # For standard study materials, generate authentic StatSkill AI learning resource
     title = f"StatSkill AI — {Path(doc_name).stem}"
-    subtitle = f"Ministry of Statistics & Programme Implementation (MoSPI) · {target_doc.get('category', 'Learning Resource')}"
+    subtitle = f"StatSkill AI Study Resource · {target_doc.get('category', 'Learning Resource')}"
     summary = str(target_doc.get("summary") or target_doc.get("extractedText") or "")
     if not summary:
         summary = (
             "National Statistical System Capacity Building & Assessment Framework. "
-            "Coordinated by the National Statistical Systems Training Academy (NSSTA) and MoSPI. "
             "Curriculum aligned to FRAC (Framework for Roles, Activities and Competencies)."
         )
 
     paragraphs = [
         f"Document ID: {doc_id}",
         f"Category: {target_doc.get('category', 'General Statistics')}",
-        "Verification: MoSPI Central Directory Certified Resource",
+        "Verification: StatSkill AI Verified Learning Resource",
         "--------------------------------------------------------------------------------",
         "Course Study Guide & Methodological Syllabus:",
         summary[:200],
@@ -114,8 +113,8 @@ def download_document(
         "1. Understand fundamental survey concepts, rotating panels, and strata weighting.",
         "2. Detect outliers, impute missing values, and validate enterprise microdata.",
         "3. Apply computational algorithms in Python/Pandas for statistical indicators.",
-        "4. Comply with Government of India NDSAP guidelines and data security norms.",
-        "National Statistical Office · Government of India · 2026",
+        "4. Comply with national data standards and open data security norms.",
+        "StatSkill AI Platform · National Statistical Learning Framework",
     ]
 
     pdf_bytes = create_minimal_pdf_bytes(title, subtitle, paragraphs)

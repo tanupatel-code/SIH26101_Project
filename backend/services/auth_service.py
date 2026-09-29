@@ -15,8 +15,8 @@ from services.igot_service import (
     IGOT_COURSE_CATALOG,
 )
 
-# Active user sessions mapped by bearer token
-SESSIONS: dict[str, dict[str, Any]] = {}
+from repositories.session_repository import SESSIONS, session_repo
+from services.password_service import hash_password, is_hashed, verify_password
 
 
 def deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
@@ -33,7 +33,7 @@ def sanitize_profile(profile: dict[str, Any]) -> dict[str, Any]:
     return {
         key: value
         for key, value in profile.items()
-        if str(key).lower() not in {"password", "password_hash"}
+        if str(key).lower() not in {"password", "password_hash", "hashed_password"}
     }
 
 
@@ -266,9 +266,11 @@ def resolve_login(
         profile = record.get("profile") or {}
         if str(profile.get("email", "")).strip().lower() == target_email:
             stored_pw = str(profile.get("password", ""))
-            if secrets.compare_digest(stored_pw, password) or secrets.compare_digest(
-                stored_pw.strip(), password.strip()
-            ):
+            if verify_password(password, stored_pw):
+                # Migrate to secure hash if not yet hashed
+                if not is_hashed(stored_pw):
+                    profile["password"] = hash_password(password)
+                    write_dataset(dataset)
                 return record, profile
 
     demo = read_demo()
@@ -277,9 +279,7 @@ def resolve_login(
         if isinstance(demo_user, dict):
             if str(demo_user.get("email", "")).strip().lower() == target_email:
                 stored_pw = str(demo_user.get("password", ""))
-                if secrets.compare_digest(
-                    stored_pw, password
-                ) or secrets.compare_digest(stored_pw.strip(), password.strip()):
+                if verify_password(password, stored_pw):
                     record = find_user_record(dataset, target_email)
                     if record is None:
                         record = create_user_from_demo_profile(demo_user)
@@ -288,6 +288,11 @@ def resolve_login(
                     merged_profile = deep_merge(
                         record.get("profile") or {}, demo_user
                     )
+                    # Migrate to secure hash in dataset user profile
+                    rec_prof = record.get("profile") or {}
+                    if not is_hashed(str(rec_prof.get("password", ""))):
+                        rec_prof["password"] = hash_password(password)
+                        write_dataset(dataset)
                     return record, merged_profile
 
     return None
@@ -354,7 +359,7 @@ def build_user_payload(
 
 
 def session_record(authorization: str | None) -> tuple[dict[str, Any], dict[str, Any]]:
-    if not authorization or not authorization.lower().startswith("bearer "):
+    if not isinstance(authorization, str) or not authorization.lower().startswith("bearer "):
         raise HTTPException(status_code=401, detail="Missing bearer token.")
     token = authorization.split(" ", 1)[1].strip()
     session = SESSIONS.get(token)

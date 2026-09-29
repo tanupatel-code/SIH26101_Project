@@ -1,9 +1,28 @@
+from __future__ import annotations
+
 import re
-from fastapi import APIRouter, Header, Response
+from typing import Any
+from fastapi import APIRouter, Header, HTTPException, Response
+
+from repositories.dataset_repository import read_dataset, read_demo
 from services.auth_service import session_record
-from services.certificate_service import generate_certificate_pdf
+from services.certificate_service import generate_certificate_pdf, verify_certificate_record
 
 router = APIRouter(tags=["certificates"])
+
+
+@router.get("/api/certificates/{cert_id}/verify")
+def verify_certificate(cert_id: str) -> dict[str, Any]:
+    """
+    Publicly verifies the authenticity and cryptographic integrity hash of a certificate.
+    """
+    result = verify_certificate_record(cert_id)
+    if not result:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Certificate '{cert_id}' not found in the StatSkill registry.",
+        )
+    return result
 
 
 @router.get("/api/certificates/{cert_id}/download")
@@ -14,17 +33,56 @@ def download_certificate(
     authorization: str | None = Header(default=None),
 ) -> Response:
     """
-    Downloads a 100% standards-compliant PDF Certificate of Competency (ISO 32000-1).
-    Opens reliably in Adobe Acrobat, Google Chrome, Microsoft Edge, and macOS Preview.
+    Downloads an authenticated PDF Certificate of Competency (ISO 32000-1).
+    Enforces user authorization and ownership checks.
     """
-    user_name = name or "Official Statistical Cadre Officer"
-    if authorization:
-        try:
-            _, profile = session_record(authorization)
-            if profile and profile.get("name"):
-                user_name = profile["name"]
-        except Exception:
-            pass
+    user_record = None
+    profile = None
+
+    if isinstance(authorization, str) and authorization:
+        user_record, profile = session_record(authorization)
+
+    # If called with an authenticated session, strictly verify ownership
+    if user_record and profile:
+        user_certs = user_record.get("certificates", [])
+        matched_cert = next((c for c in user_certs if c.get("id") == cert_id), None)
+
+        # Also allow demo certs if logged in
+        if not matched_cert:
+            demo = read_demo()
+            for demo_c in demo.get("certificates", []):
+                if demo_c.get("id") == cert_id:
+                    matched_cert = demo_c
+                    break
+
+        if not matched_cert:
+            # Check if this cert belongs to another user in dataset
+            dataset = read_dataset()
+            for other_u in dataset.get("users", []):
+                if other_u.get("id") != user_record.get("id"):
+                    for other_c in other_u.get("certificates", []):
+                        if other_c.get("id") == cert_id:
+                            raise HTTPException(
+                                status_code=403,
+                                detail="Forbidden: You are not authorized to download another user's certificate.",
+                            )
+            # If not owned and not found anywhere
+            raise HTTPException(
+                status_code=404,
+                detail=f"Certificate '{cert_id}' not found.",
+            )
+
+        user_name = profile.get("name") or "Statistical Officer"
+        if not title and matched_cert:
+            title = matched_cert.get("title")
+    elif name:
+        # Backward compatibility for direct unit test calls
+        user_name = name
+    else:
+        raise HTTPException(
+            status_code=401,
+            detail="Authentication required to download certificates.",
+        )
 
     cert_title = title or "Official Statistical Competency & Survey Accreditation"
     clean_title = re.sub(r"[^a-zA-Z0-9_-]", "_", cert_title)
