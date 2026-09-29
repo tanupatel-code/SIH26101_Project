@@ -29,6 +29,7 @@ def admin_users(_: bool = Depends(verify_admin_key)) -> dict[str, Any]:
 
 
 @router.put("/api/admin/users/{user_id}")
+@router.patch("/api/admin/users/{user_id}")
 def admin_patch_user(
     user_id: str,
     request: AdminUserPatch,
@@ -42,13 +43,22 @@ def admin_patch_user(
     patch = request.data
     if isinstance(patch.get("competencyScores"), dict):
         existing_overrides = record.setdefault("adminOverrides", {})
-        existing_overrides.update(patch["competencyScores"])
         existing = record.setdefault("competencyScores", {})
-        existing.update(patch["competencyScores"])
+        for domain_k, score_v in patch["competencyScores"].items():
+            if score_v is None or str(score_v).lower() in {"none", "null", "remove", "clear"}:
+                existing_overrides.pop(domain_k, None)
+                existing.pop(domain_k, None)
+            else:
+                existing_overrides[domain_k] = score_v
+                existing[domain_k] = score_v
 
     if isinstance(patch.get("adminOverrides"), dict):
         existing_overrides = record.setdefault("adminOverrides", {})
-        existing_overrides.update(patch["adminOverrides"])
+        for domain_k, override_v in patch["adminOverrides"].items():
+            if override_v is None or str(override_v).lower() in {"none", "null", "remove", "clear"}:
+                existing_overrides.pop(domain_k, None)
+            else:
+                existing_overrides[domain_k] = override_v
 
     if isinstance(patch.get("competencies"), list):
         record["competencies"] = copy.deepcopy(patch["competencies"])

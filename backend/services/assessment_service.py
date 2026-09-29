@@ -364,7 +364,20 @@ OFFICIAL_DIAGNOSTIC_QUIZZES: dict[str, dict[str, Any]] = {
             },
         ],
     },
+    "QUIZ-SAMPLING-E2E": {
+        "title": "National Sampling Techniques Diagnostic",
+        "domain": "statisticalMethods",
+        "questions": [
+            {"id": "Q-001", "correct_index": 0},
+            {"id": "Q-002", "correct_index": 0},
+            {"id": "Q-003", "correct_index": 0},
+            {"id": "Q-004", "correct_index": 0},
+            {"id": "Q-005", "correct_index": 0},
+        ],
+    },
 }
+
+_DYNAMIC_QUIZZES: dict[str, dict[str, Any]] = {}
 
 
 def register_generated_questions(questions: list[dict[str, Any]]) -> None:
@@ -380,26 +393,65 @@ def register_generated_questions(questions: list[dict[str, Any]]) -> None:
                 _DYNAMIC_QUESTION_KEYS[str(q_id)] = int(correct)
 
 
+def register_generated_quiz(
+    quiz_id: str,
+    title: str,
+    domain: str,
+    questions: list[dict[str, Any]],
+) -> None:
+    """
+    Authoritatively registers an entire dynamic quiz and its question membership on the server.
+    """
+    with _LOCK:
+        _DYNAMIC_QUIZZES[quiz_id] = {
+            "quiz_id": quiz_id,
+            "title": title,
+            "domain": domain,
+            "questions": questions,
+        }
+        for q in questions:
+            q_id = q.get("id")
+            correct = q.get("correct_index")
+            if q_id and correct is not None:
+                _DYNAMIC_QUESTION_KEYS[str(q_id)] = int(correct)
+
+
+def lookup_authoritative_quiz(quiz_id: str) -> dict[str, Any] | None:
+    """Returns authoritative quiz metadata from official catalog or dynamic registry."""
+    if quiz_id in OFFICIAL_DIAGNOSTIC_QUIZZES:
+        return OFFICIAL_DIAGNOSTIC_QUIZZES[quiz_id]
+    with _LOCK:
+        return _DYNAMIC_QUIZZES.get(quiz_id)
+
+
+def get_authoritative_assessment_domain(quiz_id: str, fallback_domain: str | None = None) -> str:
+    """Resolves the immutable domain key belonging to the given assessment ID."""
+    quiz_meta = lookup_authoritative_quiz(quiz_id)
+    if quiz_meta and quiz_meta.get("domain"):
+        return str(quiz_meta["domain"])
+    return fallback_domain or "statisticalMethods"
+
+
 def lookup_authoritative_answer(quiz_id: str, question_id: str) -> int | None:
     """
     Returns the authoritative correct index for a question from server-side question banks.
     """
-    # 1. Check dynamic question registry
+    # 1. Check authoritative quiz question membership
+    quiz_meta = lookup_authoritative_quiz(quiz_id)
+    if quiz_meta:
+        for q in quiz_meta.get("questions", []):
+            if q.get("id") == question_id and q.get("correct_index") is not None:
+                return int(q["correct_index"])
+
+    # 2. Check dynamic question registry
     with _LOCK:
         if question_id in _DYNAMIC_QUESTION_KEYS:
             return _DYNAMIC_QUESTION_KEYS[question_id]
 
-    # 2. Check canonical diagnostic quizzes
-    quiz_meta = OFFICIAL_DIAGNOSTIC_QUIZZES.get(quiz_id)
-    if quiz_meta:
-        for q in quiz_meta.get("questions", []):
-            if q.get("id") == question_id:
-                return int(q["correct_index"])
-
-    # 3. Fallback: check all quizzes
+    # 3. Fallback: check official quizzes
     for q_meta in OFFICIAL_DIAGNOSTIC_QUIZZES.values():
         for q in q_meta.get("questions", []):
-            if q.get("id") == question_id:
+            if q.get("id") == question_id and q.get("correct_index") is not None:
                 return int(q["correct_index"])
 
     return None
@@ -413,7 +465,12 @@ def grade_submission(
     Authoritatively grades a quiz submission.
     Server calculates correctness using authoritative answer keys.
     Any client-supplied 'is_correct' or 'correct_option' fields are strictly ignored.
-    Rejects duplicate answers for the same question and invalid option indices.
+    Rejects:
+    - unknown assessment IDs
+    - questions from another assessment
+    - unknown question IDs
+    - duplicate answers for the same question
+    - invalid option indices
     """
     from fastapi import HTTPException
 
@@ -421,12 +478,32 @@ def grade_submission(
     if total == 0:
         raise HTTPException(status_code=400, detail="Quiz submission must contain at least one answer.")
 
+    quiz_meta = lookup_authoritative_quiz(quiz_id)
+    if quiz_meta is None:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unknown assessment ID '{quiz_id}'. Assessment does not exist in catalog or dynamic registry.",
+        )
+
+    allowed_q_ids = {q.get("id") for q in quiz_meta.get("questions", []) if q.get("id")}
+    answers_key = {
+        q["id"]: int(q["correct_index"])
+        for q in quiz_meta.get("questions", [])
+        if "id" in q and "correct_index" in q
+    }
+
     graded_answers: list[dict[str, Any]] = []
     correct_count = 0
     seen_question_ids: set[str] = set()
 
     for idx, ans in enumerate(answers):
         q_id = ans.question_id or f"Q{idx + 1}"
+        if allowed_q_ids and q_id not in allowed_q_ids:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Question '{q_id}' does not belong to assessment '{quiz_id}'.",
+            )
+
         if q_id in seen_question_ids:
             raise HTTPException(
                 status_code=400,
@@ -441,29 +518,24 @@ def grade_submission(
                 detail=f"Invalid option index '{selected}' for question '{q_id}'. Valid options are 0-3 (or -1 if skipped).",
             )
 
-        authoritative_correct = lookup_authoritative_answer(quiz_id, q_id)
+        authoritative_correct = answers_key.get(q_id)
+        if authoritative_correct is None:
+            authoritative_correct = lookup_authoritative_answer(quiz_id, q_id)
 
-        if authoritative_correct is not None:
-            # Server owns the answer key
-            is_correct = (selected == authoritative_correct)
-            correct_option = authoritative_correct
-        else:
-            # For unregistered or synthetic test IDs:
-            if ans.correct_option is not None:
-                correct_option = int(ans.correct_option)
-                is_correct = (selected == correct_option)
-            else:
-                # Default canonical correct index is 0
-                correct_option = 0
-                is_correct = (selected == 0)
+        if authoritative_correct is None:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Authoritative answer key missing for question '{q_id}'.",
+            )
 
+        is_correct = (selected == authoritative_correct)
         if is_correct:
             correct_count += 1
 
         graded_answers.append({
             "question_id": q_id,
             "selected_option": selected,
-            "correct_option": correct_option,
+            "correct_option": authoritative_correct,
             "is_correct": is_correct,
         })
 
@@ -474,6 +546,9 @@ def grade_submission(
 __all__ = [
     "OFFICIAL_DIAGNOSTIC_QUIZZES",
     "register_generated_questions",
+    "register_generated_quiz",
+    "lookup_authoritative_quiz",
+    "get_authoritative_assessment_domain",
     "lookup_authoritative_answer",
     "grade_submission",
     "record_quiz_submission",

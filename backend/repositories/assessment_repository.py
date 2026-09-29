@@ -27,5 +27,22 @@ class AssessmentRepository:
                 write_dataset(dataset)
                 return
 
+    def get_quiz(self, quiz_id: str) -> dict[str, Any] | None:
+        from services.assessment_service import lookup_authoritative_quiz
+
+        return lookup_authoritative_quiz(quiz_id)
+
+    def register_quiz(
+        self,
+        quiz_id: str,
+        title: str,
+        domain: str,
+        questions: list[dict[str, Any]],
+    ) -> None:
+        from services.assessment_service import register_generated_quiz
+
+        register_generated_quiz(quiz_id, title, domain, questions)
+
 
 assessment_repo = AssessmentRepository()
+

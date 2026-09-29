@@ -20,26 +20,21 @@ import SettingsPage from "./pages/SettingsPage.jsx";
 // Services & Engine
 import {
   API_BASE_URL,
-  API_REFRESH_MS,
-  API_TOKEN_KEY,
-  apiFetchMe,
   apiGenerateMCQs,
   apiLogin,
-  apiLogout,
   apiRegister,
   apiUpdateProfile,
+  apiFetchMe,
 } from "./services/api/client.js";
-import {
-  clearSession,
-  safeUser,
-  storeSession,
-} from "./services/auth/authService.js";
 import {
   KARMAYOGI_DATA,
   normalizeCompetencyPayload,
   runCompetencyEngine,
 } from "./services/competency/competencyEngine.js";
 import { notificationsFor } from "./i18n/index.js";
+import { useTheme } from "./hooks/useTheme.js";
+import { useAuth } from "./hooks/useAuth.js";
+import Toast from "./components/common/Toast.jsx";
 
 // Design System Themes
 import "./solo.css";
@@ -56,29 +51,21 @@ export default function App() {
     [competencyData]
   );
 
-  const [theme, setTheme] = useState(() => {
-    const stored = localStorage.getItem("statSkillVisualTheme");
-    return stored === "executive" || stored === "aurora" || stored === "solo"
-      ? stored
-      : "executive";
-  });
-  const [appearance, setAppearance] = useState(
-    () => localStorage.getItem("statSkillAppearance") === "dark" ? "dark" : "light"
-  );
-  const [lang, setLang] = useState(() =>
-    ["en", "hi", "ta", "te"].includes(localStorage.getItem("statSkillLanguage"))
-      ? localStorage.getItem("statSkillLanguage")
-      : "en"
-  );
+  const { theme, setTheme, appearance, setAppearance, lang, setLang } = useTheme();
+  const {
+    user,
+    setUser,
+    apiToken,
+    loggedIn,
+    profileData,
+    login,
+    logout,
+    applyApiSnapshot,
+  } = useAuth(setCompetencyData);
 
-  const [user, setUser] = useState(() => safeUser());
-  const [profileData, setProfileData] = useState(null);
-  const [apiToken, setApiToken] = useState(
-    () => localStorage.getItem(API_TOKEN_KEY) || ""
-  );
-  const [loggedIn, setLoggedIn] = useState(() =>
-    Boolean(localStorage.getItem(API_TOKEN_KEY))
-  );
+  const [toast, setToast] = useState(null);
+  const showToast = (message, type = "info") => setToast({ message, type });
+
   const [register, setRegister] = useState(false);
   const [active, setActive] = useState("Dashboard");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -87,67 +74,6 @@ export default function App() {
   const [activeQuiz, setActiveQuiz] = useState(null);
 
   const notifications = notificationsFor(lang);
-
-  const applyApiSnapshot = (snapshot) => {
-    const data = snapshot?.data || snapshot;
-    if (!data) return;
-    const normalized = normalizeCompetencyPayload(data);
-    setProfileData(data);
-    const currentUser = data.user || data.profile || null;
-    setUser(currentUser);
-    setCompetencyData(normalized);
-    if (currentUser) {
-      localStorage.setItem("statSkillUser", JSON.stringify(currentUser));
-    }
-  };
-
-  useEffect(() => {
-    if (!loggedIn || !apiToken) return undefined;
-
-    let mounted = true;
-    const refreshUserData = async () => {
-      try {
-        const snapshot = await apiFetchMe(apiToken);
-        if (mounted) applyApiSnapshot(snapshot);
-      } catch (error) {
-        console.warn("Unable to refresh user data:", error);
-        if (mounted && /401|session|token/i.test(String(error.message || ""))) {
-          clearSession();
-          setApiToken("");
-          setLoggedIn(false);
-        }
-      }
-    };
-
-    refreshUserData();
-    const intervalId = window.setInterval(refreshUserData, API_REFRESH_MS);
-    const handleFocus = () => {
-      refreshUserData();
-    };
-    window.addEventListener("focus", handleFocus);
-
-    return () => {
-      mounted = false;
-      window.clearInterval(intervalId);
-      window.removeEventListener("focus", handleFocus);
-    };
-  }, [loggedIn, apiToken]);
-
-  useEffect(() => {
-    localStorage.setItem("statSkillVisualTheme", theme);
-    localStorage.setItem("statSkillAppearance", appearance);
-    localStorage.setItem("statSkillLanguage", lang);
-    document.documentElement.dataset.themeMode = theme;
-    document.documentElement.dataset.appearanceMode = appearance;
-    document.body.classList.remove(
-      "theme-solo",
-      "theme-executive",
-      "theme-aurora",
-      "appearance-dark",
-      "appearance-light"
-    );
-    document.body.classList.add(`theme-${theme}`, `appearance-${appearance}`);
-  }, [theme, appearance, lang]);
 
   const handleStartQuiz = async (config) => {
     const domain =
@@ -215,29 +141,23 @@ export default function App() {
   const handleLogin = async ({ email, password }) => {
     try {
       const result = await apiLogin(email, password);
-      const token = result.access_token;
-      storeSession(token, result.data?.user || result.data?.profile);
-      setApiToken(token);
-      applyApiSnapshot(result.data);
-      setLoggedIn(true);
+      login(result);
       setActive("Dashboard");
+      showToast("Signed in successfully.", "success");
     } catch (error) {
-      alert(error.message || "Invalid credentials. Please verify your email and password.");
+      showToast(error.message || "Invalid credentials. Please verify your email and password.", "error");
     }
   };
 
   const handleRegister = async (formData) => {
     try {
       const result = await apiRegister(formData);
-      const token = result.access_token;
-      storeSession(token, result.data?.user || result.data?.profile);
-      setApiToken(token);
-      applyApiSnapshot(result.data);
-      setLoggedIn(true);
+      login(result);
       setRegister(false);
       setActive("Dashboard");
+      showToast("Account registered successfully.", "success");
     } catch (error) {
-      alert(error.message || "Registration failed.");
+      showToast(error.message || "Registration failed.", "error");
     }
   };
 
@@ -248,18 +168,16 @@ export default function App() {
     try {
       const snapshot = await apiUpdateProfile(apiToken, { name: nextUser.name });
       applyApiSnapshot(snapshot);
+      showToast("Profile updated successfully.", "success");
     } catch (error) {
-      alert(error.message || "Unable to save profile.");
+      showToast(error.message || "Unable to save profile.", "error");
     }
   };
 
-  const logout = async () => {
-    await apiLogout(apiToken);
-    clearSession();
-    setApiToken("");
-    setProfileData(null);
-    setLoggedIn(false);
+  const handleLogout = async () => {
+    await logout();
     setMenuOpen(false);
+    showToast("Signed out successfully.", "info");
   };
 
   if (!loggedIn) {
@@ -385,7 +303,7 @@ export default function App() {
         setOpen={setMenuOpen}
         lang={lang}
         user={user}
-        onLogout={logout}
+        onLogout={handleLogout}
         engine={engine}
       />
 
@@ -436,6 +354,14 @@ export default function App() {
               if (snap) applyApiSnapshot(snap);
             }
           }}
+        />
+      )}
+
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
         />
       )}
     </div>

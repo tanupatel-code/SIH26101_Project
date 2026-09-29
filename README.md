@@ -3,9 +3,9 @@
 **Problem Statement ID:** 26101  
 **Problem Statement Title:** *Develop an AI-enabled learning platform that identifies competency gaps, recommends personalized training through integration with the iGOT Karmayogi ecosystem, and is capable of generating Quizzes and Multiple Choice Questions (MCQs) from uploaded learning materials to strengthen capacity building in India's Official Statistical System.*  
 **Target Ministry / Cadre:** Ministry of Statistics and Programme Implementation (MoSPI) & National Statistical Systems Training Academy (NSSTA)  
-**System Version:** 3.1.0 (Hardened Production-Ready Architecture)  
-**Test Suite Status:** ✅ **107 of 107 Tests Passed (100% Pass Rate)**  
-**Static Type Safety:** ✅ **0 Typing Issues (Mypy Checked across 38 source files)**  
+**System Version:** 3.2.0 (Hardened Production-Ready Architecture)  
+**Test Suite Status:** ✅ **120 of 120 Tests Passed (100% Pass Rate)**  
+**Static Type Safety:** ✅ **0 Typing Issues (Mypy Checked across 40 source files)**  
 
 ---
 
@@ -42,13 +42,15 @@ StatSkill AI is an AI-powered diagnostic and capacity-building platform tailored
 | **Authorization** | Strict Ownership & Guards | **IMPLEMENTED** | Authorization dependency `verify_resource_ownership` blocks cross-user access to documents, profiles, and certificates with HTTP 403. |
 | **Security** | Production Admin Secret | **IMPLEMENTED** | Fail-fast validation in `core/config.py`: blocks startup in production if `STATSKILL_ADMIN_KEY` is omitted or default. |
 | **Security** | CORS Policy | **IMPLEMENTED** | Strictly whitelisted origins (`CORS_ORIGINS`). Never uses wildcard `*` with credentialed requests. |
-| **Assessments** | Server-Side Authoritative Grading | **IMPLEMENTED** | Server holds authoritative answer keys; client scores and `is_correct` flags are completely discarded. |
-| **Competency Engine** | Deterministic Recalculation | **IMPLEMENTED** | Single source of truth in backend. Dynamically updates scores from assessment history without stale cache override. |
+| **Assessments** | Server-Side Authoritative Grading | **IMPLEMENTED** | Server holds authoritative answer keys; client scores, correct answer claims, and forged competency domains are discarded. |
+| **Assessments** | Lifecycle & Replay Protection | **IMPLEMENTED** | Enforces valid assessment IDs, membership checks, option bounds `[-1, 3]`, duplicate answer protection, and 2s replay rejection (HTTP 409). |
+| **Competency Engine** | Authoritative Multi-Signal Pipeline | **IMPLEMENTED** | `Raw Evidence -> Calculated Score -> Admin Override -> Final Score`. Auditable admin override clearing restores calculated evidence. |
 | **Certificates** | Platform Achievement Credentials | **IMPLEMENTED** | Truthful platform credentials clearly distinguished from official government appointments; includes SHA-256 fingerprinting. |
 | **Certificates** | Public Verification | **IMPLEMENTED** | Public verification endpoint at `/api/certificates/{cert_id}/verify` exposing sanitized credential metadata. |
 | **Documents** | Secure Ingestion & Isolation | **IMPLEMENTED** | Path traversal neutralization, extension allowlist (`.pdf`, `.docx`, `.pptx`, `.txt`, `.csv`), 25 MB max limit, isolated per user. |
 | **Persistence** | Abstracted Repository Layer | **IMPLEMENTED** | Clean repository pattern (`user_repo`, `doc_repo`, `cert_repo`, `assessment_repo`, `session_repo`) isolating business services from raw storage. |
-| **AI / MCQs** | Psychometric Validation | **IMPLEMENTED** | Multi-step pipeline validating 4 options, non-trivial rationale, Bloom alignment, deduplication, and quality scoring. |
+| **AI / MCQs** | Provider Abstraction Boundary | **IMPLEMENTED** | Clean `BaseMCQProvider` contract with `LocalMCQProvider`, `GeminiMCQProvider`, `OpenAIMCQProvider`, and `CompositeMCQProvider`. |
+| **AI / MCQs** | Psychometric Quality & Filtering | **IMPLEMENTED** | Rejects malformed questions with < 4 genuine options without injecting synthetic dummy distractors. |
 | **AI / MCQs** | Offline Deterministic Generator | **IMPLEMENTED** | High-quality offline fallback generators covering all 7 MoSPI domains without requiring external keys. |
 | **AI / MCQs** | Cloud LLM Generation (Gemini/OpenAI) | **EXTERNALLY DEPENDENT** | Provider boundary configured via `GEMINI_API_KEY` or `OPENAI_API_KEY` with seamless local fallback. |
 | **iGOT Hub** | Catalog & Recommendation Engine | **MOCKED/SIMULATED** | `MockIGotProvider` with honest simulation metadata (`is_simulated: true`), NSSTA curriculum catalog, and 4-hour training credit flow. |

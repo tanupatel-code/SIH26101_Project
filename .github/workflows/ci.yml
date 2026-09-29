@@ -46,12 +46,12 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: frontend/package.json
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: |
-          npm ci || npm install
+          npm ci
 
       - name: Build Production Frontend Bundle
         working-directory: ./frontend
@@ -83,3 +83,41 @@ jobs:
           file: deploy/Dockerfile.frontend
           push: false
           tags: statskill-frontend:test
+
+  runtime-integration-verification:
+    name: Docker Stack Runtime Integration Verification
+    runs-on: ubuntu-latest
+    needs: [backend-verification, frontend-verification, docker-verification]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Start Docker Compose Stack
+        run: |
+          docker compose -f docker-compose.yml up -d --build
+
+      - name: Wait for Stack Readiness
+        run: |
+          echo "Waiting for services to become healthy..."
+          for i in {1..30}; do
+            if curl -s -f http://127.0.0.1:8000/health && curl -s -f http://127.0.0.1:8000/readiness; then
+              echo "Services ready!"
+              break
+            fi
+            echo "Waiting ($i/30)..."
+            sleep 2
+          done
+
+      - name: Execute Runtime Integration Verification
+        run: |
+          python scripts/verify_deployment.py --url http://127.0.0.1:8000 --frontend-url http://127.0.0.1:80
+
+      - name: Shutdown Docker Stack
+        if: always()
+        run: |
+          docker compose -f docker-compose.yml down -v

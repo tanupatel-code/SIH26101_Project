@@ -41,13 +41,19 @@ export async function apiRequest(endpoint, options = {}) {
     headers["Content-Type"] = "application/json";
   }
 
+  const timeoutMs = options.timeout || 30000;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
   const config = {
     ...options,
     headers,
+    signal: options.signal || controller.signal,
   };
 
   try {
     const response = await fetch(url, config);
+    clearTimeout(timeoutId);
     let payload = null;
     const contentType = response.headers.get("content-type") || "";
 
@@ -58,6 +64,14 @@ export async function apiRequest(endpoint, options = {}) {
     }
 
     if (!response.ok) {
+      if (response.status === 401) {
+        if (typeof localStorage !== "undefined") {
+          localStorage.removeItem(API_TOKEN_KEY);
+        }
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("statskill:unauthorized", { detail: payload }));
+        }
+      }
       const errorMsg =
         payload?.detail ||
         payload?.message ||
@@ -67,6 +81,10 @@ export async function apiRequest(endpoint, options = {}) {
 
     return payload;
   } catch (err) {
+    clearTimeout(timeoutId);
+    if (err.name === "AbortError") {
+      throw new ApiError(`Request timeout after ${timeoutMs}ms for ${endpoint}`, 408);
+    }
     if (err instanceof ApiError) throw err;
     throw new ApiError(err.message || "Network communication failed", 0, err);
   }

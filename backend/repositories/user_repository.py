@@ -19,6 +19,8 @@ class UserRepository:
                 return copy.deepcopy(record)
         return None
 
+    find_by_id = get_by_id
+
     def get_by_email(self, email: str) -> dict[str, Any] | None:
         target = email.strip().lower()
         dataset = read_dataset()

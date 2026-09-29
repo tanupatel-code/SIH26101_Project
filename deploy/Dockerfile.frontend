@@ -9,7 +9,7 @@ WORKDIR /app
 
 # Copy dependency specifications
 COPY frontend/package*.json ./
-RUN npm ci || npm install
+RUN npm ci
 
 # Copy frontend source files
 COPY frontend/ ./

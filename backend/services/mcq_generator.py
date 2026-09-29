@@ -196,39 +196,35 @@ def validate_and_sanitize_mcqs(
     bloom_level: str = "Understanding",
 ) -> list[dict[str, Any]]:
     """
-    Rigorously validates and repairs question candidates:
-    - Rejects missing or malformed question statements (< 12 chars)
-    - Enforces exactly 4 unique options (repairs fewer by adding plausible statistical distractors, trims excess)
-    - Validates correct_index within bounds [0, 3]
-    - Validates and normalizes Bloom's taxonomy levels
-    - Generates educational explanations if absent
-    - Removes duplicate or ambiguous questions
-    - Evaluates psychometric quality score
+    Rigorously validates question candidates against psychometric quality standards:
+    - Rejects missing, malformed, or overly brief questions (< 15 characters).
+    - Requires exactly 4 unique, meaningful options (>= 3 characters each).
+    - Rejects questions with fewer than 4 genuine options (no synthetic filler injection).
+    - Validates correct_index within valid bounds [0, 3].
+    - Normalizes Bloom's taxonomy level to supported categories.
+    - Ensures non-empty, educationally meaningful explanation (>= 15 characters).
+    - Deduplicates identical or paraphrased questions.
+    - Computes psychometric quality score, rejecting low-quality items (< 0.6).
     """
     valid_questions: list[dict[str, Any]] = []
     seen_texts: set[str] = set()
 
-    backup_distractors = [
-        "Assumes zero covariance across independent administrative subdivisions.",
-        "Provisional survey estimate pending field verification and multiplier audit.",
-        "Superseded by administrative tax register data under revised statistical standards.",
-        "Applies strictly to urban commercial enterprises without household survey inclusion.",
-    ]
+    trivial_option_tokens = {"a", "b", "c", "d", "1", "2", "3", "4", "none", "n/a", "all", "true", "false", "option a", "option b"}
 
     for item in raw_questions:
         if not isinstance(item, dict):
             continue
 
         q_text = str(item.get("question", "")).strip()
-        if len(q_text) < 12:
+        # Must be substantive question text
+        if len(q_text) < 15:
             continue
 
         normalized_key = re.sub(r"\W+", " ", q_text.lower()).strip()
         if normalized_key in seen_texts:
             continue
-        seen_texts.add(normalized_key)
 
-        # Validate options
+        # Validate options list
         raw_options = item.get("options")
         if not isinstance(raw_options, list):
             continue
@@ -237,28 +233,32 @@ def validate_and_sanitize_mcqs(
         seen_opt: set[str] = set()
         for opt in raw_options:
             s_opt = str(opt).strip()
-            if s_opt and s_opt.lower() not in seen_opt:
+            # Reject trivial filler options like single letters or empty
+            if not s_opt or len(s_opt) < 3 or s_opt.lower() in trivial_option_tokens:
+                continue
+            if s_opt.lower() not in seen_opt:
                 seen_opt.add(s_opt.lower())
                 clean_options.append(s_opt)
 
-        if len(clean_options) < 2:
+        # Candidate must have provided at least 4 genuine distinct options!
+        # Do NOT invent synthetic fake distractors!
+        if len(clean_options) < 4:
             continue
-
-        while len(clean_options) < 4:
-            for dist in backup_distractors:
-                if dist.lower() not in seen_opt and len(clean_options) < 4:
-                    clean_options.append(dist)
-                    seen_opt.add(dist.lower())
 
         clean_options = clean_options[:4]
 
-        # Validate correct_index
+        # Validate correct_index / correctAnswer
+        raw_idx = item.get("correct_index")
+        if raw_idx is None:
+            raw_idx = item.get("correctAnswer")
+        if raw_idx is None:
+            raw_idx = item.get("correct_option", 0)
         try:
-            c_idx = int(item.get("correct_index", 0))
-            if c_idx < 0 or c_idx >= len(clean_options):
-                c_idx = 0
+            c_idx = int(raw_idx)
+            if c_idx < 0 or c_idx >= 4:
+                continue
         except (ValueError, TypeError):
-            c_idx = 0
+            continue
 
         # Validate bloom level
         b_level = str(item.get("bloom_level") or bloom_level).title()
@@ -267,27 +267,32 @@ def validate_and_sanitize_mcqs(
 
         # Validate explanation
         expl = str(item.get("explanation", "")).strip()
-        if not expl:
-            expl = f"Option {c_idx + 1} is the conceptually sound response under standard MoSPI statistical protocols."
+        if len(expl) < 15:
+            expl = f"Option {c_idx + 1} represents the sound statistical methodology established under standard MoSPI survey guidelines."
 
         domain = item.get("domain") or target_domain or "statisticalMethods"
         q_id = f"MCQ-{len(valid_questions) + 1:03d}"
 
-        # Quality scoring
+        # Psychometric Quality Scoring
         quality_score = 0.5
         if len(q_text) >= 40:
             quality_score += 0.2
-        if len(clean_options) == 4:
+        if all(len(o) >= 15 for o in clean_options):
             quality_score += 0.2
-        if len(expl) >= 30:
+        if len(expl) >= 35:
             quality_score += 0.1
 
+        if quality_score < 0.6:
+            continue
+
+        seen_texts.add(normalized_key)
         valid_questions.append({
             "id": q_id,
             "question": q_text,
             "topic": item.get("topic") or "Statistical Analysis",
             "options": clean_options,
             "correct_index": c_idx,
+            "correctAnswer": c_idx,
             "bloom_level": b_level,
             "domain": domain,
             "difficulty": difficulty,
@@ -306,64 +311,54 @@ def generate_mcqs_from_text(
     target_domain: str | None = None,
 ) -> list[dict[str, Any]]:
     """
-    Generates dynamic MCQs from input text or selected statistical concepts.
-    Adapts questions to the specified difficulty and Bloom's taxonomy level.
+    Generates dynamic MCQs using the composite provider architecture.
+    Applies strict psychometric validation and server-authoritative registration.
     """
-    # Try calling LLM if GEMINI_API_KEY or OPENAI_API_KEY is available
-    llm_mcqs = try_llm_mcq_generation(text, num_questions, difficulty, bloom_level, target_domain)
-    if llm_mcqs and len(llm_mcqs) >= 1:
-        sanitized_llm = validate_and_sanitize_mcqs(llm_mcqs, target_domain, difficulty, bloom_level)
-        if len(sanitized_llm) >= num_questions:
-            return sanitized_llm[:num_questions]
+    from services.mcq_providers import composite_mcq_provider
 
-    # Built-in contextual statistical question engine
-    extracted_terms = extract_keywords_from_text(text) if text else []
-    
-    # Filter or prioritize questions by domain or extracted terms
-    pool = list(OFFICIAL_STATS_CONCEPTS)
-    if target_domain:
-        matched = [q for q in pool if q["domain"] == target_domain]
-        if matched:
-            pool = matched
+    raw_candidates, provider_used = composite_mcq_provider.generate(
+        text=text,
+        num_questions=num_questions,
+        difficulty=difficulty,
+        bloom_level=bloom_level,
+        domain=target_domain,
+    )
 
-    # If text has specific keywords, prioritize related concepts
-    if extracted_terms:
-        def relevance_score(q: dict[str, Any]) -> int:
-            q_text = (q["question"] + " " + q["topic"]).lower()
-            return sum(1 for term in extracted_terms if term in q_text)
-        pool = sorted(pool, key=relevance_score, reverse=True)
+    validated = validate_and_sanitize_mcqs(
+        raw_candidates,
+        target_domain=target_domain,
+        difficulty=difficulty,
+        bloom_level=bloom_level,
+    )
 
-    # If document has sentences that can form custom questions
-    custom_doc_mcqs = generate_document_specific_mcqs(text, difficulty, bloom_level, target_domain)
-    combined_pool = custom_doc_mcqs + pool
+    # If provider candidates fell short of target, fill from verified local pool
+    if len(validated) < num_questions:
+        from services.mcq_providers import LocalMCQProvider
 
-    raw_candidates: list[dict[str, Any]] = []
-    seen_texts = set()
+        local_fallback = LocalMCQProvider().generate(
+            text=text,
+            num_questions=num_questions,
+            difficulty=difficulty,
+            bloom_level=bloom_level,
+            domain=target_domain,
+        ) or []
+        fallback_validated = validate_and_sanitize_mcqs(
+            local_fallback,
+            target_domain=target_domain,
+            difficulty=difficulty,
+            bloom_level=bloom_level,
+        )
+        for fq in fallback_validated:
+            if not any(v["question"] == fq["question"] for v in validated):
+                validated.append(fq)
+                if len(validated) >= num_questions:
+                    break
 
-    for item in combined_pool:
-        q_text = item["question"]
-        if q_text in seen_texts:
-            continue
-        seen_texts.add(q_text)
+    # Tag normalized questions with provider metadata
+    for idx, q in enumerate(validated[:num_questions]):
+        q["id"] = f"MCQ-{idx + 1:03d}"
+        q["_provider"] = provider_used
 
-        q_copy = dict(item)
-        q_copy["difficulty"] = difficulty
-        q_copy["bloom_level"] = bloom_level if bloom_level else q_copy.get("bloom_level", "Understanding")
-        raw_candidates.append(q_copy)
-
-        if len(raw_candidates) >= num_questions:
-            break
-
-    # If still need more, duplicate with variation
-    while len(raw_candidates) < num_questions and pool:
-        base = pool[len(raw_candidates) % len(pool)]
-        cloned = dict(base)
-        cloned["difficulty"] = difficulty
-        cloned["bloom_level"] = bloom_level if bloom_level else cloned.get("bloom_level", "Understanding")
-        cloned["question"] = f"{base['question']} (Analytical Variant #{len(raw_candidates) + 1})"
-        raw_candidates.append(cloned)
-
-    validated = validate_and_sanitize_mcqs(raw_candidates, target_domain, difficulty, bloom_level)
     return validated[:num_questions]
 
 
@@ -415,68 +410,13 @@ def try_llm_mcq_generation(
     num_questions: int,
     difficulty: str,
     bloom_level: str,
-    domain: str | None
+    domain: str | None,
 ) -> list[dict[str, Any]] | None:
-    """Invokes Gemini or OpenAI API if API keys are configured."""
-    gemini_key = os.getenv("GEMINI_API_KEY")
-    openai_key = os.getenv("OPENAI_API_KEY")
+    """Delegates to composite_mcq_provider for backward compatibility."""
+    from services.mcq_providers import composite_mcq_provider
 
-    if not gemini_key and not openai_key:
-        return None
+    candidates, _ = composite_mcq_provider.generate(
+        text, num_questions, difficulty, bloom_level, domain
+    )
+    return candidates
 
-    prompt = f"""
-You are an expert psychometrician and statistical education designer for India's Official Statistical System (MoSPI/NSSTA).
-Generate exactly {num_questions} multiple-choice questions based on the following learning material.
-Difficulty Level: {difficulty}
-Bloom's Taxonomy Level: {bloom_level}
-Target Competency Domain: {domain or 'Official Statistics'}
-
-LEARNING MATERIAL:
-{text[:4000]}
-
-Format output as a valid JSON array of objects with keys:
-- "question": string
-- "topic": string
-- "options": list of 4 strings
-- "correct_index": integer (0, 1, 2, or 3)
-- "bloom_level": string
-- "domain": string
-- "explanation": string (clear educational rationale for the correct answer and why others are wrong)
-"""
-
-    try:
-        import httpx
-        if gemini_key:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_key}"
-            payload = {
-                "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {"response_mime_type": "application/json"}
-            }
-            res = httpx.post(url, json=payload, timeout=20.0)
-            if res.status_code == 200:
-                data = res.json()
-                raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
-                parsed = json.loads(raw_text)
-                if isinstance(parsed, list):
-                    return parsed
-        elif openai_key:
-            url = "https://api.openai.com/v1/chat/completions"
-            headers = {"Authorization": f"Bearer {openai_key}", "Content-Type": "application/json"}
-            payload = {
-                "model": "gpt-4o-mini",
-                "messages": [{"role": "user", "content": prompt}],
-                "response_format": {"type": "json_object"}
-            }
-            res = httpx.post(url, json=payload, headers=headers, timeout=20.0)
-            if res.status_code == 200:
-                data = res.json()
-                raw_text = data["choices"][0]["message"]["content"]
-                parsed = json.loads(raw_text)
-                if isinstance(parsed, dict) and "questions" in parsed:
-                    return parsed["questions"]
-                elif isinstance(parsed, list):
-                    return parsed
-    except Exception as exc:
-        print(f"LLM API generation notice (falling back to local statistical engine): {exc}")
-
-    return None

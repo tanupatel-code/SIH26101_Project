@@ -1,3 +1,5 @@
+import time
+import uuid
 from typing import Any
 from fastapi import APIRouter, Depends, Header, HTTPException
 
@@ -5,9 +7,11 @@ from api.deps import get_current_session, get_optional_session
 from repositories.user_repository import user_repo
 from schemas.assessment_schemas import McqGenerateRequest, QuizSubmitRequest
 from services.assessment_service import (
+    get_authoritative_assessment_domain,
     grade_submission,
     record_quiz_submission,
     register_generated_questions,
+    register_generated_quiz,
 )
 from services.auth_service import build_user_payload
 from services.mcq_generator import generate_mcqs_from_text
@@ -22,6 +26,7 @@ def generate_mcqs(
 ) -> dict[str, Any]:
     """
     Generates AI Quizzes / MCQs from an uploaded document, provided text, or a specific statistical topic.
+    Authoritatively registers the quiz and its question set server-side.
     """
     text_to_process = ""
 
@@ -43,15 +48,20 @@ def generate_mcqs(
         target_domain=request.domain,
     )
 
-    # Register authoritative answer keys server-side
-    register_generated_questions(questions)
+    quiz_id = f"QUIZ-GEN-{uuid.uuid4().hex[:8]}"
+    domain = request.domain or "statisticalMethods"
+    title = f"AI Diagnostic: {request.domain or 'Official Statistics'}"
+
+    # Register authoritative quiz and answer keys server-side
+    register_generated_quiz(quiz_id, title, domain, questions)
 
     return {
         "ok": True,
+        "quizId": quiz_id,
         "questionCount": len(questions),
         "difficulty": request.difficulty,
         "bloomLevel": request.bloom_level,
-        "domain": request.domain or "General Statistics",
+        "domain": domain,
         "questions": questions,
     }
 
@@ -140,18 +150,38 @@ def submit_assessment(
     if not request.answers:
         raise HTTPException(status_code=400, detail="No answers provided in quiz submission.")
 
+    # Replay protection: prevent duplicate submissions submitted within 2 seconds
+    recent_history = record.get("assessmentHistory") or []
+    if recent_history and isinstance(recent_history, list):
+        last_attempt = recent_history[-1]
+        if isinstance(last_attempt, dict) and last_attempt.get("quiz_id") == request.quiz_id:
+            last_ts = last_attempt.get("_submitted_at", 0)
+            if time.time() - float(last_ts) < 2.0:
+                raise HTTPException(
+                    status_code=409,
+                    detail="Duplicate assessment submission detected. Please wait before re-submitting.",
+                )
+
     # Server authoritatively grades answers against authoritative question bank
     correct, total, percentage, answers_detail = grade_submission(
         request.quiz_id, request.answers
     )
 
+    # Authoritative domain resolution prevents client from spoofing impacted competency
+    auth_domain = get_authoritative_assessment_domain(request.quiz_id, fallback_domain=request.domain)
+
     result = record_quiz_submission(
         user_record=record,
         quiz_title=request.title,
-        domain=request.domain,
+        domain=auth_domain,
         score_percentage=percentage,
         answers_detail=answers_detail,
     )
+
+    # Track submission timestamp for replay protection
+    if record.get("assessmentHistory"):
+        record["assessmentHistory"][-1]["quiz_id"] = request.quiz_id
+        record["assessmentHistory"][-1]["_submitted_at"] = time.time()
 
     # Persist updated user record using repository
     user_repo.save(record)
@@ -162,7 +192,7 @@ def submit_assessment(
         "score": percentage,
         "correctCount": correct,
         "totalQuestions": total,
-        "domain": request.domain,
+        "domain": auth_domain,
         "updatedCompetencyScore": result["updatedCompetency"],
         "overallCompetency": result["overallCompetency"],
         "userPayload": build_user_payload(record, profile),
