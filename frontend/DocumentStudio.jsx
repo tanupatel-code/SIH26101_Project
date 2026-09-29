@@ -17,7 +17,7 @@ import {
 
 export default function DocumentStudio({
   documents = [],
-  apiBaseUrl = "http://localhost:8000",
+  apiBaseUrl = (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_BASE_URL ? import.meta.env.VITE_API_BASE_URL.replace(/\/$/, "") : "http://localhost:8000"),
   apiToken = "",
   onDocumentUploaded,
   onStartQuiz,

@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 export default function IgotHub({
-  apiBaseUrl = "http://localhost:8000",
+  apiBaseUrl = (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_BASE_URL ? import.meta.env.VITE_API_BASE_URL.replace(/\/$/, "") : "http://localhost:8000"),
   apiToken = "",
   userCourses = [],
   criticalSkills = [],
