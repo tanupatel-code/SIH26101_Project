@@ -145,13 +145,9 @@ def process_and_store_document(
     else:
         existing_docs.insert(0, doc_entry)
 
-    # Persist in dataset
-    dataset = read_dataset()
-    for idx, candidate in enumerate(dataset.get("users", [])):
-        if candidate.get("id") == owner_record.get("id"):
-            dataset["users"][idx] = owner_record
-            break
-    write_dataset(dataset)
+    # Persist in user repository
+    from repositories.user_repository import user_repo
+    user_repo.save(owner_record)
 
     return {
         "ok": True,

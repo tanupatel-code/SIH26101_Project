@@ -3,10 +3,10 @@ from typing import Any
 from fastapi import APIRouter, Depends, File, Header, HTTPException, Response, UploadFile
 from fastapi.responses import FileResponse
 
-from api.deps import get_current_session
+from api.deps import get_current_session, get_optional_session
 from core.config import UPLOAD_DIR
-from repositories.dataset_repository import read_dataset, read_demo, write_dataset
-from services.auth_service import session_record
+from repositories.dataset_repository import read_dataset, read_demo
+from repositories.document_repository import doc_repo
 from services.certificate_service import create_minimal_pdf_bytes
 from services.document_service import (
     find_document_for_download,
@@ -51,20 +51,14 @@ def get_documents(
 @router.get("/api/documents/{doc_id}/download")
 def download_document(
     doc_id: str,
-    authorization: str | None = Header(default=None),
+    session: tuple[dict[str, Any], dict[str, Any]] | None = Depends(get_optional_session),
 ) -> Response:
     """
     Downloads an authentic document from the user's Document Vault.
     Supports uploaded files and standard MoSPI learning materials.
+    Enforces cross-user isolation and ownership checks.
     """
-    dataset = read_dataset()
-    user_record: dict[str, Any] | None = None
-    if isinstance(authorization, str) and authorization:
-        try:
-            user_record, _ = session_record(authorization)
-        except Exception:
-            user_record = None
-
+    user_record = session[0] if isinstance(session, tuple) else None
     target_doc, file_path = find_document_for_download(doc_id, user_record)
 
     if not target_doc:

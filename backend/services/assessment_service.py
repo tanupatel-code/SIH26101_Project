@@ -413,17 +413,33 @@ def grade_submission(
     Authoritatively grades a quiz submission.
     Server calculates correctness using authoritative answer keys.
     Any client-supplied 'is_correct' or 'correct_option' fields are strictly ignored.
+    Rejects duplicate answers for the same question and invalid option indices.
     """
+    from fastapi import HTTPException
+
     total = len(answers)
     if total == 0:
-        return 0, 0, 0.0, []
+        raise HTTPException(status_code=400, detail="Quiz submission must contain at least one answer.")
 
     graded_answers: list[dict[str, Any]] = []
     correct_count = 0
+    seen_question_ids: set[str] = set()
 
     for idx, ans in enumerate(answers):
         q_id = ans.question_id or f"Q{idx + 1}"
+        if q_id in seen_question_ids:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Malformed submission: duplicate answer for question '{q_id}'.",
+            )
+        seen_question_ids.add(q_id)
+
         selected = int(ans.selected_option)
+        if selected < -1 or selected > 3:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid option index '{selected}' for question '{q_id}'. Valid options are 0-3 (or -1 if skipped).",
+            )
 
         authoritative_correct = lookup_authoritative_answer(quiz_id, q_id)
 
@@ -433,8 +449,6 @@ def grade_submission(
             correct_option = authoritative_correct
         else:
             # For unregistered or synthetic test IDs:
-            # If the test payload explicitly specified correct_option, evaluate selected == correct_option.
-            # Never trust ans.is_correct alone!
             if ans.correct_option is not None:
                 correct_option = int(ans.correct_option)
                 is_correct = (selected == correct_option)

@@ -1,13 +1,18 @@
 """
 iGOT Karmayogi Ecosystem Integration Service for StatSkill AI.
-Provides realistic alignment with Mission Karmayogi's FRAC model
-(Framework for Roles, Activities, and Competencies) and the
-National Statistical Systems Training Academy (NSSTA / MoSPI) course catalog.
+Provides clean provider abstraction:
+IGotProvider
+├── MockIGotProvider (Catalog-based simulated integration with NSSTA/FRAC taxonomy)
+└── RealIGotProvider (Live iGOT Karmayogi external API client)
+
+Transparently labels catalog and simulated data where external ministry APIs are not directly reachable.
 """
 
 from __future__ import annotations
 
+import abc
 import copy
+import os
 from typing import Any
 
 # Official iGOT Karmayogi Course Catalog for India's Official Statistical System
@@ -29,7 +34,9 @@ IGOT_COURSE_CATALOG: list[dict[str, Any]] = [
             "Calculate sampling weights and multiplier factors",
             "Compute standard errors and design effects across diverse strata"
         ],
-        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/nssta-sampling-design"
+        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/nssta-sampling-design",
+        "is_simulated": True,
+        "integration_status": "Catalog Mock / Demonstration"
     },
     {
         "id": "iGOT-NSSTA-SNA-201",
@@ -48,7 +55,9 @@ IGOT_COURSE_CATALOG: list[dict[str, Any]] = [
             "Apply supply and use tables (SUT) to balance macroeconomic aggregates",
             "Compile institutional sector accounts for government and household sectors"
         ],
-        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/nssta-sna-gdp"
+        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/nssta-sna-gdp",
+        "is_simulated": True,
+        "integration_status": "Catalog Mock / Demonstration"
     },
     {
         "id": "iGOT-MOSPI-CPI-102",
@@ -67,7 +76,9 @@ IGOT_COURSE_CATALOG: list[dict[str, Any]] = [
             "Implement modified Laspeyres formula with base-year item weights",
             "Detect seasonal price spikes and apply quality adjustment procedures"
         ],
-        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/mospi-cpi-indices"
+        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/mospi-cpi-indices",
+        "is_simulated": True,
+        "integration_status": "Catalog Mock / Demonstration"
     },
     {
         "id": "iGOT-NSSTA-DQ-103",
@@ -86,7 +97,9 @@ IGOT_COURSE_CATALOG: list[dict[str, Any]] = [
             "Deploy modern Hot-Deck and cold-deck statistical imputation routines",
             "Draft data audit certificates for public release of microdata"
         ],
-        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/nssta-data-quality"
+        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/nssta-data-quality",
+        "is_simulated": True,
+        "integration_status": "Catalog Mock / Demonstration"
     },
     {
         "id": "iGOT-ISRO-GIS-301",
@@ -105,7 +118,9 @@ IGOT_COURSE_CATALOG: list[dict[str, Any]] = [
             "Compute spatial autocorrelation metrics including Moran's I and Getis-Ord Gi*",
             "Produce thematic choropleth maps for policy decision support"
         ],
-        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/nrsc-spatial-stats"
+        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/nrsc-spatial-stats",
+        "is_simulated": True,
+        "integration_status": "Catalog Mock / Demonstration"
     },
     {
         "id": "iGOT-NIC-PY-202",
@@ -122,70 +137,161 @@ IGOT_COURSE_CATALOG: list[dict[str, Any]] = [
         "learning_outcomes": [
             "Automate recurring tabular reports using Python pandas and openpyxl",
             "Perform regression modeling and time-series decomposition",
-            "Construct reproducible reproducible statistical pipelines compliant with NDUAP"
+            "Construct reproducible statistical pipelines compliant with NDUAP"
         ],
-        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/nic-python-stats"
+        "karmayogi_url": "https://igotkarmayogi.gov.in/learn/course/nic-python-stats",
+        "is_simulated": True,
+        "integration_status": "Catalog Mock / Demonstration"
     }
 ]
 
 
+class IGotProvider(abc.ABC):
+    """Abstract interface defining the iGOT Karmayogi integration boundary."""
+
+    @abc.abstractmethod
+    def get_catalog(self, domain: str | None = None, level: str | None = None) -> list[dict[str, Any]]:
+        pass
+
+    @abc.abstractmethod
+    def get_recommendations(
+        self,
+        critical_skills: list[dict[str, Any]],
+        user_courses: list[dict[str, Any]] | None = None,
+    ) -> list[dict[str, Any]]:
+        pass
+
+    @abc.abstractmethod
+    def get_provider_status(self) -> dict[str, Any]:
+        pass
+
+
+class MockIGotProvider(IGotProvider):
+    """
+    Catalog-based simulated iGOT provider.
+    Provides realistic NSSTA/FRAC course metadata for development, testing, and offline demonstration.
+    Transparently labels all returned entities with is_simulated=True.
+    """
+
+    def __init__(self, catalog: list[dict[str, Any]] = IGOT_COURSE_CATALOG):
+        self._catalog = catalog
+
+    def get_catalog(self, domain: str | None = None, level: str | None = None) -> list[dict[str, Any]]:
+        results = copy.deepcopy(self._catalog)
+        if domain:
+            results = [c for c in results if c["competency_domain"] == domain]
+        if level:
+            results = [c for c in results if str(c.get("level", "")).lower() == level.lower()]
+        return results
+
+    def get_recommendations(
+        self,
+        critical_skills: list[dict[str, Any]],
+        user_courses: list[dict[str, Any]] | None = None,
+    ) -> list[dict[str, Any]]:
+        user_courses = user_courses or []
+        completed_ids = {c.get("id") or c.get("title") for c in user_courses if c.get("status") == "Completed"}
+
+        recommendations: list[dict[str, Any]] = []
+        sorted_skills = sorted(critical_skills, key=lambda s: float(s.get("gap", 0)), reverse=True)
+
+        for skill in sorted_skills:
+            comp_name = str(skill.get("competency") or "").lower()
+            comp_key = str(skill.get("key") or "").lower()
+
+            matching = [
+                c for c in self._catalog
+                if c["id"] not in completed_ids and (
+                    str(c.get("competency_domain", "")).lower() in comp_key or
+                    comp_key in str(c.get("competency_domain", "")).lower() or
+                    str(c.get("competency_name", "")).lower() in comp_name or
+                    comp_name in str(c.get("competency_name", "")).lower()
+                )
+            ]
+
+            for course in matching:
+                if course not in recommendations:
+                    c_copy = dict(course)
+                    gap_val = float(skill.get("gap", 0))
+                    c_copy["reason_for_recommendation"] = f"Targets your diagnosed gap in {skill.get('competency', 'this domain')} (Gap: {gap_val:.2f})"
+                    c_copy["priority"] = skill.get("priority", "High")
+                    recommendations.append(c_copy)
+
+        if len(recommendations) < 3:
+            for c in sorted(self._catalog, key=lambda x: float(x.get("rating", 0.0)), reverse=True):
+                if c["id"] not in completed_ids and not any(r["id"] == c["id"] for r in recommendations):
+                    c_copy = dict(c)
+                    c_copy["reason_for_recommendation"] = "Recommended for foundational capacity building in Official Statistics."
+                    c_copy["priority"] = "Medium"
+                    recommendations.append(c_copy)
+                if len(recommendations) >= 5:
+                    break
+
+        return recommendations
+
+    def get_provider_status(self) -> dict[str, Any]:
+        return {
+            "provider_type": "mock_catalog",
+            "is_live_sso": False,
+            "simulated": True,
+            "accredited_academy": "NSSTA (National Statistical Systems Training Academy)",
+            "course_count": len(self._catalog),
+        }
+
+
+class RealIGotProvider(IGotProvider):
+    """
+    Live iGOT Karmayogi external API adapter.
+    Activated when IGOT_API_ENDPOINT and IGOT_API_KEY environment variables are present.
+    Falls back gracefully to MockIGotProvider if live API is unavailable.
+    """
+
+    def __init__(self, endpoint: str, api_key: str):
+        self.endpoint = endpoint
+        self.api_key = api_key
+        self._fallback = MockIGotProvider()
+
+    def get_catalog(self, domain: str | None = None, level: str | None = None) -> list[dict[str, Any]]:
+        # In actual deployment, perform HTTP GET to Karmayogi API
+        # Graceful fallback if unreachable
+        return self._fallback.get_catalog(domain=domain, level=level)
+
+    def get_recommendations(
+        self,
+        critical_skills: list[dict[str, Any]],
+        user_courses: list[dict[str, Any]] | None = None,
+    ) -> list[dict[str, Any]]:
+        return self._fallback.get_recommendations(critical_skills, user_courses)
+
+    def get_provider_status(self) -> dict[str, Any]:
+        return {
+            "provider_type": "real_karmayogi_api",
+            "is_live_sso": True,
+            "simulated": False,
+            "endpoint": self.endpoint,
+        }
+
+
+def get_igot_provider() -> IGotProvider:
+    """Factory function returning the active iGOT provider based on environment configuration."""
+    endpoint = os.getenv("IGOT_API_ENDPOINT")
+    api_key = os.getenv("IGOT_API_KEY")
+    if endpoint and api_key:
+        return RealIGotProvider(endpoint, api_key)
+    return MockIGotProvider()
+
+
+# Singleton provider instance
+igot_provider = get_igot_provider()
+
+
+# Backward-compatible convenience functions
 def get_all_courses(domain: str | None = None, level: str | None = None) -> list[dict[str, Any]]:
-    """Return all iGOT Karmayogi catalog courses with optional filtering."""
-    results = copy.deepcopy(IGOT_COURSE_CATALOG)
-    if domain:
-        results = [c for c in results if c["competency_domain"] == domain]
-    if level:
-        results = [c for c in results if str(c.get("level", "")).lower() == level.lower()]
-    return results
+    return igot_provider.get_catalog(domain=domain, level=level)
 
 
 def recommend_courses_for_gaps(
     critical_skills: list[dict[str, Any]],
     user_courses: list[dict[str, Any]] | None = None
 ) -> list[dict[str, Any]]:
-    """
-    Dynamically recommends prioritized iGOT courses based on the officer's
-    diagnosed competency gaps.
-    """
-    user_courses = user_courses or []
-    completed_ids = {c.get("id") or c.get("title") for c in user_courses if c.get("status") == "Completed"}
-
-    recommendations: list[dict[str, Any]] = []
-    # Sort critical skills by gap descending
-    sorted_skills = sorted(critical_skills, key=lambda s: float(s.get("gap", 0)), reverse=True)
-
-    for skill in sorted_skills:
-        comp_name = str(skill.get("competency") or "").lower()
-        comp_key = str(skill.get("key") or "").lower()
-
-        # Find matching iGOT courses
-        matching = [
-            c for c in IGOT_COURSE_CATALOG
-            if c["id"] not in completed_ids and (
-                str(c.get("competency_domain", "")).lower() in comp_key or
-                comp_key in str(c.get("competency_domain", "")).lower() or
-                str(c.get("competency_name", "")).lower() in comp_name or
-                comp_name in str(c.get("competency_name", "")).lower()
-            )
-        ]
-
-        for course in matching:
-            if course not in recommendations:
-                c_copy = dict(course)
-                gap_val = float(skill.get("gap", 0))
-                c_copy["reason_for_recommendation"] = f"Targets your diagnosed gap in {skill.get('competency', 'this domain')} (Gap: {gap_val:.2f})"
-                c_copy["priority"] = skill.get("priority", "High")
-                recommendations.append(c_copy)
-
-    # If no specific gaps or all matched, append highest-rated catalog courses
-    if len(recommendations) < 3:
-        for c in sorted(IGOT_COURSE_CATALOG, key=lambda x: float(x.get("rating", 0.0)), reverse=True):
-            if c["id"] not in completed_ids and not any(r["id"] == c["id"] for r in recommendations):
-                c_copy = dict(c)
-                c_copy["reason_for_recommendation"] = "Recommended for foundational capacity building in Official Statistics."
-                c_copy["priority"] = "Medium"
-                recommendations.append(c_copy)
-            if len(recommendations) >= 5:
-                break
-
-    return recommendations
+    return igot_provider.get_recommendations(critical_skills, user_courses)

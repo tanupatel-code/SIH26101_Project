@@ -5,7 +5,7 @@
 **Target Ministry / Cadre:** Ministry of Statistics and Programme Implementation (MoSPI) & National Statistical Systems Training Academy (NSSTA)  
 **System Version:** 3.1.0 (Hardened Production-Ready Architecture)  
 **Test Suite Status:** ✅ **107 of 107 Tests Passed (100% Pass Rate)**  
-**Static Type Safety:** ✅ **0 Typing Issues (Mypy Checked across 34 source files)**  
+**Static Type Safety:** ✅ **0 Typing Issues (Mypy Checked across 38 source files)**  
 
 ---
 
@@ -33,23 +33,27 @@ StatSkill AI is an AI-powered diagnostic and capacity-building platform tailored
 
 ---
 
-## 2. Capability Status: Implemented vs. Planned
+## 2. Capability Classification: Truth in Implementation
 
-| Domain | Capability | Status | Implementation Details |
+| Domain | Capability | Classification | Technical Implementation Details |
 | :--- | :--- | :---: | :--- |
-| **Authentication** | Password Hashing | **IMPLEMENTED** | Bcrypt (12 rounds) with PBKDF2-HMAC-SHA256 standard-library fallback. Never stores or leaks plaintext passwords. |
+| **Authentication** | Password Hashing | **IMPLEMENTED** | Bcrypt (12 rounds) with PBKDF2-HMAC-SHA256 fallback. Zero plaintext storage. |
 | **Authentication** | Session Persistence | **IMPLEMENTED** | SQLite-backed `SessionRepository` with auto-expiration (7 days TTL), revocation, and process-restart resilience. |
+| **Authorization** | Strict Ownership & Guards | **IMPLEMENTED** | Authorization dependency `verify_resource_ownership` blocks cross-user access to documents, profiles, and certificates with HTTP 403. |
 | **Security** | Production Admin Secret | **IMPLEMENTED** | Fail-fast validation in `core/config.py`: blocks startup in production if `STATSKILL_ADMIN_KEY` is omitted or default. |
 | **Security** | CORS Policy | **IMPLEMENTED** | Strictly whitelisted origins (`CORS_ORIGINS`). Never uses wildcard `*` with credentialed requests. |
-| **Assessments** | Server-Side Grading | **IMPLEMENTED** | Authoritative grading engine in `services/assessment_service.py`. Client `is_correct` flags are discarded. |
-| **Certificates** | Honest Credential Model | **IMPLEMENTED** | StatSkill AI Platform Competency Achievement Credentials aligned with FRAC benchmarks. No fake government seals. |
-| **Certificates** | Public Verification | **IMPLEMENTED** | Deterministic SHA-256 fingerprinting with public verification endpoint at `/api/certificates/{cert_id}/verify`. |
-| **Certificates** | Ownership & Auth | **IMPLEMENTED** | Strict authorization checks: cross-user private certificate downloads return HTTP 403 Forbidden. |
-| **Documents** | Secure Ingestion | **IMPLEMENTED** | Path traversal neutralization, extension whitelist (`.pdf`, `.docx`, `.pptx`, `.txt`, `.csv`), 25 MB max limit. |
-| **Documents** | Document Vault Auth | **IMPLEMENTED** | Private user documents isolated per user ID with HTTP 403 authorization guards. |
-| **System Probes** | Health & Readiness | **IMPLEMENTED** | `/health` (process liveness) and `/readiness` (database, session store, upload storage probe). |
-| **External SSO** | Live iGOT Karmayogi SSO | *PLANNED* | Catalog and gap-to-course mapping implemented with fallback; direct external OAuth requires official ministry federation. |
-| **External LLM** | Live Cloud LLM APIs | *SUPPORTED* | Configurable via `GEMINI_API_KEY` / `OPENAI_API_KEY` with deterministic offline local generators enabled by default. |
+| **Assessments** | Server-Side Authoritative Grading | **IMPLEMENTED** | Server holds authoritative answer keys; client scores and `is_correct` flags are completely discarded. |
+| **Competency Engine** | Deterministic Recalculation | **IMPLEMENTED** | Single source of truth in backend. Dynamically updates scores from assessment history without stale cache override. |
+| **Certificates** | Platform Achievement Credentials | **IMPLEMENTED** | Truthful platform credentials clearly distinguished from official government appointments; includes SHA-256 fingerprinting. |
+| **Certificates** | Public Verification | **IMPLEMENTED** | Public verification endpoint at `/api/certificates/{cert_id}/verify` exposing sanitized credential metadata. |
+| **Documents** | Secure Ingestion & Isolation | **IMPLEMENTED** | Path traversal neutralization, extension allowlist (`.pdf`, `.docx`, `.pptx`, `.txt`, `.csv`), 25 MB max limit, isolated per user. |
+| **Persistence** | Abstracted Repository Layer | **IMPLEMENTED** | Clean repository pattern (`user_repo`, `doc_repo`, `cert_repo`, `assessment_repo`, `session_repo`) isolating business services from raw storage. |
+| **AI / MCQs** | Psychometric Validation | **IMPLEMENTED** | Multi-step pipeline validating 4 options, non-trivial rationale, Bloom alignment, deduplication, and quality scoring. |
+| **AI / MCQs** | Offline Deterministic Generator | **IMPLEMENTED** | High-quality offline fallback generators covering all 7 MoSPI domains without requiring external keys. |
+| **AI / MCQs** | Cloud LLM Generation (Gemini/OpenAI) | **EXTERNALLY DEPENDENT** | Provider boundary configured via `GEMINI_API_KEY` or `OPENAI_API_KEY` with seamless local fallback. |
+| **iGOT Hub** | Catalog & Recommendation Engine | **MOCKED/SIMULATED** | `MockIGotProvider` with honest simulation metadata (`is_simulated: true`), NSSTA curriculum catalog, and 4-hour training credit flow. |
+| **iGOT Hub** | Live Ministry SSO / OAuth | **PLANNED** | Integration architecture ready via `RealIGotProvider`; requires official government Karmayogi SSO federation endpoints. |
+| **System Probes** | Health & Readiness | **IMPLEMENTED** | `/health` (liveness) and `/readiness` (database, session store, upload storage probe). |
 
 ---
 

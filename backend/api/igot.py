@@ -1,9 +1,10 @@
 from typing import Any
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, Depends, Header, HTTPException
 
-from repositories.dataset_repository import read_dataset, write_dataset
+from api.deps import get_current_session
+from repositories.user_repository import user_repo
 from schemas.admin_schemas import EnrollRequest
-from services.auth_service import build_user_payload, session_record
+from services.auth_service import build_user_payload
 from services.competency_service import ensure_competency_shape
 from services.igot_service import (
     IGOT_COURSE_CATALOG,
@@ -26,13 +27,13 @@ def igot_courses(
 
 @router.get("/api/igot/recommendations")
 def igot_recommendations(
-    authorization: str | None = Header(default=None),
+    session: tuple[dict[str, Any], dict[str, Any]] = Depends(get_current_session),
 ) -> dict[str, Any]:
     """
     Returns personalized iGOT Karmayogi course recommendations
     tailored specifically to bridge the logged-in officer's diagnosed competency gaps.
     """
-    record, _ = session_record(authorization)
+    record, _ = session
     critical_skills = record.get("criticalSkills") or []
     user_courses = record.get("courses") or []
     recommendations = recommend_courses_for_gaps(critical_skills, user_courses)
@@ -53,7 +54,7 @@ def igot_enroll(
     Enrolls the officer into an iGOT Karmayogi training module,
     dynamically updates their active courses, logs learning hours, and updates their profile.
     """
-    record, profile = session_record(authorization)
+    record, profile = get_current_session(authorization)
     catalog = {c["id"]: c for c in IGOT_COURSE_CATALOG}
     course_meta = catalog.get(request.course_id)
     if not course_meta:
@@ -84,13 +85,8 @@ def igot_enroll(
         # Recalculate competency shape
         ensure_competency_shape(record)
 
-        # Persist in dataset
-        dataset = read_dataset()
-        for idx, candidate in enumerate(dataset.get("users", [])):
-            if candidate.get("id") == record.get("id"):
-                dataset["users"][idx] = record
-                break
-        write_dataset(dataset)
+        # Persist in repository
+        user_repo.save(record)
 
     return {
         "ok": True,

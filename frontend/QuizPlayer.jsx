@@ -11,6 +11,7 @@ import {
   X,
   XCircle,
 } from "lucide-react";
+import { apiSubmitAssessment } from "./services/api/client.js";
 
 export default function QuizPlayer({
   quizId = "QUIZ-GENERAL",
@@ -57,7 +58,10 @@ export default function QuizPlayer({
     });
   };
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleSubmit = async () => {
+    setErrorMessage("");
     if (answeredCount < totalQ) {
       const confirmSubmit = window.confirm(
         `You have answered ${answeredCount} of ${totalQ} questions. Submit anyway?`
@@ -67,35 +71,21 @@ export default function QuizPlayer({
 
     setSubmitting(true);
     try {
-      const answersPayload = questions.map((q, idx) => {
-        const selected = selectedAnswers[idx] ?? -1;
-        const isCorrect = selected === q.correct_index;
-        return {
-          question_id: q.id || `Q-${idx + 1}`,
-          selected_option: selected,
-          correct_option: q.correct_index,
-          is_correct: isCorrect,
-        };
-      });
+      // Server-authoritative contract: send only question_id and selected_option
+      const answersPayload = questions.map((q, idx) => ({
+        question_id: q.id || `Q-${idx + 1}`,
+        selected_option: selectedAnswers[idx] ?? -1,
+      }));
 
-      const response = await fetch(`${apiBaseUrl}/api/assessments/submit`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiToken}`,
-        },
-        body: JSON.stringify({
+      const data = await apiSubmitAssessment(
+        {
           quiz_id: quizId,
           title: title,
           domain: domain,
           answers: answersPayload,
-        }),
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.detail || "Failed to submit assessment.");
-      }
+        },
+        apiToken
+      );
 
       setResults(data);
       setSubmitted(true);
@@ -103,7 +93,7 @@ export default function QuizPlayer({
         onCompleted(data);
       }
     } catch (err) {
-      alert(`Error submitting quiz: ${err.message}`);
+      setErrorMessage(err.message || "Failed to submit assessment.");
     } finally {
       setSubmitting(false);
     }

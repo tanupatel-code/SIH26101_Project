@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import re
 from typing import Any
-from fastapi import APIRouter, Header, HTTPException, Response
+from fastapi import APIRouter, Depends, Header, HTTPException, Response
 
+from api.deps import get_optional_session
 from repositories.dataset_repository import read_dataset, read_demo
-from services.auth_service import session_record
 from services.certificate_service import generate_certificate_pdf, verify_certificate_record
 
 router = APIRouter(tags=["certificates"])
@@ -15,6 +15,7 @@ router = APIRouter(tags=["certificates"])
 def verify_certificate(cert_id: str) -> dict[str, Any]:
     """
     Publicly verifies the authenticity and cryptographic integrity hash of a certificate.
+    Returns only non-sensitive verification data.
     """
     result = verify_certificate_record(cert_id)
     if not result:
@@ -30,17 +31,14 @@ def download_certificate(
     cert_id: str,
     name: str | None = None,
     title: str | None = None,
-    authorization: str | None = Header(default=None),
+    session: tuple[dict[str, Any], dict[str, Any]] | None = Depends(get_optional_session),
 ) -> Response:
     """
     Downloads an authenticated PDF Certificate of Competency (ISO 32000-1).
     Enforces user authorization and ownership checks.
     """
-    user_record = None
-    profile = None
-
-    if isinstance(authorization, str) and authorization:
-        user_record, profile = session_record(authorization)
+    user_record = session[0] if isinstance(session, tuple) else None
+    profile = session[1] if isinstance(session, tuple) else None
 
     # If called with an authenticated session, strictly verify ownership
     if user_record and profile:

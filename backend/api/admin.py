@@ -41,8 +41,14 @@ def admin_patch_user(
 
     patch = request.data
     if isinstance(patch.get("competencyScores"), dict):
+        existing_overrides = record.setdefault("adminOverrides", {})
+        existing_overrides.update(patch["competencyScores"])
         existing = record.setdefault("competencyScores", {})
         existing.update(patch["competencyScores"])
+
+    if isinstance(patch.get("adminOverrides"), dict):
+        existing_overrides = record.setdefault("adminOverrides", {})
+        existing_overrides.update(patch["adminOverrides"])
 
     if isinstance(patch.get("competencies"), list):
         record["competencies"] = copy.deepcopy(patch["competencies"])

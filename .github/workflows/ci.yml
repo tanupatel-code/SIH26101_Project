@@ -1,0 +1,85 @@
+name: StatSkill AI — CI & Verification Suite
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  backend-verification:
+    name: Backend Pytest & Type Checking
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install mypy types-requests
+
+      - name: Execute Pytest Suite
+        run: |
+          python -m pytest backend/tests/ -v --tb=short
+
+      - name: Execute Mypy Static Type Analysis
+        run: |
+          python -m mypy --explicit-package-bases --ignore-missing-imports backend/
+
+  frontend-verification:
+    name: Frontend Build & Asset Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package.json
+
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: |
+          npm ci || npm install
+
+      - name: Build Production Frontend Bundle
+        working-directory: ./frontend
+        run: |
+          npm run build
+
+  docker-verification:
+    name: Docker Container Build Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Backend Container
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: deploy/Dockerfile.backend
+          push: false
+          tags: statskill-backend:test
+
+      - name: Build Frontend Container
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: deploy/Dockerfile.frontend
+          push: false
+          tags: statskill-frontend:test

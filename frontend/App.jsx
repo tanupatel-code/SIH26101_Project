@@ -121,9 +121,15 @@ export default function App() {
 
     refreshUserData();
     const intervalId = window.setInterval(refreshUserData, API_REFRESH_MS);
+    const handleFocus = () => {
+      refreshUserData();
+    };
+    window.addEventListener("focus", handleFocus);
+
     return () => {
       mounted = false;
       window.clearInterval(intervalId);
+      window.removeEventListener("focus", handleFocus);
     };
   }, [loggedIn, apiToken]);
 

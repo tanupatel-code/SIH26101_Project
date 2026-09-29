@@ -13,11 +13,16 @@ import {
   Sparkles,
   Upload,
   X,
+  AlertCircle,
 } from "lucide-react";
+import {
+  apiUploadDocument,
+  apiGenerateMCQs,
+} from "./services/api/client.js";
 
 export default function DocumentStudio({
   documents = [],
-  apiBaseUrl = (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_BASE_URL ? import.meta.env.VITE_API_BASE_URL.replace(/\/$/, "") : "http://localhost:8000"),
+  apiBaseUrl,
   apiToken = "",
   onDocumentUploaded,
   onStartQuiz,
@@ -28,6 +33,7 @@ export default function DocumentStudio({
   const [selectedDoc, setSelectedDoc] = useState(null);
   const [generatorModalOpen, setGeneratorModalOpen] = useState(false);
   const [generating, setGenerating] = useState(false);
+  const [feedbackMessage, setFeedbackMessage] = useState(null);
 
   // MCQ Generator parameters
   const [numQuestions, setNumQuestions] = useState(5);
@@ -40,29 +46,22 @@ export default function DocumentStudio({
   const handleFileUpload = async (file) => {
     if (!file) return;
     setUploading(true);
+    setFeedbackMessage(null);
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await fetch(`${apiBaseUrl}/api/documents/upload`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiToken}`,
-        },
-        body: formData,
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.detail || "Failed to upload document.");
-      }
+      const data = await apiUploadDocument(file, apiToken);
 
       if (onDocumentUploaded) {
         onDocumentUploaded(data.document);
       }
-      alert(`Document '${file.name}' uploaded and parsed successfully! Ready for AI Quiz generation.`);
+      setFeedbackMessage({
+        type: "success",
+        text: `Document '${file.name}' uploaded and parsed successfully! Ready for AI Quiz generation.`,
+      });
     } catch (err) {
-      alert(`Upload error: ${err.message}`);
+      setFeedbackMessage({
+        type: "error",
+        text: `Upload error: ${err.message}`,
+      });
     } finally {
       setUploading(false);
     }
@@ -89,6 +88,7 @@ export default function DocumentStudio({
 
   const handleGenerateQuiz = async () => {
     setGenerating(true);
+    setFeedbackMessage(null);
     try {
       const payload = {
         document_id: selectedDoc?.id || null,
@@ -99,19 +99,7 @@ export default function DocumentStudio({
         domain: targetDomain,
       };
 
-      const response = await fetch(`${apiBaseUrl}/api/mcq/generate`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiToken}`,
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.detail || "Failed to generate AI quiz.");
-      }
+      const data = await apiGenerateMCQs(payload, apiToken);
 
       setGeneratorModalOpen(false);
       if (onStartQuiz) {
@@ -124,7 +112,10 @@ export default function DocumentStudio({
         });
       }
     } catch (err) {
-      alert(`Generation error: ${err.message}`);
+      setFeedbackMessage({
+        type: "error",
+        text: `Generation error: ${err.message}`,
+      });
     } finally {
       setGenerating(false);
     }
@@ -155,6 +146,27 @@ export default function DocumentStudio({
           <Upload size={14} /> {uploading ? "Ingesting..." : "Upload New Material"}
         </button>
       </div>
+
+      {feedbackMessage && (
+        <div
+          className="system-card"
+          style={{
+            borderColor: feedbackMessage.type === "success" ? "rgba(74, 222, 128, 0.4)" : "rgba(248, 113, 113, 0.4)",
+            background: feedbackMessage.type === "success" ? "rgba(6, 78, 59, 0.25)" : "rgba(127, 29, 29, 0.25)",
+            padding: "12px 18px",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          {feedbackMessage.type === "success" ? (
+            <CheckCircle2 size={18} color="#4ade80" />
+          ) : (
+            <AlertCircle size={18} color="#f87171" />
+          )}
+          <span style={{ fontSize: "0.95rem" }}>{feedbackMessage.text}</span>
+        </div>
+      )}
 
       <input
         type="file"

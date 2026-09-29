@@ -10,7 +10,7 @@ export const API_BASE_URL = (
 ).replace(/\/$/, "");
 
 export const API_TOKEN_KEY = "statSkillApiToken";
-export const API_REFRESH_MS = 5000;
+export const API_REFRESH_MS = 60000;
 
 export class ApiError extends Error {
   constructor(message, status = 500, details = null) {
@@ -210,4 +210,52 @@ export function getCertificateDownloadUrl(certId) {
 
 export function getCertificateVerificationUrl(certId) {
   return `${API_BASE_URL}/api/certificates/${certId}/verify`;
+}
+
+export async function apiVerifyCertificate(certId) {
+  return apiRequest(`/api/certificates/${certId}/verify`, { method: "GET" });
+}
+
+export async function apiDownloadCertificateBlob(certId, tokenOrOptions = {}) {
+  let token = null;
+  let name = null;
+  let title = null;
+
+  if (typeof tokenOrOptions === "string") {
+    token = tokenOrOptions;
+  } else if (tokenOrOptions && typeof tokenOrOptions === "object") {
+    token = tokenOrOptions.token;
+    name = tokenOrOptions.name;
+    title = tokenOrOptions.title;
+  }
+  if (!token && typeof localStorage !== "undefined") {
+    token = localStorage.getItem(API_TOKEN_KEY);
+  }
+
+  const params = new URLSearchParams();
+  if (name) params.append("name", name);
+  if (title) params.append("title", title);
+  const query = params.toString() ? `?${params.toString()}` : "";
+
+  const url = `${API_BASE_URL}/api/certificates/${encodeURIComponent(certId)}/download${query}`;
+  const headers = {};
+  if (token) headers.Authorization = `Bearer ${token}`;
+  const response = await fetch(url, { headers });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+    throw new ApiError(errorData?.detail || `Certificate download failed: HTTP ${response.status}`, response.status, errorData);
+  }
+  return response.blob();
+}
+
+export async function apiDownloadDocumentBlob(docId, token) {
+  const url = `${API_BASE_URL}/api/documents/${docId}/download`;
+  const headers = {};
+  if (token) headers.Authorization = `Bearer ${token}`;
+  const response = await fetch(url, { headers });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+    throw new ApiError(errorData?.detail || `Document download failed: HTTP ${response.status}`, response.status, errorData);
+  }
+  return response.blob();
 }

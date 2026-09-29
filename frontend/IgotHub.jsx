@@ -11,10 +11,16 @@ import {
   Sparkles,
   Target,
   TrendingUp,
+  AlertCircle,
 } from "lucide-react";
+import {
+  apiGetIgotCourses,
+  apiGetIgotRecommendations,
+  apiEnrollIgotCourse,
+} from "./services/api/client.js";
 
 export default function IgotHub({
-  apiBaseUrl = (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_BASE_URL ? import.meta.env.VITE_API_BASE_URL.replace(/\/$/, "") : "http://localhost:8000"),
+  apiBaseUrl,
   apiToken = "",
   userCourses = [],
   criticalSkills = [],
@@ -25,6 +31,7 @@ export default function IgotHub({
   const [loading, setLoading] = useState(true);
   const [selectedDomain, setSelectedDomain] = useState("all");
   const [enrollingId, setEnrollingId] = useState(null);
+  const [statusMessage, setStatusMessage] = useState(null);
 
   useEffect(() => {
     fetchIgotData();
@@ -33,18 +40,14 @@ export default function IgotHub({
   const fetchIgotData = async () => {
     setLoading(true);
     try {
-      // 1. Fetch all catalog courses
-      const catRes = await fetch(`${apiBaseUrl}/api/igot/courses`);
-      const catData = await catRes.json();
-      setCourses(catData.courses || []);
+      // 1. Fetch catalog courses via centralized client
+      const catData = await apiGetIgotCourses();
+      setCourses(catData?.courses || []);
 
       // 2. Fetch personalized recommendations
       if (apiToken) {
-        const recRes = await fetch(`${apiBaseUrl}/api/igot/recommendations`, {
-          headers: { Authorization: `Bearer ${apiToken}` },
-        });
-        const recData = await recRes.json();
-        setRecommendations(recData.recommendations || []);
+        const recData = await apiGetIgotRecommendations(apiToken);
+        setRecommendations(recData?.recommendations || []);
       }
     } catch (err) {
       console.warn("iGOT fetch warning:", err);
@@ -55,28 +58,22 @@ export default function IgotHub({
 
   const handleEnroll = async (course) => {
     setEnrollingId(course.id);
+    setStatusMessage(null);
     try {
-      const response = await fetch(`${apiBaseUrl}/api/igot/enroll`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiToken}`,
-        },
-        body: JSON.stringify({ course_id: course.id }),
+      const data = await apiEnrollIgotCourse(course.id, apiToken);
+      setStatusMessage({
+        type: "success",
+        text: `Successfully registered training for '${course.title}'! 4 learning hours credited to your training pipeline.`,
       });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.detail || "Failed to enroll in iGOT course.");
-      }
-
-      alert(`Successfully enrolled in '${course.title}'! 4 learning hours credited to your training pipeline.`);
       if (onEnrollSuccess) {
         onEnrollSuccess(data.userPayload);
       }
       fetchIgotData();
     } catch (err) {
-      alert(`Enrollment error: ${err.message}`);
+      setStatusMessage({
+        type: "error",
+        text: `Enrollment notice: ${err.message}`,
+      });
     } finally {
       setEnrollingId(null);
     }
@@ -94,10 +91,10 @@ export default function IgotHub({
       {/* Header */}
       <div className="page-heading system-card">
         <div>
-          <div className="kicker">MISSION KARMAYOGI · MoSPI CAPACITY BUILDING</div>
-          <h1>iGOT Karmayogi Learning Ecosystem</h1>
+          <div className="kicker">STATISTICAL CAPACITY BUILDING · iGOT CURRICULUM CATALOG</div>
+          <h1>iGOT Karmayogi Competency Pathways</h1>
           <p>
-            Official Government of India competency-linked training repository accredited by the National Statistical Systems Training Academy (NSSTA).
+            Curated competency-linked training repository mapped to National Statistical System competency standards and NSSTA training modules.
           </p>
         </div>
         <a
@@ -107,9 +104,30 @@ export default function IgotHub({
           className="secondary-btn"
           style={{ textDecoration: "none" }}
         >
-          <ExternalLink size={14} /> Open iGOT Portal
+          <ExternalLink size={14} /> Open Official iGOT Portal
         </a>
       </div>
+
+      {statusMessage && (
+        <div
+          className="system-card"
+          style={{
+            borderColor: statusMessage.type === "success" ? "rgba(74, 222, 128, 0.4)" : "rgba(248, 113, 113, 0.4)",
+            background: statusMessage.type === "success" ? "rgba(6, 78, 59, 0.25)" : "rgba(127, 29, 29, 0.25)",
+            padding: "12px 18px",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          {statusMessage.type === "success" ? (
+            <CheckCircle2 size={18} color="#4ade80" />
+          ) : (
+            <AlertCircle size={18} color="#f87171" />
+          )}
+          <span style={{ fontSize: "0.95rem" }}>{statusMessage.text}</span>
+        </div>
+      )}
 
       {/* Dynamic Gap-Targeted Recommendations Banner */}
       <section className="system-card" style={{ borderColor: "rgba(102, 231, 255, 0.4)", background: "linear-gradient(180deg, rgba(8, 22, 42, 0.95), rgba(4, 12, 24, 0.95))" }}>

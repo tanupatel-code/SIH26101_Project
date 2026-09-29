@@ -1,14 +1,15 @@
 from typing import Any
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, Depends, Header, HTTPException
 
-from repositories.dataset_repository import read_dataset, write_dataset
+from api.deps import get_current_session, get_optional_session
+from repositories.user_repository import user_repo
 from schemas.assessment_schemas import McqGenerateRequest, QuizSubmitRequest
 from services.assessment_service import (
     grade_submission,
     record_quiz_submission,
     register_generated_questions,
 )
-from services.auth_service import build_user_payload, session_record
+from services.auth_service import build_user_payload
 from services.mcq_generator import generate_mcqs_from_text
 
 router = APIRouter(tags=["assessments"])
@@ -17,15 +18,15 @@ router = APIRouter(tags=["assessments"])
 @router.post("/api/mcq/generate")
 def generate_mcqs(
     request: McqGenerateRequest,
-    authorization: str | None = Header(default=None),
+    session: tuple[dict[str, Any], dict[str, Any]] | None = Depends(get_optional_session),
 ) -> dict[str, Any]:
     """
     Generates AI Quizzes / MCQs from an uploaded document, provided text, or a specific statistical topic.
     """
     text_to_process = ""
 
-    if request.document_id and authorization:
-        record, _ = session_record(authorization)
+    if request.document_id and session:
+        record, _ = session
         for doc in record.get("documents", []):
             if doc.get("id") == request.document_id:
                 text_to_process = doc.get("extractedText", "")
@@ -131,11 +132,11 @@ def submit_assessment(
     authorization: str | None = Header(default=None),
 ) -> dict[str, Any]:
     """
-    Submits completed assessment responses, grades them instantly,
+    Submits completed assessment responses, grades them authoritatively on the server,
     and dynamically recalculates the officer's competency profile, skill gaps,
-    and dashboard readiness!
+    and dashboard readiness.
     """
-    record, profile = session_record(authorization)
+    record, profile = get_current_session(authorization)
     if not request.answers:
         raise HTTPException(status_code=400, detail="No answers provided in quiz submission.")
 
@@ -152,13 +153,8 @@ def submit_assessment(
         answers_detail=answers_detail,
     )
 
-    # Persist updated user record in statskill.json
-    dataset = read_dataset()
-    for idx, candidate in enumerate(dataset.get("users", [])):
-        if candidate.get("id") == record.get("id"):
-            dataset["users"][idx] = record
-            break
-    write_dataset(dataset)
+    # Persist updated user record using repository
+    user_repo.save(record)
 
     return {
         "ok": True,

@@ -20,6 +20,7 @@ import {
   API_TOKEN_KEY,
   getCertificateDownloadUrl,
   getCertificateVerificationUrl,
+  apiDownloadCertificateBlob,
 } from "../services/api/client.js";
 
 export default function CertificatesPage({ lang, data = {}, onNavigate, apiToken }) {
@@ -54,18 +55,11 @@ export default function CertificatesPage({ lang, data = {}, onNavigate, apiToken
 
     try {
       const token = apiToken || localStorage.getItem(API_TOKEN_KEY) || "";
-      const url = `${getCertificateDownloadUrl(
-        encodeURIComponent(certId)
-      )}?name=${encodeURIComponent(recipientName)}&title=${encodeURIComponent(
-        cert.title || ""
-      )}`;
-      const res = await fetch(url, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      const blob = await apiDownloadCertificateBlob(certId, {
+        token,
+        name: recipientName,
+        title: cert.title || "",
       });
-      if (!res.ok) {
-        throw new Error("Backend certificate download returned non-200");
-      }
-      const blob = await res.blob();
       const blobUrl = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = blobUrl;

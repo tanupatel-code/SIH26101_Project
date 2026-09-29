@@ -16,6 +16,7 @@ import DocumentStudio from "../DocumentStudio.jsx";
 import {
   API_BASE_URL,
   API_TOKEN_KEY,
+  apiDownloadDocumentBlob,
   getDocumentDownloadUrl,
 } from "../services/api/client.js";
 
@@ -35,14 +36,7 @@ export default function DocumentsPage({ lang, data = {}, apiToken, onStartQuiz }
     setDownloadingId(doc.id);
     try {
       const token = apiToken || localStorage.getItem(API_TOKEN_KEY) || "";
-      const url = getDocumentDownloadUrl(doc.id);
-      const res = await fetch(url, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      });
-      if (!res.ok) {
-        throw new Error("Download API failed");
-      }
-      const blob = await res.blob();
+      const blob = await apiDownloadDocumentBlob(doc.id, token);
       const blobUrl = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = blobUrl;

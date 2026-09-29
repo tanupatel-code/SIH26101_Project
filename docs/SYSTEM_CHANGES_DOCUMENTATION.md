@@ -53,23 +53,44 @@ We have now engineered a **complete, closed-loop, dynamic learning and capacity-
   6. `python`: Python for Statistical Automation (Benchmark: 3.0, Weight: 1.00)
   7. `machineLearning`: Machine Learning & AI in Governance (Benchmark: 3.0, Weight: 0.95)
 - **Closed-Loop Quiz Submission:**
-  - `record_quiz_submission()`: Immediately records the new assessment attempt, recomputes the domain score using the 4-signal weighted formula (`quiz*0.50 + course*0.25 + self*0.15 + effort*0.10`), updates the critical skills list, and recalculates overall dashboard competency.
+### 2.5 Persistence Abstraction & Repositories (`backend/repositories/`)
+- **Repository Pattern Implementation:**
+  - `user_repository.py`: CRUD operations for user profiles and competency scores.
+  - `document_repository.py`: Storage and retrieval of user-isolated documents.
+  - `certificate_repository.py`: Platform credential records and verification mappings.
+  - `assessment_repository.py`: Available assessments catalog and authoritative answer storage.
+  - `session_repository.py`: Thread-safe, persistent SQLite session store with auto-expiry (7-day TTL).
+- **Extensibility:** Isolates business services from underlying JSON/SQLite storage, providing a clean boundary for future PostgreSQL migration without service rewrites.
+
+### 2.6 Certificate & Credential Service (`backend/services/certificate_service.py`)
+- **Truthful Platform Credentials:** Clearly distinguishes platform achievement records from official government gazetted appointments.
+- **Cryptographic Fingerprint:** SHA-256 integrity hash computed deterministically across user ID, title, issue date, and completion metadata.
+- **Cross-User Protection:** Authorization guards prevent unauthorized users from downloading other officers' credentials (HTTP 403).
+- **Public Verification:** Public endpoint exposes only non-sensitive verification status and metadata.
 
 ---
 
-## 3. New API Endpoints in `backend/main.py`
+## 3. Core API Endpoints in `backend/`
 
 | HTTP Method | Route | Description | Auth Required |
 | :--- | :--- | :--- | :---: |
-| `POST` | `/api/documents/upload` | Multipart file upload (PDF/DOCX/PPTX/TXT), extracts text, chunks document, and registers in user vault. | Yes (Bearer) |
+| `POST` | `/api/auth/login` | Authenticates user credentials with bcrypt and issues a session bearer token. | No |
+| `POST` | `/api/auth/register` | Registers new statistical user with hashed credentials and default MoSPI framework. | No |
+| `GET` | `/api/auth/me` | Returns current user session state, competencies, and enrollments. | Yes (Bearer) |
+| `POST` | `/api/documents/upload` | Multipart file upload (PDF/DOCX/PPTX/TXT), path traversal sanitized, user isolated. | Yes (Bearer) |
 | `GET` | `/api/documents` | Retrieves all ingested learning materials for the authenticated user. | Yes (Bearer) |
+| `GET` | `/api/documents/{doc_id}/download` | Secure document download verifying authenticated user ownership (HTTP 403 guard). | Yes (Bearer) |
 | `POST` | `/api/mcq/generate` | Generates Bloom's taxonomy MCQs from uploaded document ID, text, or statistical topic. | Optional |
 | `GET` | `/api/assessments/available` | Returns official NSSTA diagnostic quizzes ready to attempt. | No |
-| `POST` | `/api/assessments/submit` | Grades quiz responses, records attempt, and **dynamically recalculates officer competency scores**. | Yes (Bearer) |
+| `POST` | `/api/assessments/submit` | Server-authoritative grading, records attempt, and **dynamically recalculates scores**. | Yes (Bearer) |
 | `GET` | `/api/igot/courses` | Retrieves the official iGOT Karmayogi course catalog with domain/level filtering. | No |
 | `GET` | `/api/igot/recommendations` | Returns personalized iGOT courses prioritized to bridge active skill gaps. | Yes (Bearer) |
 | `POST` | `/api/igot/enroll` | Enrolls user in iGOT module, adds 4 learning hours, and recalculates readiness. | Yes (Bearer) |
+| `GET` | `/api/certificates/{cert_id}/verify` | Public verification endpoint returning credential validity and SHA-256 fingerprint. | No |
+| `GET` | `/api/certificates/{cert_id}/download` | Downloads official certificate PDF with recipient authorization checks. | Yes (Bearer) |
 | `GET` | `/api/competencies/framework` | Returns official MoSPI FRAC competency definitions and benchmarks. | No |
+| `GET` | `/health` | Liveness health check probe for container orchestrators. | No |
+| `GET` | `/readiness` | Deep readiness check probe verifying storage and database health. | No |
 
 ---
 

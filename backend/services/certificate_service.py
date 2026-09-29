@@ -145,48 +145,24 @@ def verify_certificate_record(
     """
     Verifies a certificate against stored user records and returns its verification status.
     """
-    from repositories.dataset_repository import read_dataset, read_demo
-
-    ds = dataset or read_dataset()
-    for user in ds.get("users", []):
-        for cert in user.get("certificates", []):
-            if cert.get("id") == cert_id:
-                name = (user.get("profile") or {}).get("name", "Statistical Officer")
-                title = cert.get("title", "Statistical Competency Accreditation")
-                issued = cert.get("issued", "15 January 2025")
-                cert_hash = compute_certificate_hash(cert_id, name, title, issued)
-                return {
-                    "valid": True,
-                    "certificate_id": cert_id,
-                    "recipient": name,
-                    "title": title,
-                    "status": cert.get("status", "Active"),
-                    "issued": issued,
-                    "expires": cert.get("expires", "14 January 2028"),
-                    "issuer": "StatSkill AI Platform",
-                    "framework": "National Statistical Competency Benchmarks (FRAC)",
-                    "integrity_hash": cert_hash,
-                }
-
-    # Check demo fixture
-    demo = read_demo()
-    for cert in demo.get("certificates", []):
-        if cert.get("id") == cert_id:
-            name = (demo.get("user") or {}).get("name", "Ananya Verma")
-            title = cert.get("title", "Statistical Methods Accreditation")
-            issued = cert.get("issued", "15 January 2025")
-            cert_hash = compute_certificate_hash(cert_id, name, title, issued)
-            return {
-                "valid": True,
-                "certificate_id": cert_id,
-                "recipient": name,
-                "title": title,
-                "status": cert.get("status", "Active"),
-                "issued": issued,
-                "expires": cert.get("expires", "14 January 2028"),
-                "issuer": "StatSkill AI Platform",
-                "framework": "National Statistical Competency Benchmarks (FRAC)",
-                "integrity_hash": cert_hash,
-            }
+    from repositories.certificate_repository import cert_repo
+    cert, profile = cert_repo.get_by_id(cert_id)
+    if cert and profile:
+        name = str(profile.get("name") or "Statistical Officer")
+        title = str(cert.get("title") or "Statistical Competency Accreditation")
+        issued = str(cert.get("issued") or "15 January 2025")
+        cert_hash = compute_certificate_hash(cert_id, name, title, issued)
+        return {
+            "valid": True,
+            "certificate_id": cert_id,
+            "recipient": name,
+            "title": title,
+            "status": cert.get("status", "Active"),
+            "issued": issued,
+            "expires": cert.get("expires", "14 January 2028"),
+            "issuer": "StatSkill AI Platform",
+            "framework": "National Statistical Competency Benchmarks (FRAC)",
+            "integrity_hash": cert_hash,
+        }
 
     return None

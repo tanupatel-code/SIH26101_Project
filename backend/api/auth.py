@@ -5,8 +5,10 @@ import secrets
 from typing import Any
 from fastapi import APIRouter, Depends, Header, HTTPException
 
-from api.deps import get_current_session
+from api.deps import get_current_session, get_optional_session
+from core.config import ADMIN_KEY
 from repositories.dataset_repository import read_dataset, write_dataset
+from repositories.user_repository import user_repo
 from schemas.auth_schemas import LoginRequest, RegisterRequest, UserUpdateRequest
 from services.auth_service import (
     SESSIONS,
@@ -152,8 +154,7 @@ def register(request: RegisterRequest) -> dict[str, Any]:
         },
     }
 
-    dataset.setdefault("users", []).append(new_record)
-    write_dataset(dataset)
+    user_repo.save(new_record)
 
     token = secrets.token_urlsafe(32)
     SESSIONS[token] = {"id": new_id, "profile": new_profile}
@@ -167,8 +168,8 @@ def register(request: RegisterRequest) -> dict[str, Any]:
 
 @router.post("/api/auth/logout")
 def logout(authorization: str | None = Header(default=None)) -> dict[str, bool]:
-    if authorization and authorization.startswith("Bearer "):
-        token = authorization.split("Bearer ", 1)[1].strip()
+    if authorization and authorization.lower().startswith("bearer "):
+        token = authorization.split(" ", 1)[1].strip()
         SESSIONS.pop(token, None)
     return {"ok": True}
 
@@ -197,21 +198,30 @@ def update_profile(
         profile["name"] = updates.name.strip()
         record["profile"]["name"] = updates.name.strip()
 
-    dataset = read_dataset()
-    for idx, candidate in enumerate(dataset.get("users", [])):
-        if candidate.get("id") == record.get("id"):
-            dataset["users"][idx] = record
-            break
-    write_dataset(dataset)
+    user_repo.save(record)
     return build_user_payload(record, profile)
 
 
 @router.get("/api/users/{email_or_id}/data")
-def user_data(email_or_id: str) -> dict[str, Any]:
+def user_data(
+    email_or_id: str,
+    session: tuple[dict[str, Any], dict[str, Any]] | None = Depends(get_optional_session),
+    x_admin_key: str | None = Header(default=None),
+) -> dict[str, Any]:
     dataset = read_dataset()
     record = find_user_record(dataset, email_or_id)
     if record is None:
         raise HTTPException(status_code=404, detail="User not found.")
+
+    # Ownership check: if authenticated with a session, reject if requesting another user's data
+    is_admin = bool(x_admin_key and secrets.compare_digest(x_admin_key, ADMIN_KEY))
+    if session and not is_admin:
+        current_record, _ = session
+        if current_record.get("id") != record.get("id"):
+            raise HTTPException(
+                status_code=403,
+                detail="Forbidden: You do not have permission to view another user's private data.",
+            )
 
     ensure_competency_shape(record)
     return build_user_payload(record, record.get("profile") or {})
