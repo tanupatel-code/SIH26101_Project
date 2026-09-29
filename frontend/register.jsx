@@ -88,7 +88,7 @@ export default function Register({ onRegister, onBackToLogin }) {
         ...formData,
         role: formData.role || (accountType === "officer" ? "Junior Statistical Officer (JSO)" : "Citizen Data Analyst & Research Scholar"),
         department: formData.department || (accountType === "officer" ? "MoSPI" : "Public"),
-        projectId: accountType === "officer" ? "SIH26101" : "PUBLIC-LEARNER",
+        projectId: accountType === "officer" ? "STATSKILL-CADRE" : "PUBLIC-LEARNER",
       });
     }
   };
@@ -133,7 +133,7 @@ export default function Register({ onRegister, onBackToLogin }) {
             </div>
 
             <div className="register-project">
-              SIH Problem Statement 26101
+              National Statistical Capacity Initiative
               <span>•</span>
               MoSPI & NSSTA
             </div>

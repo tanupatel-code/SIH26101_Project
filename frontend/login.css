@@ -1,22 +1,26 @@
 /* ================================================================
-   StatSkill AI — Institutional Government & Public Portal Login CSS
-   Clean white background, Ashok Navy, subtle Indian tricolor ribbon.
+   StatSkill AI — Institutional & Modern Statistical Portal Login CSS
+   Official Statistical Cadre & Open Research Analytics Identity
 ================================================================ */
 
 :root {
   --gov-navy: #0f2e5a;
-  --gov-navy-dark: #0a1f3d;
+  --gov-navy-dark: #07172f;
   --gov-navy-light: #1e3a8a;
-  --gov-saffron: #d97706;
-  --gov-green: #059669;
+  --gov-azure: #0284c7;
+  --gov-azure-light: #38bdf8;
+  --gov-saffron: #f59e0b;
+  --gov-saffron-dark: #d97706;
+  --gov-green: #10b981;
+  --gov-green-dark: #059669;
   --gov-bg: #f8fafc;
   --gov-card-bg: #ffffff;
   --gov-border: #e2e8f0;
-  --gov-border-focus: #1d4ed8;
+  --gov-border-focus: #2563eb;
   --gov-text-primary: #0f172a;
   --gov-text-secondary: #334155;
   --gov-text-muted: #64748b;
-  --gov-shadow: 0 10px 25px -5px rgba(15, 46, 90, 0.08), 0 8px 10px -6px rgba(15, 46, 90, 0.04);
+  --gov-shadow: 0 20px 40px -15px rgba(15, 46, 90, 0.12), 0 0 0 1px rgba(15, 46, 90, 0.05);
 }
 
 * {
@@ -30,198 +34,420 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 20px;
-  background-color: #f1f5f9;
+  padding: 40px 20px;
+  background-color: #0c1626;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(15, 46, 90, 0.04) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(217, 119, 6, 0.04) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.25) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.12) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.8) 0px, transparent 100%);
   color: var(--gov-text-primary);
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   position: relative;
+  overflow-x: hidden;
 }
 
-/* Subtle National Tricolor Ribbon at very top */
+/* Institutional Tricolor Ribbon at top */
 .gov-tricolor-bar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #ff9933 0%, #ff9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%, #138808 100%);
+  background: linear-gradient(
+    90deg,
+    #ff9933 0%,
+    #ff9933 33.3%,
+    #ffffff 33.3%,
+    #ffffff 66.6%,
+    #138808 66.6%,
+    #138808 100%
+  );
   z-index: 100;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
+/* Ambient Background Elements */
+.login-backdrop-elements {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.ambient-grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.8;
+}
+
+.ambient-radial-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+}
+
+.ambient-glow-left {
+  top: -100px;
+  left: -100px;
+  background: #38bdf8;
+}
+
+.ambient-glow-right {
+  bottom: -150px;
+  right: -100px;
+  background: #f59e0b;
+}
+
+/* Main Two-Column Card Container */
 .login-container {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1.15fr 1fr;
   width: 100%;
   max-width: 1140px;
-  background: var(--gov-card-bg);
-  border: 1px solid var(--gov-border);
-  border-radius: 16px;
-  box-shadow: var(--gov-shadow);
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
   overflow: hidden;
   margin: auto;
 }
 
-@media (max-width: 960px) {
-  .login-container {
-    grid-template-columns: 1fr;
-    max-width: 580px;
-  }
-}
+/* ================================================================
+   LEFT BRAND SECTION (STATISTICAL INTELLIGENCE)
+================================================================ */
 
-/* Left Brand Section */
 .login-brand-section {
   padding: 44px 40px;
-  background: linear-gradient(145deg, #0f2e5a, #0a1f3d);
+  background: linear-gradient(155deg, #0a1b38 0%, #061124 100%);
   color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .gov-emblem-badge {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  justify-content: space-between;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 24px;
 }
 
+.emblem-lockup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .gov-india-text {
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 700;
   color: #fbbf24;
 }
 
 .gov-ministry-text {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: #e2e8f0;
-  font-weight: 500;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.gov-sub-text {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+/* Brand Hero Title */
+.brand-hero-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.brand-mark-wrapper {
+  position: relative;
 }
 
 .brand-logo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  color: #ffffff;
-  margin-bottom: 16px;
+  width: 58px;
+  height: 58px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(2, 132, 199, 0.3));
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 14px;
+  color: #38bdf8;
+  box-shadow: 0 8px 20px -4px rgba(2, 132, 199, 0.35);
+  transition: transform 0.3s ease;
 }
 
-.login-brand-section h1 {
-  font-size: 2rem;
+.brand-logo:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.brand-titles h1 {
+  font-size: 2.15rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
-  margin: 0 0 6px 0;
-  color: #ffffff;
+  letter-spacing: -0.025em;
+  margin: 0 0 4px 0;
+  background: linear-gradient(135deg, #ffffff 40%, #93c5fd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .brand-subtitle {
-  font-size: 0.95rem;
-  color: #93c5fd;
+  font-size: 0.92rem;
+  color: #94a3b8;
   font-weight: 500;
-  margin: 0 0 20px 0;
+  margin: 0;
   line-height: 1.4;
 }
 
-.brand-description p {
-  font-size: 0.9rem;
-  line-height: 1.6;
+/* Statistical Constellation Visual Card */
+.stats-visual-card {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(8px);
+}
+
+.stats-visual-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.visual-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #38bdf8;
+}
+
+.pulse-icon {
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.visual-metric {
+  font-size: 0.74rem;
+  color: #fbbf24;
+  font-weight: 600;
+  background: rgba(251, 191, 36, 0.1);
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.stats-constellation-svg {
+  width: 100%;
+  height: 110px;
+  overflow: visible;
+}
+
+.animated-vector-path {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: draw-line 3s forwards ease-out;
+}
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.telemetry-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.telemetry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
   color: #cbd5e1;
-  margin: 0 0 24px 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-weight: 500;
 }
 
-.brand-description strong {
-  color: #ffffff;
-}
-
+/* Persona Highlight Cards */
 .persona-benefits {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .benefit-chip {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 14px;
   padding: 12px 14px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  font-size: 0.82rem;
-  transition: all 0.2s ease;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.25s ease;
 }
 
 .benefit-chip.active {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(251, 191, 36, 0.4);
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 4px 15px -3px rgba(2, 132, 199, 0.15);
 }
 
-.benefit-chip svg {
-  margin-top: 2px;
-  color: #fbbf24;
+.benefit-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
-.benefit-chip strong {
-  display: block;
-  color: #ffffff;
-  font-size: 0.86rem;
-  margin-bottom: 2px;
+.officer-icon {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
 }
 
-.benefit-chip span {
+.scholar-icon {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.benefit-text {
+  flex: 1;
+}
+
+.benefit-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.benefit-heading strong {
+  font-size: 0.88rem;
+  color: #f8fafc;
+}
+
+.cadre-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.cadre-tag.scholar {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+}
+
+.benefit-text p {
+  font-size: 0.8rem;
   color: #94a3b8;
-  line-height: 1.35;
+  line-height: 1.4;
+  margin: 0;
 }
 
+/* Institutional Brand Footer */
 .brand-info {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  font-size: 0.78rem;
-  color: #94a3b8;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.74rem;
+  color: #64748b;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Right Card Section */
+.info-sep {
+  color: #475569;
+}
+
+/* ================================================================
+   RIGHT CARD SECTION (AUTHENTICATION & INTERACTION)
+================================================================ */
+
 .login-card {
-  padding: 44px 40px;
+  padding: 44px 42px;
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.login-header {
+  margin-bottom: 20px;
+}
+
+.login-header-pretitle {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--gov-navy-light);
+  margin-bottom: 4px;
 }
 
 .login-header h2 {
-  font-size: 1.65rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--gov-navy-dark);
   margin: 0 0 6px 0;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .login-header p {
-  font-size: 0.9rem;
-  color: #64748b;
-  margin: 0 0 20px 0;
+  font-size: 0.86rem;
+  color: var(--gov-text-muted);
+  margin: 0;
+  line-height: 1.4;
 }
 
-/* Persona Switcher Tabs */
+/* Persona Selector Tabs */
 .persona-tabs {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -233,53 +459,53 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px;
-  background: #f8fafc;
-  border: 1.5px solid #e2e8f0;
+  padding: 10px 14px;
+  border: 1.5px solid var(--gov-border);
+  background: var(--gov-bg);
   border-radius: 10px;
   cursor: pointer;
   text-align: left;
   transition: all 0.2s ease;
+  color: var(--gov-text-secondary);
 }
 
 .persona-tab:hover {
-  background: #f1f5f9;
   border-color: #cbd5e1;
+  background: #f1f5f9;
 }
 
 .persona-tab.active {
+  border-color: var(--gov-navy);
   background: #eff6ff;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 1px #2563eb;
+  color: var(--gov-navy);
+  box-shadow: 0 2px 8px -2px rgba(15, 46, 90, 0.15);
 }
 
-.persona-tab.active svg {
-  color: #1d4ed8;
-}
-
-.persona-tab svg {
-  color: #64748b;
-  flex-shrink: 0;
+.persona-tab-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .persona-tab-text strong {
-  display: block;
-  font-size: 0.88rem;
-  color: #0f172a;
+  font-size: 0.84rem;
+  font-weight: 700;
 }
 
 .persona-tab-text span {
-  display: block;
-  font-size: 0.74rem;
-  color: #64748b;
+  font-size: 0.72rem;
+  color: var(--gov-text-muted);
+}
+
+.persona-tab.active .persona-tab-text span {
+  color: #1e40af;
 }
 
 /* Quick Demo Box */
 .quick-demo-box {
-  background: #fdf8f0;
-  border: 1px solid #fde68a;
-  border-radius: 8px;
-  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 12px 14px;
   margin-bottom: 22px;
 }
 
@@ -287,61 +513,134 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: #92400e;
+  color: var(--gov-navy-dark);
   margin-bottom: 8px;
 }
 
+.sparkle-gold {
+  color: var(--gov-saffron-dark);
+}
+
 .demo-pill-row {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
 
-.demo-pill {
-  padding: 5px 10px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  border-radius: 6px;
-  border: 1px solid #d97706;
+.demo-card-preset {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
   background: #ffffff;
-  color: #b45309;
+  border: 1px solid var(--gov-border);
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  text-align: left;
+  transition: all 0.2s ease;
 }
 
-.demo-pill:hover, .demo-pill.active {
-  background: #d97706;
-  color: #ffffff;
+.demo-card-preset:hover {
+  border-color: var(--gov-navy-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.demo-card-preset.active {
+  border-color: #3b82f6;
+  background: #f0f7ff;
+}
+
+.demo-card-preset.filling {
+  animation: pulse-fill 0.4s ease;
+}
+
+@keyframes pulse-fill {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.97); background: #dbeafe; }
+  100% { transform: scale(1); }
+}
+
+.preset-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.officer-avatar {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.scholar-avatar {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.preset-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.preset-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gov-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preset-role {
+  font-size: 0.68rem;
+  color: var(--gov-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Form Fields */
+.login-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
 .login-field {
-  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .login-field label {
-  display: block;
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: #334155;
-  margin-bottom: 6px;
+  color: var(--gov-text-secondary);
 }
 
 .password-label {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .forgot-password {
   background: none;
   border: none;
   padding: 0;
-  color: #2563eb;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--gov-navy-light);
   cursor: pointer;
 }
 
@@ -350,147 +649,216 @@
 }
 
 .input-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: #ffffff;
-  border: 1.5px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 0 12px;
-  height: 44px;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.input-wrapper:focus-within {
-  border-color: #1d4ed8;
-  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
-}
-
-.input-wrapper svg {
-  color: #64748b;
-  flex-shrink: 0;
+.field-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--gov-text-muted);
+  pointer-events: none;
 }
 
 .input-wrapper input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  color: #0f172a;
-  font-size: 0.92rem;
-  outline: none;
   width: 100%;
+  padding: 11px 40px 11px 38px;
+  font-size: 0.88rem;
+  border: 1.5px solid var(--gov-border);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--gov-text-primary);
+  outline: none;
+  transition: all 0.2s ease;
 }
 
-.input-wrapper input::placeholder {
-  color: #94a3b8;
+.input-wrapper input:focus {
+  border-color: var(--gov-border-focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .password-toggle {
+  position: absolute;
+  right: 12px;
   background: none;
   border: none;
-  padding: 4px;
-  color: #64748b;
+  padding: 0;
+  color: var(--gov-text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .password-toggle:hover {
-  color: #0f172a;
+  color: var(--gov-text-primary);
 }
 
+/* Options */
 .login-options {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin: 16px 0 22px 0;
+  justify-content: space-between;
 }
 
 .remember-me {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.84rem;
-  color: #475569;
+  font-size: 0.8rem;
+  color: var(--gov-text-secondary);
   cursor: pointer;
 }
 
 .remember-me input {
+  accent-color: var(--gov-navy);
   cursor: pointer;
-  accent-color: #0f2e5a;
 }
 
 /* Submit Button */
 .login-button {
-  width: 100%;
-  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  background: #0f2e5a;
+  gap: 8px;
+  width: 100%;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, #0f2e5a 0%, #1e3a8a 100%);
+  color: #ffffff;
   border: none;
   border-radius: 8px;
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.92rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.15s ease, transform 0.1s ease;
-  box-shadow: 0 2px 4px rgba(15, 46, 90, 0.15);
+  box-shadow: 0 4px 12px rgba(15, 46, 90, 0.25);
+  transition: all 0.2s ease;
 }
 
 .login-button:hover {
-  background: #1e3a8a;
+  background: linear-gradient(135deg, #0a1f3d 0%, #172554 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(15, 46, 90, 0.35);
 }
 
-.login-button:active {
-  transform: translateY(1px);
+.button-arrow {
+  transition: transform 0.2s ease;
 }
 
-/* Register CTA */
+.login-button:hover .button-arrow {
+  transform: translateX(4px);
+}
+
+/* Register Action */
 .register-section {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-items: center;
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid #e2e8f0;
+  padding-top: 14px;
+  border-top: 1px solid var(--gov-border);
   text-align: center;
 }
 
-.register-section span {
-  font-size: 0.85rem;
-  color: #64748b;
+.register-prompt {
+  font-size: 0.78rem;
+  color: var(--gov-text-muted);
 }
 
 .register-button {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 8px 16px;
-  background: #f8fafc;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  color: #1e293b;
-  font-size: 0.86rem;
+  width: 100%;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1.5px solid var(--gov-border);
+  border-radius: 8px;
+  color: var(--gov-text-secondary);
+  font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 .register-button:hover {
-  background: #e2e8f0;
-  color: #0f172a;
+  border-color: var(--gov-navy);
+  color: var(--gov-navy);
+  background: #f8fafc;
 }
 
+/* Footer Compliance */
 .login-footer {
+  margin-top: 20px;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  font-size: 0.74rem;
-  color: #94a3b8;
-  margin-top: 24px;
+  flex-direction: column;
+  gap: 4px;
   text-align: center;
+}
+
+.security-guarantee {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #10b981;
+}
+
+.text-emerald {
+  color: #10b981;
+}
+
+.compliance-meta {
+  font-size: 0.7rem;
+  color: var(--gov-text-muted);
+}
+
+.dot-sep {
+  margin: 0 4px;
+}
+
+/* ================================================================
+   RESPONSIVE DESIGN (< 960px)
+================================================================ */
+
+@media (max-width: 960px) {
+  .login-container {
+    grid-template-columns: 1fr;
+    max-width: 580px;
+    border-radius: 16px;
+  }
+
+  .login-brand-section {
+    padding: 32px 28px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .brand-titles h1 {
+    font-size: 1.8rem;
+  }
+
+  .stats-visual-card {
+    display: none; /* Collapses for streamlined mobile login */
+  }
+
+  .login-card {
+    padding: 32px 28px;
+  }
+
+  .demo-pill-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-page {
+    padding: 20px 12px;
+  }
+
+  .persona-tabs {
+    grid-template-columns: 1fr;
+  }
 }

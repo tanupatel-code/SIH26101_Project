@@ -127,7 +127,7 @@ def generate_certificate_pdf(
         f"Integrity Hash (SHA-256): {integrity_hash}",
         "--------------------------------------------------------------------------------",
         "Platform-generated credential based on verified assessment activity.",
-        "StatSkill AI Prototype - Smart India Hackathon 2024 - Problem Statement SIH26101",
+        "StatSkill AI — National Statistical Competency & Capacity Building Platform",
     ]
 
     pdf_bytes = create_minimal_pdf_bytes(

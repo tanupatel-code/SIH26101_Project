@@ -30,9 +30,15 @@ export default function DashboardPage({ user = {}, lang, onNavigate, engine = {}
   const nextRecommendation =
     engine?.recommendations?.[0] ||
     "Continue your learning path and complete the active module.";
-  const projectId = user?.projectId || data?.profile?.projectId || "SIH26101";
-  const moduleProgress = Number(activeModule?.progress || 0);
+  const rawProjectId = user?.projectId || data?.profile?.projectId;
   const isOfficer = isOfficerUser(user);
+  const projectLabel =
+    rawProjectId && !String(rawProjectId).toUpperCase().includes("SIH")
+      ? rawProjectId
+      : isOfficer
+      ? "National Statistical Cadre"
+      : "Open Statistics Track";
+  const moduleProgress = Number(activeModule?.progress || 0);
   const defaultRole = isOfficer
     ? "Senior Statistical Officer (SSO)"
     : "Citizen Data Analyst & Research Scholar";
@@ -43,7 +49,7 @@ export default function DashboardPage({ user = {}, lang, onNavigate, engine = {}
       <PageHeading
         kicker={tr(lang, "command")}
         title={`${tr(lang, "hello")}, ${user?.name || "Learner"}.`}
-        subtitle={`${user?.role || defaultRole} · ${user?.department || defaultDept} · ${projectId}`}
+        subtitle={`${user?.role || defaultRole} · ${user?.department || defaultDept} · ${projectLabel}`}
         actions={
           <Pill tone="online">
             <Activity size={12} /> {tr(lang, "online")}

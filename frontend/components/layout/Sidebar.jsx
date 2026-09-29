@@ -26,8 +26,12 @@ export default function Sidebar({
         <div>
           <strong>StatSkill Portal</strong>
           <span>
-            {user?.projectId || "SIH26101"} ·{" "}
-            {user?.department || (isOfficer ? "MoSPI" : "National Statistical System")}
+            {user?.projectId && !String(user.projectId).toUpperCase().includes("SIH")
+              ? user.projectId
+              : isOfficer
+              ? "Official Statistics Cadre"
+              : "Open Statistics Track"}{" "}
+            · {user?.department || (isOfficer ? "MoSPI" : "National Statistical System")}
           </span>
         </div>
       </div>
