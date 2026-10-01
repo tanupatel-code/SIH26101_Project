@@ -38,7 +38,7 @@
         "moderateSkillGaps": 3,
         "strongSkills": 3,
         "learningProgress": 35,
-        "assessmentsCompleted": 64,
+        "assessmentsCompleted": 68,
         "assessmentsTotal": 5,
         "assessmentAverage": 67,
         "learningHours": 150,
@@ -62,7 +62,7 @@
           "level": "Strong",
           "source": "admin_override",
           "evidence": {
-            "quizAverage": 56.6,
+            "quizAverage": 54.5,
             "courseAverage": 70.0,
             "selfAssessment": 3.1,
             "learningHours": 26.0
@@ -77,17 +77,17 @@
         {
           "key": "nationalAccounts",
           "name": "National Accounts (SNA & GDP)",
-          "score": 2.3,
-          "scoreOutOf5": 2.3,
-          "scorePercent": 46.0,
+          "score": 2.27,
+          "scoreOutOf5": 2.27,
+          "scorePercent": 45.4,
           "benchmark": 3.5,
-          "gap": 1.2,
-          "gapPercent": 34.3,
+          "gap": 1.23,
+          "gapPercent": 35.1,
           "weight": 1.1,
           "level": "Moderate",
           "source": "calculated_evidence",
           "evidence": {
-            "quizAverage": 71.9,
+            "quizAverage": 70.9,
             "courseAverage": 0.0,
             "selfAssessment": 3.0,
             "learningHours": 4.0
@@ -239,9 +239,9 @@
           "competency": "National Accounts (SNA & GDP)",
           "key": "nationalAccounts",
           "priority": "High",
-          "currentScore": 2.3,
+          "currentScore": 2.27,
           "benchmark": 3.5,
-          "gap": 1.2,
+          "gap": 1.23,
           "recommendedAction": "Enroll in recommended iGOT Karmayogi modules to strengthen National Accounts (SNA & GDP)."
         },
         {
@@ -276,11 +276,11 @@
         {
           "competency": "National Accounts (SNA & GDP)",
           "key": "nationalAccounts",
-          "currentScore": 2.3,
+          "currentScore": 2.27,
           "benchmark": 3.5,
-          "gap": 1.2,
+          "gap": 1.23,
           "status": "Below Benchmark",
-          "readinessPercent": 65.7
+          "readinessPercent": 64.9
         },
         {
           "competency": "Price Statistics (CPI/WPI/IIP)",
@@ -2297,6 +2297,102 @@
           ],
           "quiz_id": "QUIZ-SAMPLING",
           "_submitted_at": 1790705563.253269
+        },
+        {
+          "id": "ASM-065",
+          "title": "Statistical Competency Quiz",
+          "domain": "statisticalMethods",
+          "score": 0.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q1",
+              "selected_option": 1,
+              "correct_option": 0,
+              "is_correct": false
+            }
+          ],
+          "quiz_id": "QUIZ-SAMPLING",
+          "_submitted_at": 1790842066.0116723
+        },
+        {
+          "id": "ASM-066",
+          "title": "Statistical Competency Quiz",
+          "domain": "statisticalMethods",
+          "score": 0.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q1",
+              "selected_option": 1,
+              "correct_option": 0,
+              "is_correct": false
+            }
+          ],
+          "quiz_id": "QUIZ-SAMPLING",
+          "_submitted_at": 1790842068.8037558
+        },
+        {
+          "id": "ASM-067",
+          "title": "National Sampling Techniques Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 100.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q-001",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-002",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-003",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-004",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            },
+            {
+              "question_id": "Q-005",
+              "selected_option": 0,
+              "correct_option": 0,
+              "is_correct": true
+            }
+          ],
+          "quiz_id": "QUIZ-SAMPLING-E2E",
+          "_submitted_at": 1790842071.8447447
+        },
+        {
+          "id": "ASM-068",
+          "title": "National Sample Survey Sampling & Estimation Diagnostic",
+          "domain": "statisticalMethods",
+          "score": 0.0,
+          "date": "Just now",
+          "status": "Completed",
+          "details": [
+            {
+              "question_id": "Q1",
+              "selected_option": 1,
+              "correct_option": 0,
+              "is_correct": false
+            }
+          ],
+          "quiz_id": "QUIZ-SAMPLING",
+          "_submitted_at": 1790842075.4161448
         }
       ],
       "documents": [
@@ -2305,8 +2401,8 @@
           "name": "NSSO_Sampling_Manual.txt",
           "category": "Survey Methodology",
           "size": "1 KB",
-          "uploadDate": "29 Sep 2026",
-          "uploadedTimestamp": 1790705559,
+          "uploadDate": "01 Oct 2026",
+          "uploadedTimestamp": 1790842071,
           "contentHash": "1ca4148478b5e8380ab44905e9cf35c6dd6deaaf99ee8aaf6da281a90179954c",
           "ownerId": "USR-001",
           "wordCount": 34,
@@ -2316,7 +2412,7 @@
           "storedPath": "USR-001_1ca4148478_NSSO_Sampling_Manual.txt",
           "shared": false,
           "addedThisMonth": true,
-          "version": 11
+          "version": 12
         },
         {
           "id": "DOC-008",
@@ -2485,7 +2581,7 @@
       "analytics": {
         "competencyScores": {
           "statisticalMethods": 4.85,
-          "nationalAccounts": 2.3,
+          "nationalAccounts": 2.27,
           "priceIndices": 1.75,
           "dataQuality": 4.31,
           "gis": 2.08,
@@ -2569,7 +2665,7 @@
           "gis": 27.3,
           "machineLearning": 28.7
         },
-        "quizAverage": 58
+        "quizAverage": 56
       },
       "engine": {
         "methodology": "50% assessments · 25% courses · 15% self-assessment · 10% learning effort",
@@ -2622,7 +2718,7 @@
       },
       "competencyScores": {
         "statisticalMethods": 4.85,
-        "nationalAccounts": 2.3,
+        "nationalAccounts": 2.27,
         "priceIndices": 1.75,
         "dataQuality": 4.31,
         "gis": 2.08,
@@ -50763,6 +50859,564 @@
         "name": "Officer B",
         "email": "officer.b.d2af7ab9@demo.gov.in",
         "password": "$2b$12$hVQ3vjpZ60YPMRQO2M2gae5l8wUdsUb4t/BGg4enKeFzWx5AZgiWe",
+        "role": "Economist",
+        "department": "Price Division",
+        "projectId": "SIH26101",
+        "accountType": "officer"
+      },
+      "dashboard": {
+        "overallCompetency": 70,
+        "overallCompetencyLabel": "70/100",
+        "rank": "A",
+        "level": 70,
+        "xp": 4000,
+        "completedModules": 0,
+        "totalModules": 4,
+        "learningProgress": 0,
+        "criticalSkillGaps": 2,
+        "moderateSkillGaps": 2,
+        "strongSkills": 1,
+        "assessmentAverage": 70,
+        "learningHours": 10,
+        "assessmentsCompleted": 0,
+        "assessmentsTotal": 10,
+        "assignmentsCompleted": 0,
+        "assignmentsTotal": 1,
+        "coursesCompleted": 0
+      },
+      "competencies": [
+        {
+          "key": "statisticalMethods",
+          "name": "Statistical Methods & Sampling",
+          "score": 3.0,
+          "scoreOutOf5": 3.0,
+          "benchmark": 3.5,
+          "level": "Moderate",
+          "trend": "Stable",
+          "weight": 1.15,
+          "color": "cyan",
+          "gap": 0.5
+        },
+        {
+          "key": "nationalAccounts",
+          "name": "National Accounts & Macroeconomics",
+          "score": 2.5,
+          "scoreOutOf5": 2.5,
+          "benchmark": 3.5,
+          "level": "Moderate",
+          "trend": "Stable",
+          "weight": 1.1,
+          "color": "blue",
+          "gap": 1.0
+        },
+        {
+          "key": "priceIndices",
+          "name": "Price Indices & Inflation",
+          "score": 2.6,
+          "scoreOutOf5": 2.6,
+          "benchmark": 3.5,
+          "level": "Moderate",
+          "trend": "Stable",
+          "weight": 1.05,
+          "color": "amber",
+          "gap": 0.9
+        },
+        {
+          "key": "dataQuality",
+          "name": "Data Quality & Survey Validation",
+          "score": 3.0,
+          "scoreOutOf5": 3.0,
+          "benchmark": 3.5,
+          "level": "Moderate",
+          "trend": "Stable",
+          "weight": 1.05,
+          "color": "green",
+          "gap": 0.5
+        },
+        {
+          "key": "gis",
+          "name": "GIS & Geospatial Demographics",
+          "score": 2.8,
+          "scoreOutOf5": 2.8,
+          "benchmark": 3.0,
+          "level": "Moderate",
+          "trend": "Stable",
+          "weight": 1.0,
+          "color": "purple",
+          "gap": 0.2
+        },
+        {
+          "key": "python",
+          "name": "Python & Automated Tabulation",
+          "score": 3.5,
+          "scoreOutOf5": 3.5,
+          "benchmark": 3.0,
+          "level": "Strong",
+          "trend": "Improving",
+          "weight": 1.0,
+          "color": "green",
+          "gap": 0.0
+        },
+        {
+          "key": "machineLearning",
+          "name": "Statistical Machine Learning & Predictive Analytics",
+          "score": 2.0,
+          "scoreOutOf5": 2.0,
+          "benchmark": 3.0,
+          "level": "Weak",
+          "trend": "Stable",
+          "weight": 0.95,
+          "color": "red",
+          "gap": 1.0
+        }
+      ],
+      "criticalSkills": [
+        {
+          "competency": "Statistical Machine Learning & Predictive Analytics",
+          "currentScore": 2.0,
+          "benchmark": 3.0,
+          "gap": 1.0,
+          "priority": "High",
+          "recommendedAction": "Enroll in foundational iGOT machine learning modules."
+        },
+        {
+          "competency": "National Accounts & Macroeconomics",
+          "currentScore": 2.5,
+          "benchmark": 3.5,
+          "gap": 1.0,
+          "priority": "High",
+          "recommendedAction": "Review SNA 2008 macroeconomics fundamentals."
+        }
+      ],
+      "benchmarkComparison": [
+        {
+          "competency": "Statistical Methods",
+          "currentScore": 3.0,
+          "benchmark": 3.5,
+          "status": "Requires Focus",
+          "readinessPercent": 85.7
+        },
+        {
+          "competency": "National Accounts",
+          "currentScore": 2.5,
+          "benchmark": 3.5,
+          "status": "Requires Focus",
+          "readinessPercent": 71.4
+        },
+        {
+          "competency": "Price Statistics",
+          "currentScore": 2.6,
+          "benchmark": 3.5,
+          "status": "Requires Focus",
+          "readinessPercent": 74.2
+        },
+        {
+          "competency": "Data Quality",
+          "currentScore": 3.0,
+          "benchmark": 3.5,
+          "status": "Requires Focus",
+          "readinessPercent": 85.7
+        },
+        {
+          "competency": "GIS Analytics",
+          "currentScore": 2.8,
+          "benchmark": 3.0,
+          "status": "Requires Focus",
+          "readinessPercent": 93.3
+        },
+        {
+          "competency": "Python for Statistics",
+          "currentScore": 3.5,
+          "benchmark": 3.0,
+          "status": "Benchmark Met",
+          "readinessPercent": 116.6
+        },
+        {
+          "competency": "Machine Learning",
+          "currentScore": 2.0,
+          "benchmark": 3.0,
+          "status": "Critical Gap",
+          "readinessPercent": 66.6
+        }
+      ],
+      "courses": [],
+      "assignments": [],
+      "documents": [],
+      "certificates": [],
+      "notifications": [
+        {
+          "id": "NOTIF-REG",
+          "title": "Welcome to StatSkill AI, Officer B!",
+          "time": "Just now",
+          "color": "cyan"
+        }
+      ],
+      "rawInputs": {
+        "selfAssessment": {
+          "statisticalMethods": [
+            3.0,
+            3.0
+          ],
+          "nationalAccounts": [
+            2.5,
+            2.5
+          ],
+          "priceIndices": [
+            2.5,
+            2.5
+          ],
+          "dataQuality": [
+            3.0,
+            3.0
+          ],
+          "gis": [
+            2.8,
+            2.8
+          ],
+          "python": [
+            3.5,
+            3.5
+          ]
+        },
+        "learningHours": {
+          "statisticalMethods": 4,
+          "nationalAccounts": 2,
+          "priceIndices": 2,
+          "dataQuality": 2,
+          "gis": 2,
+          "python": 6
+        }
+      },
+      "learningPath": {
+        "track": "Official Statistical Cadre Capacity Track",
+        "modulesCompleted": 0,
+        "totalModules": 4,
+        "modules": [
+          {
+            "step": 1,
+            "title": "Foundations of National Statistical Datasets",
+            "status": "In Progress",
+            "state": "active",
+            "duration": "8 hrs",
+            "lessons": "0 / 6",
+            "progress": 0
+          },
+          {
+            "step": 2,
+            "title": "Open Statistical Data Exploration & Python Analytics",
+            "status": "Upcoming",
+            "state": "locked",
+            "duration": "10 hrs",
+            "lessons": "0 / 8",
+            "progress": 0
+          },
+          {
+            "step": 3,
+            "title": "Bhuvan Geospatial Visualizations for Demographics",
+            "status": "Upcoming",
+            "state": "locked",
+            "duration": "8 hrs",
+            "lessons": "0 / 7",
+            "progress": 0
+          },
+          {
+            "step": 4,
+            "title": "Citizen Research Project & Capstone Assessment",
+            "status": "Upcoming",
+            "state": "locked",
+            "duration": "6 hrs",
+            "lessons": "0 / 3",
+            "progress": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "USR-077",
+      "employeeCode": "STAT-12385",
+      "profile": {
+        "name": "Audit Officer Test",
+        "email": "officer.d3789ad1@demo.gov.in",
+        "password": "$2b$12$7Zkf5F3fXmeB2XVnQLMrTOyM.CPoUgcfQpzsKdpFAUnGRZrFcs/ee",
+        "role": "Data Analyst",
+        "department": "National Accounts Division",
+        "projectId": "SIH26101",
+        "accountType": "officer"
+      },
+      "dashboard": {
+        "overallCompetency": 70,
+        "overallCompetencyLabel": "70/100",
+        "rank": "A",
+        "level": 70,
+        "xp": 4000,
+        "completedModules": 0,
+        "totalModules": 4,
+        "learningProgress": 0,
+        "criticalSkillGaps": 2,
+        "moderateSkillGaps": 2,
+        "strongSkills": 1,
+        "assessmentAverage": 70,
+        "learningHours": 10,
+        "assessmentsCompleted": 0,
+        "assessmentsTotal": 10,
+        "assignmentsCompleted": 0,
+        "assignmentsTotal": 1,
+        "coursesCompleted": 0
+      },
+      "competencies": [
+        {
+          "key": "statisticalMethods",
+          "name": "Statistical Methods & Sampling",
+          "score": 3.0,
+          "scoreOutOf5": 3.0,
+          "benchmark": 3.5,
+          "level": "Moderate",
+          "trend": "Stable",
+          "weight": 1.15,
+          "color": "cyan",
+          "gap": 0.5
+        },
+        {
+          "key": "nationalAccounts",
+          "name": "National Accounts & Macroeconomics",
+          "score": 2.5,
+          "scoreOutOf5": 2.5,
+          "benchmark": 3.5,
+          "level": "Moderate",
+          "trend": "Stable",
+          "weight": 1.1,
+          "color": "blue",
+          "gap": 1.0
+        },
+        {
+          "key": "priceIndices",
+          "name": "Price Indices & Inflation",
+          "score": 2.6,
+          "scoreOutOf5": 2.6,
+          "benchmark": 3.5,
+          "level": "Moderate",
+          "trend": "Stable",
+          "weight": 1.05,
+          "color": "amber",
+          "gap": 0.9
+        },
+        {
+          "key": "dataQuality",
+          "name": "Data Quality & Survey Validation",
+          "score": 3.0,
+          "scoreOutOf5": 3.0,
+          "benchmark": 3.5,
+          "level": "Moderate",
+          "trend": "Stable",
+          "weight": 1.05,
+          "color": "green",
+          "gap": 0.5
+        },
+        {
+          "key": "gis",
+          "name": "GIS & Geospatial Demographics",
+          "score": 2.8,
+          "scoreOutOf5": 2.8,
+          "benchmark": 3.0,
+          "level": "Moderate",
+          "trend": "Stable",
+          "weight": 1.0,
+          "color": "purple",
+          "gap": 0.2
+        },
+        {
+          "key": "python",
+          "name": "Python & Automated Tabulation",
+          "score": 3.5,
+          "scoreOutOf5": 3.5,
+          "benchmark": 3.0,
+          "level": "Strong",
+          "trend": "Improving",
+          "weight": 1.0,
+          "color": "green",
+          "gap": 0.0
+        },
+        {
+          "key": "machineLearning",
+          "name": "Statistical Machine Learning & Predictive Analytics",
+          "score": 2.0,
+          "scoreOutOf5": 2.0,
+          "benchmark": 3.0,
+          "level": "Weak",
+          "trend": "Stable",
+          "weight": 0.95,
+          "color": "red",
+          "gap": 1.0
+        }
+      ],
+      "criticalSkills": [
+        {
+          "competency": "Statistical Machine Learning & Predictive Analytics",
+          "currentScore": 2.0,
+          "benchmark": 3.0,
+          "gap": 1.0,
+          "priority": "High",
+          "recommendedAction": "Enroll in foundational iGOT machine learning modules."
+        },
+        {
+          "competency": "National Accounts & Macroeconomics",
+          "currentScore": 2.5,
+          "benchmark": 3.5,
+          "gap": 1.0,
+          "priority": "High",
+          "recommendedAction": "Review SNA 2008 macroeconomics fundamentals."
+        }
+      ],
+      "benchmarkComparison": [
+        {
+          "competency": "Statistical Methods",
+          "currentScore": 3.0,
+          "benchmark": 3.5,
+          "status": "Requires Focus",
+          "readinessPercent": 85.7
+        },
+        {
+          "competency": "National Accounts",
+          "currentScore": 2.5,
+          "benchmark": 3.5,
+          "status": "Requires Focus",
+          "readinessPercent": 71.4
+        },
+        {
+          "competency": "Price Statistics",
+          "currentScore": 2.6,
+          "benchmark": 3.5,
+          "status": "Requires Focus",
+          "readinessPercent": 74.2
+        },
+        {
+          "competency": "Data Quality",
+          "currentScore": 3.0,
+          "benchmark": 3.5,
+          "status": "Requires Focus",
+          "readinessPercent": 85.7
+        },
+        {
+          "competency": "GIS Analytics",
+          "currentScore": 2.8,
+          "benchmark": 3.0,
+          "status": "Requires Focus",
+          "readinessPercent": 93.3
+        },
+        {
+          "competency": "Python for Statistics",
+          "currentScore": 3.5,
+          "benchmark": 3.0,
+          "status": "Benchmark Met",
+          "readinessPercent": 116.6
+        },
+        {
+          "competency": "Machine Learning",
+          "currentScore": 2.0,
+          "benchmark": 3.0,
+          "status": "Critical Gap",
+          "readinessPercent": 66.6
+        }
+      ],
+      "courses": [],
+      "assignments": [],
+      "documents": [],
+      "certificates": [],
+      "notifications": [
+        {
+          "id": "NOTIF-REG",
+          "title": "Welcome to StatSkill AI, Audit Officer Test!",
+          "time": "Just now",
+          "color": "cyan"
+        }
+      ],
+      "rawInputs": {
+        "selfAssessment": {
+          "statisticalMethods": [
+            3.0,
+            3.0
+          ],
+          "nationalAccounts": [
+            2.5,
+            2.5
+          ],
+          "priceIndices": [
+            2.5,
+            2.5
+          ],
+          "dataQuality": [
+            3.0,
+            3.0
+          ],
+          "gis": [
+            2.8,
+            2.8
+          ],
+          "python": [
+            3.5,
+            3.5
+          ]
+        },
+        "learningHours": {
+          "statisticalMethods": 4,
+          "nationalAccounts": 2,
+          "priceIndices": 2,
+          "dataQuality": 2,
+          "gis": 2,
+          "python": 6
+        }
+      },
+      "learningPath": {
+        "track": "Official Statistical Cadre Capacity Track",
+        "modulesCompleted": 0,
+        "totalModules": 4,
+        "modules": [
+          {
+            "step": 1,
+            "title": "Foundations of National Statistical Datasets",
+            "status": "In Progress",
+            "state": "active",
+            "duration": "8 hrs",
+            "lessons": "0 / 6",
+            "progress": 0
+          },
+          {
+            "step": 2,
+            "title": "Open Statistical Data Exploration & Python Analytics",
+            "status": "Upcoming",
+            "state": "locked",
+            "duration": "10 hrs",
+            "lessons": "0 / 8",
+            "progress": 0
+          },
+          {
+            "step": 3,
+            "title": "Bhuvan Geospatial Visualizations for Demographics",
+            "status": "Upcoming",
+            "state": "locked",
+            "duration": "8 hrs",
+            "lessons": "0 / 7",
+            "progress": 0
+          },
+          {
+            "step": 4,
+            "title": "Citizen Research Project & Capstone Assessment",
+            "status": "Upcoming",
+            "state": "locked",
+            "duration": "6 hrs",
+            "lessons": "0 / 3",
+            "progress": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "USR-078",
+      "employeeCode": "STAT-49759",
+      "profile": {
+        "name": "Officer B",
+        "email": "officer.b.04c70cbf@demo.gov.in",
+        "password": "$2b$12$ChcavlzESoKywa/jM/skp.CokaD6kNEbhFS4wFRG1pZAsVG6qQtO6",
         "role": "Economist",
         "department": "Price Division",
         "projectId": "SIH26101",
